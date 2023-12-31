@@ -1,3 +1,5 @@
 # Ignore decrypted secrets
 *.dec.*
 .sopsrc*
+
+.vscode

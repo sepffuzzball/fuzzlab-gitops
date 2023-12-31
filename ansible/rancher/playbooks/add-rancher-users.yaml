@@ -1,0 +1,24 @@
+---
+- hosts: all
+  tasks:
+    - name: Make sure rancher group is present
+      group:
+        name: rancher
+        state: present
+        gid: 1100
+
+    - name: Create rancher user
+      #become: yes
+      user:
+        name: rancher
+        comment: rancher
+        shell: /bin/bash
+        uid: 1100
+        groups: rancher
+        createhome: yes
+        #password: "{{ sops.password }} "
+
+    - name: Set up authorized keys
+      authorized_key: user=rancher key="{{item}}"
+      with_file:
+        - ~/.ssh/id_rsa_rancher.pub

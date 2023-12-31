@@ -1,0 +1,8 @@
+---
+- hosts: rancher
+  tasks:
+    - name: Install NFS Common
+      ansible.builtin.apt:
+        name: nfs-common
+        state: present
+        update_cache: yes

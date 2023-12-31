@@ -1,0 +1,20 @@
+---
+all:
+  children:
+    proxmox:
+      hosts:
+        pvenode01:
+        pvenode02:
+        pvenode03:
+    rancher:
+      children:
+        manager:
+          hosts:
+            rancher201:
+            rancher203:
+            rancher205:
+        worker:
+          hosts:
+            rancher202:
+            rancher204:
+            rancher206:
