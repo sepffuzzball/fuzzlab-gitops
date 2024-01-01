@@ -1,8 +1,114 @@
-resource "proxmox_pool" "rancher" {
-    poolid = "Rancher"
+resource "proxmox_virtual_environment_pool" "rancher" {
+    pool_id = "Rancher"
     comment = "Pool for any rancher/k3s stuff"
 }
 
+resource "proxmox_virtual_environment_vm" "k3s201" {
+    for_each        = var.vms
+
+    vm_id           = each.value.vmid
+    name            = each.value.name
+    node_name       = each.value.node
+    description     = each.value.desc
+    
+    clone {
+        datastore_id = "ceph-stor"
+        node_name = "pvenode01"
+        retries = 5
+        vm_id = 2000
+        full = true
+    }
+
+    cpu {
+      cores = 2
+      type = "x86-64-v2-AES"
+    }
+
+    memory {
+      dedicated = 4096
+    }
+
+    agent {
+        enabled = false
+    }
+    
+    startup {
+        order       = each.value.order
+        up_delay    = "60"
+        down_delay  = "60"
+    }
+    
+    disk {
+        size        = 32 
+        datastore_id= "ceph-stor"
+        interface   = "scsi0"
+        discard = "on"
+        ssd = true
+    }
+
+    initialization {
+      
+      dns {
+        servers = var.dns
+        domain = var.domain
+      }
+      
+      ip_config {
+        ipv4 {
+          address = each.value.vmip
+          gateway = var.gateway
+        }
+      }
+
+      user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+        username = "rancher"
+      }
+    }
+
+    network_device {
+      bridge = "vmbr0"
+    }
+
+    serial_device {}
+
+    pool_id = proxmox_virtual_environment_pool.rancher.id
+
+    /*
+    usb {
+        host        = ""
+    }
+    */
+    
+    connection {
+        type     = "ssh"
+        user     = "rancher"
+        password = data.sops_file.pm-password-secret.data["password"]
+        host     = "deb"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+        "ip a"
+        ]
+    }
+
+    /*
+    provisioner "local-exec" {
+        command = ""
+    }
+    */
+}
+
+
+
+
+
+
+
+
+/* -- Sepfy - I'm tired of fighting LXCs for K3s
 resource "proxmox_lxc" "lxc-test" {
     count = 6
     
@@ -35,3 +141,4 @@ resource "proxmox_lxc" "lxc-test" {
 
     ssh_public_keys = data.sops_file.pm-sshkeys-secret.data["ssh"]
 }
+*/

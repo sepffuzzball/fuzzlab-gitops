@@ -8,15 +8,15 @@
         gid: 1100
 
     - name: Create rancher user
-      #become: yes
+      become: yes
       user:
         name: rancher
         comment: rancher
         shell: /bin/bash
         uid: 1100
-        groups: rancher
+        groups: rancher,sudo
         createhome: yes
-        #password: "{{ sops.password }} "
+        password: "{{ 'Anniv60023110' | password_hash('sha512') }}"
 
     - name: Set up authorized keys
       authorized_key: user=rancher key="{{item}}"

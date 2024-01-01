@@ -1,0 +1,8 @@
+---
+- hosts: rancher
+  tasks:
+    - name: Install Sudo
+      ansible.builtin.apt:
+        name: sudo
+        state: present
+        update_cache: yes

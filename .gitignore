@@ -3,3 +3,4 @@
 .sopsrc*
 
 .vscode
+authorized_keys
