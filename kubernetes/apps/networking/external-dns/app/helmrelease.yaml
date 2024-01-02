@@ -30,7 +30,7 @@ spec:
         valueFrom:
           secretKeyRef:
             name: cloudflare_api_token
-            key: api-token
+            key: cloudflare_api_token
     extraArgs:
       - --ingress-class=external
       - --cloudflare-proxied
