@@ -89,7 +89,7 @@ spec:
     tolerations: 
       #- key: node-role.kubernetes.io/control-plane
       #  operator: exists
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
-        operator: equal
-        value: true
+      - key: "node-role.kubernetes.io/master"
+        effect: "NoSchedule"
+        operator: "equal"
+        value: "true"
