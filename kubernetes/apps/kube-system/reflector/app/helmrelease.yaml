@@ -87,8 +87,9 @@ spec:
       failureThreshold: 10
       periodSeconds: 5
     tolerations: 
-      - key: node-role.kubernetes.io/control-plane
-        operator: exists
+      #- key: node-role.kubernetes.io/control-plane
+      #  operator: exists
       - key: node-role.kubernetes.io/master
+        effect: NoSchedule
         operator: equal
         value: true
