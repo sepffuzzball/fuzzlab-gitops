@@ -10,11 +10,11 @@ all:
       children:
         manager:
           hosts:
-            rancher201:
-            rancher203:
-            rancher205:
+            k3s201:
+            k3s203:
+            k3s205:
         worker:
           hosts:
-            rancher202:
-            rancher204:
-            rancher206:
+            k3s202:
+            k3s204:
+            k3s206:

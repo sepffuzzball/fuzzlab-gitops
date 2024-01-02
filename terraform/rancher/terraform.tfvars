@@ -36,7 +36,7 @@ vms = {
         desc        = ""
         vmip        = "10.0.2.205/22"
         vmid        = 205
-        node        = "pvenode02"
+        node        = "pvenode03"
         order       = 3
     },
     k3s206 = {
@@ -44,7 +44,7 @@ vms = {
         desc        = ""
         vmip        = "10.0.2.206/22"
         vmid        = 206
-        node        = "pvenode02"
+        node        = "pvenode03"
         order       = 13
     },
 }

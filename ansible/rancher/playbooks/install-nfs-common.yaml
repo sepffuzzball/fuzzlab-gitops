@@ -1,5 +1,6 @@
 ---
 - hosts: rancher
+  become: true
   tasks:
     - name: Install NFS Common
       ansible.builtin.apt:

@@ -3,7 +3,7 @@ resource "proxmox_virtual_environment_pool" "rancher" {
     comment = "Pool for any rancher/k3s stuff"
 }
 
-resource "proxmox_virtual_environment_vm" "k3s201" {
+resource "proxmox_virtual_environment_vm" "k3scluster" {
     for_each        = var.vms
 
     vm_id           = each.value.vmid
