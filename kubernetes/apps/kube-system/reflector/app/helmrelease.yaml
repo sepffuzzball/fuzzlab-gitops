@@ -22,12 +22,70 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  values:
+  values: # Indent four spaces
+    affinity: {}
+    autoscaling:
+      enabled: false
+      maxReplicas: 100
+      minReplicas: 1
+      targetCPUUtilizationPercentage: 80
     configuration:
+      kubernetes:
+        skipTlsVerify: false
       logging:
-        minimumLevel: Debug
-    nodeSelector:
+        minimumLevel: Information
+      watcher:
+        timeout: ""
+    cron:
+      activeDeadlineSeconds: 600
+      enabled: false
+      schedule: '*/15 * * * *'
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+    extraEnv: []
+    fullnameOverride: ""
+    healthcheck:
+      httpGet:
+        path: /healthz
+        port: http
+    image:
+      pullPolicy: IfNotPresent
+      repository: emberstack/kubernetes-reflector
+      tag: ""
+    imagePullSecrets: []
+    livenessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    nameOverride: ""
+    nodeSelector: 
       node-role.kubernetes.io/control-plane: "true"
-    tolerations:
+    podAnnotations: {}
+    podLabels: {}
+    podSecurityContext:
+      fsGroup: 2000
+    priorityClassName: ""
+    rbac:
+      enabled: true
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    replicaCount: 1
+    resources: {}
+    securityContext:
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: false
+      runAsNonRoot: true
+      runAsUser: 1000
+    serviceAccount:
+      annotations: {}
+      create: true
+      name: "kreflector"
+    startupProbe:
+      failureThreshold: 10
+      periodSeconds: 5
+    tolerations: 
       - key: node-role.kubernetes.io/control-plane
-        operator: Exists
+        operator: exists
