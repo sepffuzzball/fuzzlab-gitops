@@ -1,6 +1,18 @@
-# Ignore decrypted secrets
-*.dec.*
-.sopsrc*
 
 .vscode
 authorized_keys
+# Trash
+.DS_Store
+Thumbs.db
+# k8s
+kubeconfig
+.decrypted~*.yaml
+*.dec*
+.config.env
+*.agekey
+*.pub
+*.key
+# Ansible
+.venv*
+# Taskfile
+.tasks

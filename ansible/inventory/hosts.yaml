@@ -1,0 +1,25 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k3s201:
+          ansible_user: rancher
+          ansible_host: 10.0.2.201
+        k3s203:
+          ansible_user: rancher
+          ansible_host: 10.0.2.203
+        k3s205:
+          ansible_user: rancher
+          ansible_host: 10.0.2.205
+    worker:
+      hosts:
+        k3s202:
+          ansible_user: rancher
+          ansible_host: 10.0.2.202
+        k3s204:
+          ansible_user: rancher
+          ansible_host: 10.0.2.204
+        k3s206:
+          ansible_user: rancher
+          ansible_host: 10.0.2.206
