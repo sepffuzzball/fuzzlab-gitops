@@ -24,6 +24,7 @@ spec:
     keepHistory: false
   values:
     provider: cloudflare
+    crd.create: true
     env:
       - name: CF_API_TOKEN
         valueFrom:
