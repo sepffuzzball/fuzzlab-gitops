@@ -4,7 +4,7 @@ metadata:
   name: networking-external-dns
   namespace: flux-system
 spec:
-  path: ./external-dns/app
+  path: ./base/networking/external-dns/app
   prune: true
   sourceRef:
     kind: GitRepository
