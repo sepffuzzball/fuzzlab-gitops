@@ -23,7 +23,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: *app
     provider: cloudflare
     env:
       - name: CF_API_TOKEN
