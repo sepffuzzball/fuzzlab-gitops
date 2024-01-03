@@ -11,7 +11,7 @@ spec:
   timeout: 5m0s
   sourceRef:
     kind: GitRepository
-    name: fuzzlab-gitops
+    name: flux-system
   decryption:
     provider: sops
     secretRef:

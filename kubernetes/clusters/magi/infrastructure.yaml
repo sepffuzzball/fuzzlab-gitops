@@ -10,7 +10,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: fuzzlab-gitops
+    name: flux-system
   path: ./kubernetes/infrastructure/controllers
   prune: true
   wait: true
@@ -28,7 +28,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: fuzzlab-gitops
+    name: flux-system
   path: ./kubernetes/infrastructure/configs
   prune: true
   patches:
