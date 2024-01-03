@@ -28,7 +28,7 @@ spec:
       - name: CF_API_TOKEN
         valueFrom:
           secretKeyRef:
-            name: cloudflare_api_token
+            name: cloudflare
             key: cloudflare_api_token
     extraArgs:
       - --ingress-class=external
@@ -43,4 +43,4 @@ spec:
     serviceMonitor:
       enabled: true
     podAnnotations:
-      secret.reloader.stakater.com/reload: cloudflare_api_token
+      secret.reloader.stakater.com/reload: cloudflare
