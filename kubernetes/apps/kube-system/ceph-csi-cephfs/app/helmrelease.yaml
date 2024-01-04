@@ -7,7 +7,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: ceph-csi
+      chart: ceph-csi-cephfs
       version: v3.10.1
       sourceRef:
         kind: HelmRepository

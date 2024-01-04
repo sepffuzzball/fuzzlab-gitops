@@ -5,6 +5,7 @@ resources:
   - ./backube.yaml
   - ./bitnami.yaml
   - ./bjw-s.yaml
+  - ./ceph-csi.yaml
   - ./cilium.yaml
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
