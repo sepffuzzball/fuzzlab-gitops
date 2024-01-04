@@ -10,5 +10,15 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: csi-cephfs-sc
-  volumeName: cephfs-test-pv
+  volumeName: csi-cephfs-pv
   persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: csi-cephfs-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  claimRef:
+    name: csi-cephfs-pvc
+    namespace: kube-system
