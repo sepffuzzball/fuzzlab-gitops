@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: ceph-csi-cephfs
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: ceph-csi-cephfs
+      version: v3.10.1
+      sourceRef:
+        kind: HelmRepository
+        name: ceph-csi-cephfs
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    csiConfig:
+      - clusterID: 872c236b-2dc0-4856-81b2-e04499487caa
+        monitors:
+          - 10.0.2.31:6789
+          - 10.0.2.32:6789
+          - 10.0.2.33:6789
+        cephFS:
+          subvolumeGroup: "csi"
+    storageClass:
+      create: true
+      name: k8s-cephfs
+      clusterID: 872c236b-2dc0-4856-81b2-e04499487caa
+      # (required) CephFS filesystem name into which the volume shall be created
+      fsName: k8s-etc-nvme
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      volumeNamePrefix: "k8s-"
+      provisionerSecret: csi-cephfs-secret
+      controllerExpandSecret: csi-cephfs-secret
+      nodeStageSecret: csi-cephfs-secret
