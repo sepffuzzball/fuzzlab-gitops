@@ -35,7 +35,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: csi-cephfs-pv-authentikdb
+  name: csi-cephfs-pv-authentikredis
 spec:
   storageClassName: csi-cephfs-sc
   claimRef:
