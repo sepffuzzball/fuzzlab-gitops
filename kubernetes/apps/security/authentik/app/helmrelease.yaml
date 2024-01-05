@@ -99,11 +99,7 @@ spec:
       log_level: info
       # -- Secret key used for cookie singing and unique user IDs,
       # don't change this after the first install
-      secret_key: 
-        valueFrom:
-          secretKeyRef: |
-            name: authentik-secret
-            key: secretKey
+      secret_key: env://authentikSecretKey
       # -- Path for the geoip database. If the file doesn't exist, GeoIP features are disabled.
       geoip: /geoip/GeoLite2-City.mmdb
       email:
@@ -172,10 +168,10 @@ spec:
         secretKeyRef:
           key: authentik-secret
           name: postgresPassword
-      geoipKey:
+      authentikSecretKey:
         secretKeyRef:
           key: authentik-secret
-          name: geoipKey
+          name: authentikSecretKey
 
     service:
       # -- Service that is created to access authentik
@@ -302,7 +298,7 @@ spec:
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
       accountId: 953600
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
-      licenseKey: env://geoipKey
+      licenseKey: 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
       editionIds: "GeoLite2-City"
       image: maxmindinc/geoipupdate:v4.8
       # -- number of hours between update runs
