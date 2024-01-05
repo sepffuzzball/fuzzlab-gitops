@@ -163,15 +163,15 @@ spec:
     #  - configMapRef:
     #      name: special-config
 
-    envValueFrom:
-      AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-          key: authentik-secret
-          name: postgresPassword
-      AUTHENTIK_SECRET_KEY:
-        secretKeyRef:
-          key: authentik-secret
-          name: authentikSecretKey
+    envValueFrom: []
+    #  AUTHENTIK_POSTGRESQL__PASSWORD:
+    #    secretKeyRef:
+    ##      key: authentik-secret
+    #      name: postgresPassword
+    #  AUTHENTIK_SECRET_KEY:
+    #    secretKeyRef:
+    #      key: authentik-secret
+    #      name: authentikSecretKey
 
     service:
       # -- Service that is created to access authentik
@@ -191,10 +191,6 @@ spec:
     volumeMounts: 
       - mountPath: /media
         name: media
-      - mountPath: /database
-        name: database
-      - mountPath: /redis
-        name: redis
 
     # -- affinity applied to the deployments
     affinity: {}
