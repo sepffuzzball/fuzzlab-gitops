@@ -147,21 +147,13 @@ spec:
         # -- postgresql Username
         # @default -- `authentik`
         user: "authentik"
-        password: 
-          valueFrom:
-            secretKeyRef: |
-              name: authentik-secret
-              key: postgresPassword
+        password: env://postgresPassword
         port: 5432
       redis:
         # -- set the redis hostname to talk to
         # @default -- `{{ .Release.Name }}-redis-master`
         host: "{{ .Release.Name }}-redis-master"
-        password: 
-          valueFrom:
-            secretKeyRef: |
-              name: authentik-secret
-              key: postgresPassword
+        password: env://postgresPassword
 
     # -- List of config maps to mount blueprints from. Only keys in the
     # configmap ending with ".yaml" wil be discovered and applied
@@ -175,11 +167,15 @@ spec:
     #  - configMapRef:
     #      name: special-config
 
-    envValueFrom: {}
-    #  AUTHENTIK_VAR_NAME:
-    #    secretKeyRef:
-    #      key: password
-    #      name: my-secret
+    envValueFrom:
+      postgresPassword:
+        secretKeyRef:
+          key: authentik-secret
+          name: postgresPassword
+      geoipKey:
+        secretKeyRef:
+          key: authentik-secret
+          name: geoipKey
 
     service:
       # -- Service that is created to access authentik
@@ -306,11 +302,7 @@ spec:
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
       accountId: 953600
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
-      licenseKey: 
-        valueFrom:
-          secretKeyRef: |
-            name: authentik-secret
-            key: geoipKey
+      licenseKey: env://geoipKey
       editionIds: "GeoLite2-City"
       image: maxmindinc/geoipupdate:v4.8
       # -- number of hours between update runs
@@ -322,11 +314,7 @@ spec:
       enabled: true
       postgresqlMaxConnections: 500
       postgresqlUsername: "authentik"
-      postgresqlPassword: 
-        valueFrom:
-          secretKeyRef: |
-            name: authentik-secret
-            key: postgresPassword
+      postgresqlPassword: env://postgresPassword
       postgresqlDatabase: "authentik"
       persistence:
         size: 5Gi
