@@ -7,7 +7,7 @@ spec:
   storageClassName: csi-cephfs-sc
   claimRef:
     name: csi-cephfs-pvc-authentikdb
-    namespace: networking
+    namespace: security
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
@@ -40,7 +40,7 @@ spec:
   storageClassName: csi-cephfs-sc
   claimRef:
     name: csi-cephfs-pvc-authentikredis
-    namespace: networking
+    namespace: security
   capacity:
     storage: 1Gi
   volumeMode: Filesystem
