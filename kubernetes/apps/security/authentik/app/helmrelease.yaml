@@ -294,11 +294,11 @@ spec:
 
     geoip:
       # -- optional GeoIP, deploys a cronjob to download the maxmind database
-      enabled: true
+      enabled: false
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
       accountId: 953600
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
-      licenseKey: "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"
+      licenseKey: ""
       editionIds: "GeoLite2-City"
       image: maxmindinc/geoipupdate:v4.8
       # -- number of hours between update runs
