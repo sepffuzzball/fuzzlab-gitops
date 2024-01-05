@@ -29,6 +29,8 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  mountOptions:
+    - nfsvers=4.1
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: nfs.csi.k8s.io
