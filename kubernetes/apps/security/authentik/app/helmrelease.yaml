@@ -327,10 +327,10 @@ spec:
       enabled: true
       architecture: standalone
       auth:
-        enabled: true
-        password: ${postgresPassword}
+        enabled: false
+        #password: ${postgresPassword}
       image:
         tag: 6.2.10-debian-11-r13
       master:
         persistence:
-          enabled: true
+          enabled: false
