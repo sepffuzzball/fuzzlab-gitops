@@ -26,7 +26,10 @@ spec:
       "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/authentik/db
+      #"rootPath": /volumes/csi/authentik/db
+      "subvolumeName": "k8s-authentik"
+      "subvolumePath": "/volumes/csi/k8s-authentik/db"
+      "volumeNamePrefix": "k8s-"
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: csi-cephfs-pv-authentikdb
@@ -59,7 +62,10 @@ spec:
       "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/authentik/redis
+      #"rootPath": /volumes/csi/authentik/redis
+      "subvolumeName": "k8s-authentik"
+      "subvolumePath": "/volumes/csi/k8s-authentik/redis"
+      "volumeNamePrefix": "k8s-"
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: csi-cephfs-pv-authentikredis
@@ -92,7 +98,10 @@ spec:
       "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/authentik/media
+      #"rootPath": /volumes/csi/authentik/media
+      "subvolumeName": "k8s-authentik"
+      "subvolumePath": "/volumes/csi/k8s-authentik/media"
+      "volumeNamePrefix": "k8s-"
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: csi-cephfs-pv-authentikmedia
@@ -110,7 +119,7 @@ spec:
     requests:
       storage: 5Gi
   storageClassName: csi-cephfs-sc
-  volumeName: csi-cephfs-pv-authentikdb
+  #volumeName: csi-cephfs-pv-authentikdb
 
 ---
 apiVersion: v1
@@ -124,4 +133,4 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: csi-cephfs-sc
-  volumeName: csi-cephfs-pv-authentikredis
+  #volumeName: csi-cephfs-pv-authentikredis

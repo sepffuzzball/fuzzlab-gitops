@@ -319,7 +319,7 @@ spec:
       postgresqlDatabase: "authentik"
       persistence:
         enabled: true
-        existingClaim: csi-cephfs-pvc-authentikdb
+        existingClaim: csi-cephfs-pvc-authentikredis
       image:
         tag: 15.4.0-debian-11-r0
     redis:
@@ -334,6 +334,4 @@ spec:
       master:
         persistence:
           enabled: true
-          size: 1Gi
-          storageclass: csi-cephfs-sc
-          #existingClaim: csi-cephfs-pvc-authentikredis
+          existingClaim: csi-cephfs-pvc-authentikredis
