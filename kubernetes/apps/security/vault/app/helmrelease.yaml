@@ -12,11 +12,7 @@ spec:
       version: v0.27.x
       sourceRef:
         kind: HelmRepository
-<<<<<<< HEAD
-        name: vault
-=======
         name: hashicorp
->>>>>>> 8378241 (Probably need to search for the correct helm chart)
         namespace: flux-system
   maxHistory: 2
   install:
