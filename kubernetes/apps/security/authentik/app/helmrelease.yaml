@@ -327,10 +327,13 @@ spec:
       enabled: true
       architecture: standalone
       auth:
-        enabled: false
-        #password: ${postgresPassword}
+        enabled: true
+        password: ${postgresPassword}
       image:
         tag: 6.2.10-debian-11-r13
       master:
         persistence:
-          enabled: false
+          enabled: true
+          size: 1Gi
+          storageclass: csi-cephfs-sc
+          #existingClaim: csi-cephfs-pvc-authentikredis
