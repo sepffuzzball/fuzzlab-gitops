@@ -57,7 +57,11 @@ spec:
                     secretKeyRef:
                       name: cluster-media-secrets
                       key: "PROWLARR_0_POSTGRES_PASSWORD"
-                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
+                INIT_POSTGRES_SUPER_PASS: #"${POSTGRES_SUPER_PASS}"
+                  valueFrom:
+                    secretKeyRef:
+                      name: cluster-media-secrets
+                      key: "POSTGRES_SUPER_PASS"
         containers:
           main:
             image:
