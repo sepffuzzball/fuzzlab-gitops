@@ -99,7 +99,7 @@ spec:
       log_level: info
       # -- Secret key used for cookie singing and unique user IDs,
       # don't change this after the first install
-      secret_key: AUTHENTIK_SECRET_KEY
+      secret_key: ${authentikSecretKey}
       # -- Path for the geoip database. If the file doesn't exist, GeoIP features are disabled.
       geoip: /geoip/GeoLite2-City.mmdb
       email:
@@ -143,13 +143,13 @@ spec:
         # -- postgresql Username
         # @default -- `authentik`
         user: "authentik"
-        password: AUTHENTIK_POSTGRESQL__PASSWORD
+        password: ${postgresPassword}
         port: 5432
       redis:
         # -- set the redis hostname to talk to
         # @default -- `{{ .Release.Name }}-redis-master`
         host: "{{ .Release.Name }}-redis-master"
-        password: AUTHENTIK_POSTGRESQL__PASSWORD
+        password: ${postgresPassword}
 
     # -- List of config maps to mount blueprints from. Only keys in the
     # configmap ending with ".yaml" wil be discovered and applied
@@ -183,9 +183,18 @@ spec:
       labels: {}
       annotations: {}
 
-    volumes: []
+    volumes: 
+      - name: media
+        persistentVolumeClaim:
+          claimName: csi-cephfs-pv-authentikmedia
 
-    volumeMounts: []
+    volumeMounts: 
+      - mountPath: /media
+        name: media
+      - mountPath: /database
+        name: database
+      - mountPath: /redis
+        name: redis
 
     # -- affinity applied to the deployments
     affinity: {}
@@ -294,11 +303,11 @@ spec:
 
     geoip:
       # -- optional GeoIP, deploys a cronjob to download the maxmind database
-      enabled: false
+      enabled: true
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
       accountId: 953600
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
-      licenseKey: ""
+      licenseKey: ${geoipKey}
       editionIds: "GeoLite2-City"
       image: maxmindinc/geoipupdate:v4.8
       # -- number of hours between update runs
@@ -310,17 +319,11 @@ spec:
       enabled: true
       postgresqlMaxConnections: 500
       postgresqlUsername: "authentik"
-      postgresqlPassword: AUTHENTIK_POSTGRESQL__PASSWORD
+      postgresqlPassword: ${postgresPassword}
       postgresqlDatabase: "authentik"
       persistence:
-        size: 5Gi
         enabled: true
-        storageClass: csi-cephfs-sc
-        accessModes:
-          - ReadWriteOnce
-        metadata:
-          name: csi-cephfs-pvc-authentikdb
-        volumeName: csi-cephfs-pv-authentikdb
+        existingClaim: csi-cephfs-pvc-authentikdb
       image:
         tag: 15.4.0-debian-11-r0
     redis:
@@ -328,24 +331,11 @@ spec:
       enabled: true
       architecture: standalone
       auth:
-        enabled: false
+        enabled: true
+        password: ${postgresPassword}
       image:
         tag: 6.2.10-debian-11-r13
       master:
         persistence:
-          size: 1Gi
-
-#---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: 
-#spec:
-#  accessModes:
-#    - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 10Gi
-#  storageClassName: 
-#  volumeName: csi-cephfs-pv-authentik
-  
+          enabled: true
+          existingClaim: csi-cephfs-pvc-authentikredis
