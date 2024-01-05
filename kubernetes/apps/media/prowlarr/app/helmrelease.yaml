@@ -25,19 +25,19 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: local-path-provisioner
+    - name: ceph-csi-cephfs
       namespace: kube-system
   values:
     controllers:
       main:
-        pod:
-          podSecurityContext:
-            runAsUser: 1100
-            runAsGroup: 1100
-            fsGroup: 1100
-            fsGroupChangePolicy: "OnRootMismatch"
-            supplementalGroups:
-              - 100
+        #pod:
+        #  podSecurityContext:
+        #    runAsUser: 1100
+        #    runAsGroup: 1100
+        #    fsGroup: 1100
+        #    fsGroupChangePolicy: "OnRootMismatch"
+        #    supplementalGroups:
+        #      - 100
         initContainers:
           01-init-db:
               image:
