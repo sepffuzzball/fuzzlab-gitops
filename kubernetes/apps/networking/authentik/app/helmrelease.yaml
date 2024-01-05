@@ -101,7 +101,7 @@ spec:
       # don't change this after the first install
       secret_key: 
         valueFrom:
-          secretKeyRef:
+          secretKeyRef: |
             name: authentik-secret
             key: secretKey
       # -- Path for the geoip database. If the file doesn't exist, GeoIP features are disabled.
@@ -149,7 +149,7 @@ spec:
         user: "authentik"
         password: 
           valueFrom:
-            secretKeyRef:
+            secretKeyRef: |
               name: authentik-secret
               key: postgresPassword
         port: 5432
@@ -159,7 +159,7 @@ spec:
         host: "{{ .Release.Name }}-redis-master"
         password: 
           valueFrom:
-            secretKeyRef:
+            secretKeyRef: |
               name: authentik-secret
               key: postgresPassword
 
@@ -175,11 +175,11 @@ spec:
     #  - configMapRef:
     #      name: special-config
 
-    envValueFrom: 
-      AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-          key: authentik-secret
-          name: postgresPassword
+    envValueFrom: {}
+    #  AUTHENTIK_VAR_NAME:
+    #    secretKeyRef:
+    #      key: password
+    #      name: my-secret
 
     service:
       # -- Service that is created to access authentik
@@ -308,7 +308,7 @@ spec:
       # -- sign up under https://www.maxmind.com/en/geolite2/signup
       licenseKey: 
         valueFrom:
-          secretKeyRef:
+          secretKeyRef: |
             name: authentik-secret
             key: geoipKey
       editionIds: "GeoLite2-City"
@@ -322,11 +322,11 @@ spec:
       enabled: true
       postgresqlMaxConnections: 500
       postgresqlUsername: "authentik"
-      #postgresqlPassword: 
-       #  valueFrom:
-       #    secretKeyRef:
-       #     name: authentik-secret
-       #     key: postgresPassword
+      postgresqlPassword: 
+        valueFrom:
+          secretKeyRef: |
+            name: authentik-secret
+            key: postgresPassword
       postgresqlDatabase: "authentik"
       persistence:
         size: 5Gi
