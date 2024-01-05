@@ -319,6 +319,7 @@ spec:
       postgresqlDatabase: "authentik"
       persistence:
         enabled: false
+        storageClass: "-"
         existingClaim: csi-cephfs-pvc-authentikdb
       image:
         tag: 15.4.0-debian-11-r0
