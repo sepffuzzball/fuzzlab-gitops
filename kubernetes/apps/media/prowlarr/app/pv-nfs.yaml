@@ -5,7 +5,7 @@ metadata:
   name: prowlarr-config-nfs
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 2Gi
@@ -28,7 +28,7 @@ spec:
     storage: 2Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   mountOptions:
     - nfsvers=4.1
   persistentVolumeReclaimPolicy: Retain
@@ -40,7 +40,8 @@ spec:
       # node stage secret namespace where above secret is created
       namespace: kube-system
     volumeAttributes:
-      server: prowlar-nfs-config.default.svc.cluster.local
+      server: 10.0.2.20
+      share: /lcl/containers/prowlarr
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: prowlarr-nfs-config
