@@ -30,9 +30,10 @@ spec:
       username: admin
     ingress:
       enabled: true
-      className: internal
+      className: external
       annotations:
         hajimari.io/icon: sawtooth-wave
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
       hosts:
         - host: &host "gitops.${SECRET_DOMAIN}"
           paths:
