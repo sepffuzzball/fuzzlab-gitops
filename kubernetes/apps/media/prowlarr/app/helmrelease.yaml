@@ -128,7 +128,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: 
+        existingClaim: prowlarr-config-nfs
         #globalMounts:
         #  - subPath: prowlarr
       #media:

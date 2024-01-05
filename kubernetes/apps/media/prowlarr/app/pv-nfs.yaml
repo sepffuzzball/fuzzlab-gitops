@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prowlarr-config-nfs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: lcl-containers
+  volumeName: prowlarr-config-pv-nfs
+  
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prowlarr-config-pv-nfs
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+spec:
+  storageClassName: lcl-containers
+  claimRef:
+    name: prowlarr-config-nfs
+    namespace: media
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: nfs.csi.k8s.io
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: kube-system
+    volumeAttributes:
+      server: prowlar-nfs-config.default.svc.cluster.local
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: prowlarr-nfs-config
