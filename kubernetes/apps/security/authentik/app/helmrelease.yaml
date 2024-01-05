@@ -334,4 +334,3 @@ spec:
       master:
         persistence:
           enabled: true
-          existingClaim: csi-cephfs-pvc-authentikredis
