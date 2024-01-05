@@ -86,12 +86,12 @@ spec:
                   secretKeyRef:
                     name: cluster-media-secrets
                     key: "PROWLARR_0_API_KEY"
-            resources:
-              requests:
-                cpu: 10m
-                memory: 250Mi
-              limits:
-                memory: 2000Mi
+            #resources:
+            #  requests:
+            #    cpu: 10m
+            #    memory: 250Mi
+            #  limits:
+            #    memory: 2000Mi
     service:
       main:
         ports:
