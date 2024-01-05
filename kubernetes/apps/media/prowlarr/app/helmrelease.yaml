@@ -128,9 +128,9 @@ spec:
     persistence:
       config:
         enabled: true
-        #existingClaim: prowlarr-config-pvc
+        existingClaim: 
         #globalMounts:
         #  - subPath: prowlarr
-      media:
-        enabled: true
+      #media:
+      #  enabled: true
       #  existingClaim: media
