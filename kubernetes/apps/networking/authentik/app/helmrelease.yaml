@@ -175,11 +175,11 @@ spec:
     #  - configMapRef:
     #      name: special-config
 
-    envValueFrom: {}
-    #  AUTHENTIK_VAR_NAME:
-    #    secretKeyRef:
-    #      key: password
-    #      name: my-secret
+    envValueFrom: 
+      AUTHENTIK_POSTGRESQL__PASSWORD:
+        secretKeyRef:
+          key: authentik-secret
+          name: postgresPassword
 
     service:
       # -- Service that is created to access authentik
@@ -322,11 +322,11 @@ spec:
       enabled: true
       postgresqlMaxConnections: 500
       postgresqlUsername: "authentik"
-      postgresqlPassword: 
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secret
-            key: postgresPassword
+      #postgresqlPassword: 
+       #  valueFrom:
+       #    secretKeyRef:
+       #     name: authentik-secret
+       #     key: postgresPassword
       postgresqlDatabase: "authentik"
       persistence:
         size: 5Gi
