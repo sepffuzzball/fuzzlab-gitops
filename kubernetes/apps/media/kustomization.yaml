@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./prowlarr/ks.yaml
+  - ./secret.sops.yaml
