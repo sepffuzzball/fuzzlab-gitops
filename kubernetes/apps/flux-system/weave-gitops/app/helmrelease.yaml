@@ -29,22 +29,18 @@ spec:
       createSecret: false
       username: admin
     ingress:
-      main:
-        enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          hajimari.io/icon: sawtooth-wave
-        hosts:
-          - host: &host "gitops.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
+      enabled: true
+      className: internal
+      annotations:
+        hajimari.io/icon: sawtooth-wave
+      hosts:
+        - host: &host "gitops.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - *host
     networkPolicy:
       create: false
     metrics:
