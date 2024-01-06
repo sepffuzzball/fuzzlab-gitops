@@ -36,6 +36,7 @@ spec:
             runAsGroup: 1100
             fsGroup: 1100
             fsGroupChangePolicy: "OnRootMismatch"
+            runAsNonRoot: true
 
         containers:
           main:
