@@ -9,6 +9,7 @@ resources:
   - ./ceph-csi.yaml
   - ./cilium.yaml
   - ./coredns.yaml
+  - ./crunchydata.yaml
   - ./csi-driver-nfs.yaml
   - ./democratic-csi.yaml
   - ./external-dns.yaml
@@ -16,9 +17,11 @@ resources:
   - ./hajimari.yaml
   - ./hashicorp.yaml
   - ./ingress-nginx.yaml
+  - ./intel.yaml
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./kubernetes-dashboard.yaml
+  - ./metallb.yaml
   - ./metrics-server.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
