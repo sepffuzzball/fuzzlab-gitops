@@ -39,8 +39,11 @@ spec:
       databases:
         - "${DB_NAME}"
       options: "SUPERUSER"
-      password:
-        type: AlphaNumeric
+      password: 
+        valueFrom:
+          secretKeyRef:
+            name: authentik-secret
+            key: redisPassword
 
   backups:
     pgbackrest:
