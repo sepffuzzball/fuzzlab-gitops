@@ -318,7 +318,7 @@ spec:
       postgresqlPassword: ${postgresPassword}
       postgresqlDatabase: "authentik"
       persistence:
-        enabled: false
+        enabled: true
         existingClaim: authentik-db
       image:
         tag: 15.4.0-debian-11-r0
