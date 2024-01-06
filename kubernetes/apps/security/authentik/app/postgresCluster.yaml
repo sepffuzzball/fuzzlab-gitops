@@ -17,9 +17,9 @@ spec:
           egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
       replicas: 2
       dataVolumeClaimSpec:
-        dataSource:
-          kind: PersistentVolumeClaim
-          name: authentik-db
+        #dataSource:
+        #  kind: PersistentVolumeClaim
+        #  name: authentik-db
         accessModes:
           - ReadWriteOnce
         resources:
@@ -41,9 +41,9 @@ spec:
       - name: repo1
         volume:
           volumeClaimSpec:
-            dataSource:
-              kind: PersistentVolumeClaim
-              name: authentik-dbbak
+            #dataSource:
+            #  kind: PersistentVolumeClaim
+            #  name: authentik-dbbak
             accessModes:
             - "ReadWriteOnce"
             resources:
