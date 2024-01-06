@@ -41,22 +41,21 @@ spec:
         password: ""
 
     ingress:
-      main:
-        enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          hajimari.io/icon: badge-account-horizontal
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
+      enabled: true
+      ingressClassName: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hajimari.io/icon: badge-account-horizontal
+      hosts:
+        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - hosts:
+            - *host
 
     envValueFrom:
       AUTHENTIK_SECRET_KEY:
