@@ -5,5 +5,5 @@ resources:
 #  - ./helmrelease.yaml
 #  - ./secret.sops.yaml
   - ./pv.yaml
-  - ./postgresCluster.yaml
+#  - ./postgresCluster.yaml
 #  - ./storageclass.yaml
