@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./pv.yaml
  # - ./pv-nfs.yaml
-  - ./helmrelease.yaml
+ # - ./helmrelease.yaml
  # - ./test.yaml
