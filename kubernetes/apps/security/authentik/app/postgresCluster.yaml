@@ -20,11 +20,11 @@ spec:
         dataSource:
           kind: PersistentVolumeClaim
           name: authentik-db
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
+        #accessModes:
+        #  - ReadWriteOnce
+        #resources:
+        #  requests:
+        #    storage: 5Gi
 
   users:
     - name: "${DB_USER}"
@@ -43,10 +43,10 @@ spec:
           volumeClaimSpec:
             dataSource:
               kind: PersistentVolumeClaim
-              name: authentik-db
-            accessModes:
-            - "ReadWriteOnce"
-            resources:
-              requests:
-                storage: 5Gi
+              name: authentik-dbbak
+            #accessModes:
+            #- "ReadWriteOnce"
+            #resources:
+            #  requests:
+            #    storage: 5Gi
       
