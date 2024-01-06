@@ -5,8 +5,6 @@ metadata:
   name: authentik-db2-pv
 spec:
   storageClassName: csi-cephfs-sc
-  claimRef:
-    namespace: security
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
