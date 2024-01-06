@@ -52,7 +52,7 @@ spec:
               PROWLARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
+                    name: cluster-downloaders-secrets
                     key: "PROWLARR_0_API_KEY"
             resources:
               requests:
