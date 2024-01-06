@@ -97,23 +97,11 @@ spec:
     authentik:
       # -- Log level for server and worker
       log_level: info
-      # -- Secret key used for cookie singing and unique user IDs,
-      # don't change this after the first install
-      secret_key: #${authentikSecretKey}
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secret
-            key: "authentikSecretKey"
       # -- Path for the geoip database. If the file doesn't exist, GeoIP features are disabled.
       geoip: /geoip/GeoLite2-City.mmdb
       email:
         # -- SMTP Server emails are sent from, fully optional
-        host: ""
         port: 587
-        # -- SMTP credentials, when left empty, not authentication will be done
-        username: ""
-        # -- SMTP credentials, when left empty, not authentication will be done
-        password: ""
         # -- Enable either use_tls or use_ssl, they can't be enabled at the same time.
         use_tls: false
         # -- Enable either use_tls or use_ssl, they can't be enabled at the same time.
@@ -121,7 +109,6 @@ spec:
         # -- Connection timeout
         timeout: 30
         # -- Email from address, can either be in the format "foo@bar.baz" or "authentik <foo@bar.baz>"
-        from: ""
       outposts:
         # -- Template used for managed outposts. The following placeholders can be used
         # %(type)s - the type of the outpost
@@ -147,21 +134,11 @@ spec:
         # -- postgresql Username
         # @default -- `authentik`
         user: "authentik"
-        password: 
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secret
-              key: "postgresPassword"
         port: 5432
       redis:
         # -- set the redis hostname to talk to
         # @default -- `{{ .Release.Name }}-redis-master`
         host: "{{ .Release.Name }}-redis-master"
-        password:
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secret
-              key: "postgresPassword"
 
     # -- List of config maps to mount blueprints from. Only keys in the
     # configmap ending with ".yaml" wil be discovered and applied
@@ -175,16 +152,47 @@ spec:
     #  - configMapRef:
     #      name: special-config
 
-    envValueFrom: []
-    #  AUTHENTIK_POSTGRESQL__PASSWORD:
-    #    secretKeyRef:
-    ##      key: authentik-secret
-    #      name: postgresPassword
-    #  AUTHENTIK_SECRET_KEY:
-    #    secretKeyRef:
-    #      key: authentik-secret
-    #      name: authentikSecretKey
-
+    envValueFrom:
+      AUTHENTIK_SECRET_KEY:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik_secret_key
+      AUTHENTIK_EMAIL__HOST:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik_email_host
+      AUTHENTIK_EMAIL__USERNAME:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik_email_username
+      AUTHENTIK_EMAIL__PASSWORD:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik_email_password
+      AUTHENTIK_EMAIL__FROM:
+        secretKeyRef:
+          name: authentik-secret
+          key: authentik_email_from
+      AUTHENTIK_POSTGRESQL__HOST:
+        secretKeyRef:
+          name: authentik-secret
+          key: postgresHost
+      AUTHENTIK_POSTGRESQL__NAME:
+        secretKeyRef:
+          name: authentik-secret
+          key: postgresDB
+      AUTHENTIK_POSTGRESQL__USER:
+        secretKeyRef:
+          name: authentik-secret
+          key: postgresUser
+      AUTHENTIK_POSTGRESQL__PASSWORD:
+        secretKeyRef:
+          name: authentik-secret
+          key: postgresPassword
+      AUTHENTIK_REDIS__PASSWORD:
+        secretKeyRef:
+          name: authentik-secret
+          key: redisPassword
     service:
       # -- Service that is created to access authentik
       enabled: true
@@ -326,13 +334,6 @@ spec:
       # -- enable the bundled bitnami postgresql chart
       enabled: true
       postgresqlMaxConnections: 500
-      postgresqlUsername: "authentik"
-      postgresqlPassword: 
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secret
-            key: "postgresPassword"
-      postgresqlDatabase: "authentik"
       persistence:
         enabled: true
         existingClaim: authentik-db
@@ -344,11 +345,6 @@ spec:
       architecture: standalone
       auth:
         enabled: true
-        password: 
-          valueFrom:
-            secretKeyRef:
-              name: authentik-secret
-              key: "postgresPassword"
       image:
         tag: 6.2.10-debian-11-r13
       master:
