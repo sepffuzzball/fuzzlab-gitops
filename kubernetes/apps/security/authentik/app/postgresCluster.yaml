@@ -46,7 +46,7 @@ spec:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.47-2
       repos:
-      - name: repo1
+      - name: backup
         volume:
           volumeClaimSpec:
             volumeName: authentik-dbbak-pv
