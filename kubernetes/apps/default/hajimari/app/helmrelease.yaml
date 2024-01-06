@@ -30,7 +30,7 @@ spec:
       alwaysTargetBlank: true
       showGreeting: false
       showAppGroups: true
-      showAppStatus: false
+      showAppStatus: true
       showBookmarkGroups: false
       showGlobalBookmarks: false
       showAppUrls: false
@@ -38,7 +38,11 @@ spec:
       namespaceSelector:
         matchNames:
           - default
+          - downloaders
           - monitoring
+          - media
+          - networking
+          - security
     ingress:
       main:
         enabled: true
