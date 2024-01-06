@@ -17,9 +17,7 @@ spec:
           egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
       replicas: 2
       dataVolumeClaimSpec:
-        #dataSource:
-        #  kind: PersistentVolumeClaim
-        #  name: authentik-db
+        volumeName: authentik-db-pv
         storageClassName: csi-cephfs-sc
         accessModes:
           - "ReadWriteMany"
@@ -42,12 +40,10 @@ spec:
       - name: repo1
         volume:
           volumeClaimSpec:
-            #dataSource:
-            #  kind: PersistentVolumeClaim
-            #  name: authentik-dbbak
+            volumeName: authentik-dbbak-pv
             storageClassName: csi-cephfs-sc
             accessModes:
-            - "ReadWriteMany"
+            - "ReadWriteOnce"
             resources:
               requests:
                 storage: 2Gi

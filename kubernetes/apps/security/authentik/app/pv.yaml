@@ -2,107 +2,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: authentik-db2-pv
-spec:
-  storageClassName: csi-cephfs-sc
-  capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: cephfs.csi.ceph.com
-    nodeStageSecretRef:
-      # node stage secret name
-      name: csi-cephfs-secret
-      # node stage secret namespace where above secret is created
-      namespace: kube-system
-    volumeAttributes:
-      # Required options from storageclass parameters need to be added in volumeAttributes
-      "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
-      "fsName": "k8s-cephfs"
-      "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-security/authentik/db2
-    # volumeHandle can be anything, need not to be same
-    # as PV name or volume name. keeping same for brevity
-    volumeHandle: authentikdb2
-    
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: authentik-db3-pv
-spec:
-  storageClassName: csi-cephfs-sc
-  capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: cephfs.csi.ceph.com
-    nodeStageSecretRef:
-      # node stage secret name
-      name: csi-cephfs-secret
-      # node stage secret namespace where above secret is created
-      namespace: kube-system
-    volumeAttributes:
-      # Required options from storageclass parameters need to be added in volumeAttributes
-      "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
-      "fsName": "k8s-cephfs"
-      "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-security/authentik/db3
-    # volumeHandle can be anything, need not to be same
-    # as PV name or volume name. keeping same for brevity
-    volumeHandle: authentikdb3
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: authentik-db4-pv
-spec:
-  storageClassName: csi-cephfs-sc
-  capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: cephfs.csi.ceph.com
-    nodeStageSecretRef:
-      # node stage secret name
-      name: csi-cephfs-secret
-      # node stage secret namespace where above secret is created
-      namespace: kube-system
-    volumeAttributes:
-      # Required options from storageclass parameters need to be added in volumeAttributes
-      "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
-      "fsName": "k8s-cephfs"
-      "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-security/authentik/db4
-    # volumeHandle can be anything, need not to be same
-    # as PV name or volume name. keeping same for brevity
-    volumeHandle: authentikdb4
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
   name: authentik-db-pv
 spec:
   storageClassName: csi-cephfs-sc
-  claimRef:
-    name: authentik-db
-    namespace: security
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: cephfs.csi.ceph.com
@@ -128,9 +35,6 @@ metadata:
   name: authentik-dbbak-pv
 spec:
   storageClassName: csi-cephfs-sc
-  claimRef:
-    name: authentik-dbbak
-    namespace: security
   capacity:
     storage: 5Gi
   volumeMode: Filesystem
@@ -220,34 +124,6 @@ spec:
     # as PV name or volume name. keeping same for brevity
     volumeHandle: authentikmedia
 
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: authentik-db
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: csi-cephfs-sc
-  volumeName: authentik-db-pv
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: authentik-dbbak
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  storageClassName: csi-cephfs-sc
-  volumeName: authentik-dbbak-pv
 
 ---
 apiVersion: v1
