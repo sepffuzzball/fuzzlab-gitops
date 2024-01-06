@@ -24,8 +24,6 @@ spec:
       HOSTNAME: auth.fzbl.xyz
       DB_NAME: authentik
       DB_USER: authentik
-  dependsOn:
-    - name: authentik-redis
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
