@@ -186,7 +186,7 @@ spec:
     volumes: 
       - name: media
         persistentVolumeClaim:
-          claimName: csi-cephfs-pv-authentikmedia
+          claimName: authentik-media
 
     volumeMounts: 
       - mountPath: /media
@@ -319,8 +319,7 @@ spec:
       postgresqlDatabase: "authentik"
       persistence:
         enabled: false
-        storageClass: "-"
-        existingClaim: csi-cephfs-pvc-authentikdb
+        existingClaim: authentik-db
       image:
         tag: 15.4.0-debian-11-r0
     redis:
@@ -334,5 +333,5 @@ spec:
         tag: 6.2.10-debian-11-r13
       master:
         persistence:
-          enabled: false
-          existingClaim: csi-cephfs-pvc-authentikredis
+          enabled: true
+          existingClaim: authentik-redis
