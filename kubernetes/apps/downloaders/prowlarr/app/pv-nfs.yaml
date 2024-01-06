@@ -23,7 +23,7 @@ spec:
   storageClassName: lcl-containers
   claimRef:
     name: prowlarr-config-nfs
-    namespace: media
+    namespace: downloaders
   capacity:
     storage: 2Gi
   volumeMode: Filesystem
