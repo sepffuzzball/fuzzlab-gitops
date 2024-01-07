@@ -6,6 +6,6 @@ resources:
   - ./local-path-provisioner/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./csi-driver-nfs/ks.yaml
-  #- ./csi-driver-smb/ks.yaml
+  - ./csi-driver-smb/ks.yaml
   - ./ceph-csi-cephfs/ks.yaml
   - ./volsync/ks.yaml
