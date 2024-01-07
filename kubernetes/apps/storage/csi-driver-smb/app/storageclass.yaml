@@ -7,9 +7,9 @@ provisioner: smb.csi.k8s.io
 parameters:
   source: //10.0.2.20/unprocessed
   csi.storage.k8s.io/provisioner-secret-name: smb-secrets
-  csi.storage.k8s.io/provisioner-secret-namespace: kube-system
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
   csi.storage.k8s.io/node-stage-secret-name: smb-secrets
-  csi.storage.k8s.io/node-stage-secret-namespace: kube-system
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
 mountOptions: 
