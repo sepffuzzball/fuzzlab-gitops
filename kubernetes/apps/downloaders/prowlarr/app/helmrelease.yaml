@@ -85,9 +85,9 @@ spec:
                 service:
                   name: main
                   path: http
-        tls:
-          - hosts:
-              - *host
+        #tls:
+        #  - hosts:
+        #      - *host
     persistence:
       config:
         enabled: true
