@@ -9,9 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-dns-shared
-    - name: nginx-external
+  #dependsOn:
+  #  - name: external-dns-shared
+  #  - name: nginx-external
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: true
   sourceRef:
