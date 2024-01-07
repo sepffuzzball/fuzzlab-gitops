@@ -78,22 +78,16 @@ spec:
       main:
         enabled: true
         className: internal
-        annotations:
-          #external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          hajimari.io/enable: 'true'
-          hajimari.io/icon: mdi:movie-search
-          hajimari.io/group: Media
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "prowlarr.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
                   name: main
                   path: http
-        #tls:
-        #  - hosts:
-        #      - *host
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
