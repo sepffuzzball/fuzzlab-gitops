@@ -34,13 +34,13 @@ spec:
         - name: tmp
           emptyDir:
             medium: Memory
-        pod:
-          podSecurityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: "OnRootMismatch"
-            runAsNonRoot: true
+        #pod:
+        #  podSecurityContext:
+        #    runAsUser: 568
+        #    runAsGroup: 568
+        #    fsGroup: 568
+        #    fsGroupChangePolicy: "OnRootMismatch"
+        #    runAsNonRoot: true
 
         containers:
           main:
@@ -57,23 +57,18 @@ spec:
               PROWLARR__LOG_LEVEL: info
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-downloaders-secrets
-                    key: "PROWLARR_0_API_KEY"
+              PROWLARR__THEME: dark
+              #PROWLARR__API_KEY:
+              #  valueFrom:
+              #    secretKeyRef:
+              #      name: cluster-downloaders-secrets
+              #      key: "PROWLARR_0_API_KEY"
             resources:
               requests:
                 cpu: 18m
                 memory: 128Mi
               limits:
                 memory: 256Mi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
     service:
       main:
         ports:
