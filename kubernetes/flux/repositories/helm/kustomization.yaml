@@ -8,6 +8,7 @@ resources:
   - ./bjw-s.yaml
   - ./ceph-csi.yaml
   - ./cilium.yaml
+  - ./csi-driver-smb.yaml
   - ./coredns.yaml
   - ./crunchydata.yaml
   - ./csi-driver-nfs.yaml
