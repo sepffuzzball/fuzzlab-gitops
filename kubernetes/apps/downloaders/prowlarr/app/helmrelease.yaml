@@ -82,14 +82,14 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          #external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:movie-search
           hajimari.io/group: Media
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN}"
+          - host: &host "prowlarr.${SECRET_DOMAIN_FBE}"
             paths:
               - path: /
                 pathType: Prefix
