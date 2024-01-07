@@ -162,7 +162,7 @@ spec:
       annotations:
         hajimari.io/icon: simple-icons:grafana
       hosts:
-        - &host "grafana.${SECRET_DOMAIN}"
+        - &host "grafana.${SECRET_DOMAIN_FBE}"
       tls:
         - hosts:
             - *host
