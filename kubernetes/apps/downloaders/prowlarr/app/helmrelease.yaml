@@ -53,7 +53,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 80
+              PROWLARR__PORT: &port 9696
               PROWLARR__LOG_LEVEL: info
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__AUTHENTICATION_METHOD: External
@@ -79,15 +79,15 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "prowlarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   name: main
                   path: http
-        #tls:
-        #  - hosts:
-        #      - *host
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
