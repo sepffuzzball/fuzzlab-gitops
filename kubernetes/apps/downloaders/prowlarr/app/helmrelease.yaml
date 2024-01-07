@@ -34,13 +34,12 @@ spec:
         - name: tmp
           emptyDir:
             medium: Memory
-        #pod:
-        #  podSecurityContext:
-        #    runAsUser: 568
-        #    runAsGroup: 568
-        #    fsGroup: 568
-        #    fsGroupChangePolicy: "OnRootMismatch"
-        #    runAsNonRoot: true
+        
+        pod:
+          labels:
+            egress.home.arpa/internet: allow
+            egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
+            ingress.home.arpa/nginx-internal: allow
 
         containers:
           main:
@@ -53,16 +52,16 @@ spec:
             env:
               TZ: ${TIMEZONE}
               PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 8080
+              PROWLARR__PORT: &port 9696
               PROWLARR__LOG_LEVEL: info
               PROWLARR__ANALYTICS_ENABLED: "False"
-              #PROWLARR__AUTHENTICATION_METHOD: External
+              PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__THEME: dark
-              #PROWLARR__API_KEY:
-              #  valueFrom:
-              #    secretKeyRef:
-              #      name: cluster-downloaders-secrets
-              #      key: "PROWLARR_0_API_KEY"
+              PROWLARR__API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-downloaders-secrets
+                    key: "PROWLARR_0_API_KEY"
             resources:
               requests:
                 cpu: 18m
