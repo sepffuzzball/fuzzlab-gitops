@@ -30,7 +30,7 @@ spec:
       replicaCount: 1
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN_FBE}"
+          external-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN_LOCAL}"
           io.cilium/lb-ipam-ips: "10.0.2.98"
         externalTrafficPolicy: Cluster
       ingressClassResource:
