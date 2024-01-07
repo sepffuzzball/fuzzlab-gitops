@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 10m
-  path: "./kubernetes/apps/network/external-dns/shared"
+  path: "./kubernetes/apps/networking/external-dns/shared"
   prune: true
   sourceRef:
     kind: GitRepository
