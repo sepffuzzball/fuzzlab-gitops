@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: postgresql
+  namespace: database
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: postgresql
+      version: 13.2.27
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  values:
+    image:
+      repository: bitnami/postgresql
+      tag: 16.1.0@sha256:993660d45b2cc957ec41fdd908530b77c2eb74e10e3cb8e83fe6dd1f091495e9
+    volumePermissions:
+      enabled: false
+    auth:
+      postgresPassword: ${SECRET_POSTGRES_PASSWORD}
+    primary:
+      persistence:
+        enabled: true
+        existingClaim: postgres-db-pvc
+      containerSecurityContext:
+        enabled: true
+        runAsUser: ${PUID}
+        runAsNonRoot: true
+      podSecurityContext:
+        enabled: true
+        fsGroup: ${PGID}
