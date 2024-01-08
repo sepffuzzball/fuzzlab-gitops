@@ -80,3 +80,11 @@ tasks:
     preconditions:
       - { msg: "Git repository not up-to-date", sh: "git diff --exit-code" }
       - { msg: "Git repository not up-to-date", sh: "git diff --cached --exit-code" }
+
+  reconcile:
+    desc: Reconcile flux flux-system
+    summary: task {{.TASK}}
+    cmds:
+      - clear
+      - flux reconcile source git home-kubernetes
+      - echo "If you would like to reconcile a helm release, do flux reconcile helmrelease -n <namespace> <name of helmrelease>"

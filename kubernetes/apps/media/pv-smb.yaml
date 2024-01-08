@@ -39,5 +39,5 @@ spec:
   resources:
     requests:
       storage: 512Gi
-  storageClassName: lcl-containers
+  storageClassName: lcl-downloads-sc
   volumeName: lcl-downloads-pv
