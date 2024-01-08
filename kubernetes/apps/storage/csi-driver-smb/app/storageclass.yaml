@@ -2,10 +2,73 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: lcl-unprocessed
+  name: lcl-unprocessed-sc
 provisioner: smb.csi.k8s.io
 parameters:
   source: //10.0.2.20/unprocessed
+  csi.storage.k8s.io/provisioner-secret-name: smb-secrets
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
+  csi.storage.k8s.io/node-stage-secret-name: smb-secrets
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions: 
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1100
+  - gid=1100
+  - noserverino
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: lcl-downloads-sc
+provisioner: smb.csi.k8s.io
+parameters:
+  source: //10.0.2.20/downloads
+  csi.storage.k8s.io/provisioner-secret-name: smb-secrets
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
+  csi.storage.k8s.io/node-stage-secret-name: smb-secrets
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions: 
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1100
+  - gid=1100
+  - noserverino
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: lcl-music-sc
+provisioner: smb.csi.k8s.io
+parameters:
+  source: //10.0.2.20/music
+  csi.storage.k8s.io/provisioner-secret-name: smb-secrets
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
+  csi.storage.k8s.io/node-stage-secret-name: smb-secrets
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions: 
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1100
+  - gid=1100
+  - noserverino
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: lcl-videos-sc
+provisioner: smb.csi.k8s.io
+parameters:
+  source: //10.0.2.20/videos
   csi.storage.k8s.io/provisioner-secret-name: smb-secrets
   csi.storage.k8s.io/provisioner-secret-namespace: storage
   csi.storage.k8s.io/node-stage-secret-name: smb-secrets

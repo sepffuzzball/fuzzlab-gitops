@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app prowlarr
-  namespace: downloaders
+  namespace: media
 spec:
   interval: 30m
   chart:
@@ -61,7 +61,7 @@ spec:
               PROWLARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-downloaders-secrets
+                    name: cluster-media-secrets
                     key: "PROWLARR_0_API_KEY"
             resources:
               requests:
