@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app prowlarr
+  name: &app lidarr
   namespace: media
 spec:
   interval: 30m
@@ -49,18 +49,18 @@ spec:
                 tag: 16.1
               imagePullPolicy: IfNotPresent
               env:
-                INIT_POSTGRES_DBNAME: prowlarr prowlarr-log
+                INIT_POSTGRES_DBNAME: lidarr lidarr-log
                 INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
                 INIT_POSTGRES_USER:
                   valueFrom:
                     secretKeyRef:
                       name: cluster-media-secrets
-                      key: "PROWLARR_0_POSTGRES_USER"
+                      key: "LIDARR_0_POSTGRES_USER"
                 INIT_POSTGRES_PASS:
                   valueFrom:
                     secretKeyRef:
                       name: cluster-media-secrets
-                      key: "PROWLARR_0_POSTGRES_PASSWORD"
+                      key: "LIDARR_0_POSTGRES_PASSWORD"
                 INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
@@ -68,34 +68,34 @@ spec:
             - name: tmp
               mountPath: /tmp
             image:
-              repository: ghcr.io/onedr0p/prowlarr-nightly
-              tag: 1.12.1.4191
+              repository: ghcr.io/onedr0p/lidarr-nightly
+              tag: 2.1.3.3904
             env:
               TZ: ${TIMEZONE}
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
-              PROWLARR__LOG_LEVEL: info
-              PROWLARR__ANALYTICS_ENABLED: "False"
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__THEME: dark
-              PROWLARR__POSTGRES_HOST: *postgres
-              PROWLARR__POSTGRES_MAIN_DB: "prowlarr"
-              PROWLARR__POSTGRES_LOG_DB: "prowlarr-log"
-              PROWLARR__POSTGRES_PASSWORD:
+              LIDARR__INSTANCE_NAME: Lidarr
+              LIDARR__PORT: &port 9696
+              LIDARR__LOG_LEVEL: info
+              LIDARR__ANALYTICS_ENABLED: "False"
+              LIDARR__AUTHENTICATION_METHOD: External
+              LIDARR__THEME: dark
+              LIDARR__POSTGRES_HOST: *postgres
+              LIDARR__POSTGRES_MAIN_DB: "lidarr"
+              LIDARR__POSTGRES_LOG_DB: "lidarr-log"
+              LIDARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
-                    key: "PROWLARR_0_POSTGRES_PASSWORD"
-              PROWLARR__POSTGRES_USER:
+                    key: "LIDARR_0_POSTGRES_PASSWORD"
+              LIDARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
-                    key: "PROWLARR_0_POSTGRES_USER"
-              PROWLARR__API_KEY:
+                    key: "LIDARR_0_POSTGRES_USER"
+              LIDARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
-                    key: "PROWLARR_0_API_KEY"
+                    key: "LIDARR_0_API_KEY"
             resources:
               requests:
                 cpu: 18m
@@ -112,7 +112,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "lidarr.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:
@@ -124,7 +124,8 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: prowlarr-config
+        existingClaim: lidarr-config
+        mountPath: /config
       downloads:
         enabled: true
         existingClaim: lcl-downloads-pvc

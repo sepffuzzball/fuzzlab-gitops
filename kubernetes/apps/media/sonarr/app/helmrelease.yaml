@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app prowlarr
+  name: &app sonarr
   namespace: media
 spec:
   interval: 30m
@@ -49,18 +49,18 @@ spec:
                 tag: 16.1
               imagePullPolicy: IfNotPresent
               env:
-                INIT_POSTGRES_DBNAME: prowlarr prowlarr-log
+                INIT_POSTGRES_DBNAME: sonarr sonarr-log
                 INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
                 INIT_POSTGRES_USER:
                   valueFrom:
                     secretKeyRef:
                       name: cluster-media-secrets
-                      key: "PROWLARR_0_POSTGRES_USER"
+                      key: "SONARR_0_POSTGRES_USER"
                 INIT_POSTGRES_PASS:
                   valueFrom:
                     secretKeyRef:
                       name: cluster-media-secrets
-                      key: "PROWLARR_0_POSTGRES_PASSWORD"
+                      key: "SONARR_0_POSTGRES_PASSWORD"
                 INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
@@ -68,34 +68,34 @@ spec:
             - name: tmp
               mountPath: /tmp
             image:
-              repository: ghcr.io/onedr0p/prowlarr-nightly
-              tag: 1.12.1.4191
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.752@sha256:2f236cef4ed862a0000db61aaf23e9d42ebe51c1257b48f3a2a36fdc696bccaf
             env:
               TZ: ${TIMEZONE}
-              PROWLARR__INSTANCE_NAME: Prowlarr
-              PROWLARR__PORT: &port 9696
-              PROWLARR__LOG_LEVEL: info
-              PROWLARR__ANALYTICS_ENABLED: "False"
-              PROWLARR__AUTHENTICATION_METHOD: External
-              PROWLARR__THEME: dark
-              PROWLARR__POSTGRES_HOST: *postgres
-              PROWLARR__POSTGRES_MAIN_DB: "prowlarr"
-              PROWLARR__POSTGRES_LOG_DB: "prowlarr-log"
-              PROWLARR__POSTGRES_PASSWORD:
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 9696
+              SONARR__LOG_LEVEL: info
+              SONARR__ANALYTICS_ENABLED: "False"
+              SONARR__AUTHENTICATION_METHOD: External
+              SONARR__THEME: dark
+              SONARR__POSTGRES_HOST: *postgres
+              SONARR__POSTGRES_MAIN_DB: "sonarr"
+              SONARR__POSTGRES_LOG_DB: "sonarr-log"
+              SONARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
-                    key: "PROWLARR_0_POSTGRES_PASSWORD"
-              PROWLARR__POSTGRES_USER:
+                    key: "SONARR_0_POSTGRES_PASSWORD"
+              SONARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
-                    key: "PROWLARR_0_POSTGRES_USER"
-              PROWLARR__API_KEY:
+                    key: "SONARR_0_POSTGRES_USER"
+              SONARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
-                    key: "PROWLARR_0_API_KEY"
+                    key: "SONARR_0_API_KEY"
             resources:
               requests:
                 cpu: 18m
@@ -112,7 +112,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "sonarr.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:
@@ -124,7 +124,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: prowlarr-config
+        existingClaim: sonarr-config
       downloads:
         enabled: true
         existingClaim: lcl-downloads-pvc
