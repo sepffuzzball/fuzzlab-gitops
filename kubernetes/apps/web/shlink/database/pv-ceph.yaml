@@ -2,28 +2,28 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: sonarr-config
+  name: shlink-db
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 2Gi
+      storage: 8Gi
   storageClassName: csi-cephfs-sc
-  volumeName: sonarr-config-pv
+  volumeName: shlink-db-pv
   
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: sonarr-config-pv
+  name: shlink-db-pv
 spec:
   storageClassName: csi-cephfs-sc
   claimRef:
-    name: sonarr-config
-    namespace: media
+    name: shlink-db
+    namespace: web
   capacity:
-    storage: 2Gi
+    storage: 8Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
@@ -40,7 +40,7 @@ spec:
       "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-media/sonarr/config
+      "rootPath": /volumes/csi/k8s-web/shlink/db
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
-    volumeHandle: sonarr
+    volumeHandle: shlinkdb
