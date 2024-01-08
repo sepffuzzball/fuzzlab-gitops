@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: influxdb
+  namespace: database
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: influxdb
+      version: 5.11.2
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  values:
+    image:
+      repository: bitnami/influxdb
+      tag: 2.7.5
+    volumePermissions:
+      enabled: false
+    auth:
+      admin:
+        password: ${SECRET_INFLUX_PASSWORD}
+    persistence:
+      enabled: true
+      existingClaim: influx-db-pvc
+    containerSecurityContext:
+      enabled: true
+      runAsUser: ${PUID}
+      runAsNonRoot: true
+    podSecurityContext:
+      enabled: true
+      fsGroup: ${PGID}
