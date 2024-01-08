@@ -17,3 +17,6 @@ spec:
     kind: GitRepository
     name: home-kubernetes
   wait: true
+  dependsOn:
+    - name: ceph-csi-cephfs
+      namespace: storage
