@@ -42,6 +42,7 @@ spec:
               - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
               - --crd-source-kind=DNSEndpoint
               - --domain-filter=fzbl.xyz
+              - --domain-filter=fuzzball.enterprises
               - --ingress-class=external
               - --interval=1m
               - --log-format=text
