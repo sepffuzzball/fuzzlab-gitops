@@ -23,6 +23,31 @@ lxcs = {
                 volume = ""
             },
         }
+    },
+    ansible = {
+        name        = "ansible"
+        desc        = "Ansible Semaphore"
+        vmip        = "10.0.2.102/22"
+        vmid        = 102
+        node        = "pvenode02"
+        order       = 5
+        cpus        = 2
+        disk        = 32
+        ram         = 2048
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/ansible/config"
+            },
+            mount2  = {
+                path = "/db"
+                volume = "/mnt/pve/cephfs/ansible/db"
+            }, 
+            mount3  = {
+                path = ""
+                volume = ""
+            },
+        }
     }
 }
 
