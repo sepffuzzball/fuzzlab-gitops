@@ -1,0 +1,9 @@
+ansible
+# for common jinja-filters
+netaddr
+jmespath
+# for common modules
+pywinrm
+passlib
+requests
+docker

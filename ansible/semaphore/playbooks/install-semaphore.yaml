@@ -1,0 +1,76 @@
+---
+- name: Install prerequisites
+  hosts: ansible
+  become: true
+  tasks:
+    - name: Install Python3
+      ansible.builtin.apt:
+        name: python3
+        state: present
+        update_cache: yes
+    - name: Install Python3-pip
+      ansible.builtin.apt:
+        name: python3-pip
+        state: present
+        update_cache: yes
+    - name: Install Python3-venv
+      ansible.builtin.apt:
+        name: python3-venv
+        state: present
+        update_cache: yes
+    - name: Install virtualenv via pip
+      ansible.builtin.pip:
+        name: virtualenv
+        executable: pip3
+
+- name: Create user account
+  hosts: ansible
+  become: true
+  tasks:
+    - name: Create semaphore group
+      ansible.builtin.group:
+        name: semaphore
+        gid: 1069
+        state: present
+    - name: Create semaphore user
+      ansible.builtin.user:
+        name: semaphore
+        uid: 1069
+        groups: sudo,semaphore
+        state: present
+        append: yes
+        #password: 
+
+- name: Install semaphore
+  hosts: ansible
+  become: true
+  tasks:
+    - name: Copy requirements.txt file
+      ansible.builtin.copy:
+        src:  /home/sepfy/git/fuzzlab-gitops/ansible/semaphore/files/requirements.txt
+        dest: "/home/semaphore/requirements.txt"
+        owner: semaphore
+        group: semaphore
+        remote_src: false
+
+    - name: Copy requirements.yml file
+      ansible.builtin.copy:
+        src:  /home/sepfy/git/fuzzlab-gitops/ansible/semaphore/files/requirements.yml
+        dest: "/home/semaphore/requirements.yml"
+        owner: semaphore
+        group: semaphore
+        remote_src: false
+
+       
+    - name: Install requirements
+      ansible.builtin.pip:
+        requirements: '/home/semaphore/requirements.txt'
+        virtualenv: '/home/semaphore/venv'
+        virtualenv_python: python3.5
+        tags:
+          - venv
+        environment: 
+          PATH: "{{ ansible_env.PATH }}:{{ ansible_user_dir }}/.local/bin"
+        #virtualenv_command: 'python3 -m venv'
+        #state: present
+      become_user: 'semaphore'

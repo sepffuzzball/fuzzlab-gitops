@@ -1,0 +1,6 @@
+---
+all:
+  children:
+    semaphore:
+      hosts:
+        ansible:
