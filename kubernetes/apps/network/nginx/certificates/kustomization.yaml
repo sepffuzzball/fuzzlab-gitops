@@ -4,3 +4,5 @@ kind: Kustomization
 resources:
   - ./staging.yaml
   - ./production.yaml
+  - ./fbe-prod.yaml
+  - ./fbe-stage.yaml
