@@ -25,16 +25,16 @@ spec:
     nodeStageSecretRef:
       name: smb-secrets
       namespace: storage
-#---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: lcl-downloads-pvc
-#spec:
-#  accessModes:
-#    - ReadWriteMany
-#  resources:
-#    requests:
-#      storage: 512Gi
-#  storageClassName: lcl-downloads-sc
-#  volumeName: lcl-downloads-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lcl-downloads-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 512Gi
+  storageClassName: lcl-downloads-sc
+  volumeName: lcl-downloads-pv
