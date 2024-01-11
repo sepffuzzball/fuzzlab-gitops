@@ -41,7 +41,7 @@ spec:
           - downloaders
           - monitoring
           - media
-          - networking
+          - network
           - security
     ingress:
       main:
