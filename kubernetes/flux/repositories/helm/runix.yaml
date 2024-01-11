@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: coredns
+  name: runix
   namespace: flux-system
 spec:
   interval: 1h
   timeout: 5m
-  url: https://coredns.github.io/helm
+  url: https://helm.runix.net

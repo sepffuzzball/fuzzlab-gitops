@@ -6,6 +6,6 @@ metadata:
   name: traefik
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 1h
+  timeout: 5m
   url: https://helm.traefik.io/traefik
-  timeout: 3m

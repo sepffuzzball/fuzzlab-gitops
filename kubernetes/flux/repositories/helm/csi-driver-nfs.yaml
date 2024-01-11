@@ -6,4 +6,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
+  timeout: 5m
   url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
