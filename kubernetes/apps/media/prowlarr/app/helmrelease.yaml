@@ -74,8 +74,8 @@ spec:
             - name: tmp
               mountPath: /tmp
             image:
-              repository: ghcr.io/onedr0p/prowlarr-nightly
-              tag: 1.12.1.4191
+              repository: ghcr.io/onedr0p/prowlarr
+              tag: 1.11.4.4173
             env:
               TZ: ${TIMEZONE}
               PROWLARR__INSTANCE_NAME: Prowlarr
