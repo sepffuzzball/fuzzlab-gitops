@@ -46,15 +46,12 @@ data:
         rollOutPods: true
         ingress:
           enabled: true
-          className: external
+          className: internal
           annotations:
             hajimari.io/icon: simple-icons:cilium
-            external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+            #external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hosts:
-            - "hubble.${SECRET_DOMAIN}"
-          tls:
-            - hosts:
-                - "hubble.${SECRET_DOMAIN}"
+            - "hubble.${SECRET_DOMAIN_LOCAL}"
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: "${CLUSTER_CIDR}"
