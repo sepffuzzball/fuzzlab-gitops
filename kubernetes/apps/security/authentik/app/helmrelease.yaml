@@ -77,6 +77,18 @@ spec:
               service:
                 name: main
                 port: http
+        - host: "hubble.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+        - host: "*.${SECRET_DOMAIN}"
+          paths:
+            - path: /(.*)
+              service:
+                name: main
+                port: http
       tls:
         - hosts:
             - *host
