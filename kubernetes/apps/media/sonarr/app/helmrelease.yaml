@@ -118,10 +118,10 @@ spec:
         enabled: true
         className: internal
         annotations:
-          Eexternal-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: television
         hosts:
-          - host: "sonarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "sonarr.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:

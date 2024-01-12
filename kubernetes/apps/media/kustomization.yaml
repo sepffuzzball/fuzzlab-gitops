@@ -6,6 +6,6 @@ resources:
   - ./pv-smb.yaml
   - ./secrets.sops.yaml
   - ./prowlarr/ks.yaml
-  #- ./lidarr/ks.yaml
+  - ./lidarr/ks.yaml
   - ./sonarr/ks.yaml
-  #- ./radarr/ks.yaml
+  - ./radarr/ks.yaml

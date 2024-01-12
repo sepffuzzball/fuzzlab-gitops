@@ -116,26 +116,20 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          #external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: card-search
         hosts:
-          - host: &host "prowlarr.${SECRET_DOMAIN}"
+          - host: &host "prowlarr.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-          - host: "prowlarr.${SECRET_DOMAIN_LOCAL}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
+        #tls:
+        #  - hosts:
+        #      - *host
 
     persistence:
       config:

@@ -36,11 +36,12 @@ spec:
             medium: Memory
         
         pod:
-          labels:
-            egress.home.arpa/internet: allow
-            egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-            ingress.home.arpa/nginx-internal: allow
-            ingress.home.arpa/internal: allow
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            runAsNonRoot: true
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
         
         initContainers:
           01-init-db:
@@ -73,7 +74,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               LIDARR__INSTANCE_NAME: Lidarr
-              LIDARR__PORT: &port 9696
+              LIDARR__PORT: &port 80
               LIDARR__LOG_LEVEL: info
               LIDARR__ANALYTICS_ENABLED: "False"
               LIDARR__AUTHENTICATION_METHOD: External
@@ -111,6 +112,9 @@ spec:
       main:
         enabled: true
         className: internal
+        annotations:
+          #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: music-box
         hosts:
           - host: &host "lidarr.${SECRET_DOMAIN_LOCAL}"
             paths:
@@ -128,9 +132,17 @@ spec:
         mountPath: /config
       downloads:
         enabled: true
-        existingClaim: lcl-downloads-pvc
+        existingClaim: lcl-downloads
         mountPath: /downloads
-      #media:
-      #  enabled: false
-      #  existingClaim:
-      #  mountPath:
+      unprocessed:
+        enabled: true
+        existingClaim: lcl-unprocessed
+        mountPath: /media/unprocessed
+      music:
+        enabled: true
+        existingClaim: lcl-music
+        mountPath: /media/music
+      videos:
+        enabled: true
+        existingClaim: lcl-videos
+        mountPath: /media/videos

@@ -36,11 +36,12 @@ spec:
             medium: Memory
         
         pod:
-          labels:
-            egress.home.arpa/internet: allow
-            egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-            ingress.home.arpa/nginx-internal: allow
-            ingress.home.arpa/internal: allow
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            runAsNonRoot: true
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
         
         initContainers:
           01-init-db:
@@ -73,7 +74,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               RADARR__INSTANCE_NAME: radarr
-              RADARR__PORT: &port 9696
+              RADARR__PORT: &port 80
               RADARR__LOG_LEVEL: info
               RADARR__ANALYTICS_ENABLED: "False"
               RADARR__AUTHENTICATION_METHOD: External
@@ -111,6 +112,9 @@ spec:
       main:
         enabled: true
         className: internal
+        annotations:
+          #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: movie-filter
         hosts:
           - host: &host "radarr.${SECRET_DOMAIN_LOCAL}"
             paths:
@@ -118,18 +122,26 @@ spec:
                 service:
                   name: main
                   path: http
-        tls:
-          - hosts:
-              - *host
+        #tls:
+        #  - hosts:
+        #      - *host
     persistence:
       config:
         enabled: true
         existingClaim: radarr-config
       downloads:
         enabled: true
-        existingClaim: lcl-downloads-pvc
+        existingClaim: lcl-downloads
         mountPath: /downloads
-      #media:
-      #  enabled: false
-      #  existingClaim:
-      #  mountPath:
+      unprocessed:
+        enabled: true
+        existingClaim: lcl-unprocessed
+        mountPath: /media/unprocessed
+      music:
+        enabled: true
+        existingClaim: lcl-music
+        mountPath: /media/music
+      videos:
+        enabled: true
+        existingClaim: lcl-videos
+        mountPath: /media/videos
