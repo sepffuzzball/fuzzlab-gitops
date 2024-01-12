@@ -1,0 +1,146 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app sabnzbd
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: ceph-csi-cephfs
+      namespace: storage
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        volumes:
+        - name: tmp
+          emptyDir:
+            medium: Memory
+        
+        pod:
+          #labels:
+          #  egress.home.arpa/internet: allow
+          #  egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
+          #  ingress.home.arpa/nginx-internal: allow
+          #  ingress.home.arpa/internal: allow
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            runAsNonRoot: true
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
+        
+        containers:
+          main:
+            volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            image:
+              repository: ghcr.io/onedr0p/sabnzbd
+              tag: 4.2.1@sha256:c9f2577a9483ed1a53295ed6315f4ebfcf9e99507c1095f49b5bc2f0cf080179
+            env:
+              TZ: ${TIMEZONE}
+              SABNZBD__PORT: &port 80
+              SABNZBD__HOST_WHITELIST_ENTRIES: >-
+                sabnzbd,
+                sabnzbd.media,
+                sabnzbd.media.svc,
+                sabnzbd.media.svc.cluster,
+                sabnzbd.media.svc.cluster.local,
+                sab.fzbl.xyz,
+                sabnzbd.fzbl.xyz,
+                sab.fzbl.local,
+                sabnzbd.fzbl.local
+              SABNZBD__API_KEY: &apiKey
+                valueFrom:
+                    secretKeyRef:
+                      name: cluster-media-secrets
+                      key: "SECRET_SABNZBD_API_KEY"
+              SABNZBD__NZB_KEY: *apiKey
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api?mode=version
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 18m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        annotations:
+          #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: download-box
+        hosts:
+          - host: &host "sab.${SECRET_DOMAIN_LOCAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        #tls:
+        #  - hosts:
+        #      - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: sabnzbd-config
+      downloads:
+        enabled: true
+        existingClaim: lcl-downloads
+        mountPath: /downloads
+      unprocessed:
+        enabled: true
+        existingClaim: lcl-unprocessed
+        mountPath: /media/unprocessed
+      music:
+        enabled: true
+        existingClaim: lcl-music
+        mountPath: /media/music
+      videos:
+        enabled: true
+        existingClaim: lcl-videos
+        mountPath: /media/videos
