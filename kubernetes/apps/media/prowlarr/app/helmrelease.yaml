@@ -36,11 +36,11 @@ spec:
             medium: Memory
         
         pod:
-          labels:
-            egress.home.arpa/internet: allow
-            egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-            ingress.home.arpa/nginx-internal: allow
-            ingress.home.arpa/internal: allow
+          #labels:
+          #  egress.home.arpa/internet: allow
+          #  egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
+          #  ingress.home.arpa/nginx-internal: allow
+          #  ingress.home.arpa/internal: allow
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -121,13 +121,13 @@ spec:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: card-search
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "prowlarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-          - host: "{{.Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+          - host: "prowlarr.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:
