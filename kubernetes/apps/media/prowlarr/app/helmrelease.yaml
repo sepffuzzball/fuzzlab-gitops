@@ -127,7 +127,7 @@ spec:
         existingClaim: prowlarr-config
       downloads:
         enabled: true
-        existingClaim: lcl-downloads-pvc
+        existingClaim: lcl-downloads
         mountPath: /downloads
       #media:
       #  enabled: false
