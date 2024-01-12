@@ -36,11 +36,17 @@ spec:
             medium: Memory
         
         pod:
-          labels:
-            egress.home.arpa/internet: allow
-            egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-            ingress.home.arpa/nginx-internal: allow
-            ingress.home.arpa/internal: allow
+          #labels:
+          #  egress.home.arpa/internet: allow
+          #  egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
+          #  ingress.home.arpa/nginx-internal: allow
+          #  ingress.home.arpa/internal: allow
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            runAsNonRoot: true
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
         
         initContainers:
           01-init-db:
@@ -73,7 +79,7 @@ spec:
             env:
               TZ: ${TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
-              SONARR__PORT: &port 9696
+              SONARR__PORT: &port 80
               SONARR__LOG_LEVEL: info
               SONARR__ANALYTICS_ENABLED: "False"
               SONARR__AUTHENTICATION_METHOD: External
@@ -110,14 +116,23 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: television
         hosts:
-          - host: &host "sonarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "sonarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   name: main
-                  path: http
+                  port: http
+          - host: "sonarr.${SECRET_DOMAIN_LOCAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
@@ -127,9 +142,17 @@ spec:
         existingClaim: sonarr-config
       downloads:
         enabled: true
-        existingClaim: lcl-downloads-pvc
+        existingClaim: lcl-downloads
         mountPath: /downloads
-      #media:
-      #  enabled: false
-      #  existingClaim:
-      #  mountPath:
+      unprocessed:
+        enabled: true
+        existingClaim: lcl-unprocessed
+        mountPath: /media/unprocessed
+      music:
+        enabled: true
+        existingClaim: lcl-music
+        mountPath: /media/music
+      videos:
+        enabled: true
+        existingClaim: lcl-videos
+        mountPath: /media/videos

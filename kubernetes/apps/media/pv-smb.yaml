@@ -23,6 +23,85 @@ spec:
     nodeStageSecretRef:
       name: smb-secrets
       namespace: storage
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lcl-music-pv
+spec:
+  capacity:
+    storage: 1024Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: lcl-music-sc
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+  csi:
+    driver: smb.csi.k8s.io
+    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: lclmusic
+    volumeAttributes:
+      source: //10.0.2.20/music
+    nodeStageSecretRef:
+      name: smb-secrets
+      namespace: storage
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lcl-unprocessed-pv
+spec:
+  capacity:
+    storage: 1024Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: lcl-unprocessed-sc
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+  csi:
+    driver: smb.csi.k8s.io
+    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: lclunprocessed
+    volumeAttributes:
+      source: //10.0.2.20/unprocessed
+    nodeStageSecretRef:
+      name: smb-secrets
+      namespace: storage
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lcl-videos-pv
+spec:
+  capacity:
+    storage: 1024Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: lcl-videos-sc
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+  csi:
+    driver: smb.csi.k8s.io
+    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: lclvideos
+    volumeAttributes:
+      source: //10.0.2.20/videos
+    nodeStageSecretRef:
+      name: smb-secrets
+      namespace: storage
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -37,3 +116,49 @@ spec:
       storage: 1024Gi
   storageClassName: lcl-downloads-sc
   volumeName: lcl-downloads-pv
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lcl-music
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1024Gi
+  storageClassName: lcl-music-sc
+  volumeName: lcl-music-pv
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lcl-unprocessed
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1024Gi
+  storageClassName: lcl-unprocessed-sc
+  volumeName: lcl-unprocessed-pv
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lcl-videos
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1024Gi
+  storageClassName: lcl-videos-sc
+  volumeName: lcl-videos-pv
