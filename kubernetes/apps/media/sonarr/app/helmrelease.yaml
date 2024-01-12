@@ -116,9 +116,9 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
+        className: internal
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          Eexternal-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: television
         hosts:
           - host: &host "sonarr.${SECRET_DOMAIN}"
@@ -133,9 +133,9 @@ spec:
                 service:
                   name: main
                   port: http
-        tls:
-          - hosts:
-              - *host
+        #tls:
+        #  - hosts:
+        #      - *host
     persistence:
       config:
         enabled: true
