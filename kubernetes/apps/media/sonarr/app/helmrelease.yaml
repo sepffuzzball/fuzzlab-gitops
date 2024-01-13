@@ -141,15 +141,3 @@ spec:
         enabled: true
         existingClaim: lcl-downloads
         mountPath: /downloads
-      unprocessed:
-        enabled: true
-        existingClaim: lcl-unprocessed
-        mountPath: /media/unprocessed
-      music:
-        enabled: true
-        existingClaim: lcl-music
-        mountPath: /media/music
-      videos:
-        enabled: true
-        existingClaim: lcl-videos
-        mountPath: /media/videos

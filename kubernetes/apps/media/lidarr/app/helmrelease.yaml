@@ -148,4 +148,4 @@ spec:
       videos:
         enabled: true
         existingClaim: lcl-videos
-        mountPath: /media/videos
+        mountPath: /media/video

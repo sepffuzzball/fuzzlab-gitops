@@ -32,10 +32,10 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-        volumes:
-        - name: tmp
-          emptyDir:
-            medium: Memory
+        #volumes:
+        #- name: tmp
+        #  emptyDir:
+        #    medium: Memory
         
         pod:
           #labels:
@@ -94,7 +94,7 @@ spec:
                 enabled: false
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              #readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
@@ -136,15 +136,3 @@ spec:
         enabled: true
         existingClaim: lcl-downloads
         mountPath: /downloads
-      unprocessed:
-        enabled: true
-        existingClaim: lcl-unprocessed
-        mountPath: /media/unprocessed
-      music:
-        enabled: true
-        existingClaim: lcl-music
-        mountPath: /media/music
-      videos:
-        enabled: true
-        existingClaim: lcl-videos
-        mountPath: /media/videos
