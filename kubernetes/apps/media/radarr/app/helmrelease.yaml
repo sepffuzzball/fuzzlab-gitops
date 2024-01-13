@@ -129,6 +129,9 @@ spec:
       config:
         enabled: true
         existingClaim: radarr-config
+      lcl:
+        enabled: true
+        existingClaim: lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads

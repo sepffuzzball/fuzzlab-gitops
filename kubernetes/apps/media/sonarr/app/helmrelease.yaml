@@ -134,6 +134,9 @@ spec:
       config:
         enabled: true
         existingClaim: sonarr-config
+      lcl:
+        enabled: true
+        existingClaim: lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads

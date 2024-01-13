@@ -2,6 +2,32 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: lcl-pv
+spec:
+  capacity:
+    storage: 256Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: lcl-sc
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+  csi:
+    driver: smb.csi.k8s.io
+    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: lcl
+    volumeAttributes:
+      source: //10.0.2.20/lcl
+    nodeStageSecretRef:
+      name: smb-secrets
+      namespace: storage
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: lcl-downloads-pv
 spec:
   capacity:
@@ -101,6 +127,22 @@ spec:
     nodeStageSecretRef:
       name: smb-secrets
       namespace: storage
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lcl
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Ti
+  storageClassName: lcl-sc
+  volumeName: lcl-pv
+
 
 ---
 apiVersion: v1

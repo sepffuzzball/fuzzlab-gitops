@@ -130,6 +130,9 @@ spec:
         enabled: true
         existingClaim: lidarr-config
         mountPath: /config
+      lcl:
+        enabled: true
+        existingClaim: lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads

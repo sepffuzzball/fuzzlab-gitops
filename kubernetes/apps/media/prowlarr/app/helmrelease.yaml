@@ -135,6 +135,9 @@ spec:
       config:
         enabled: true
         existingClaim: prowlarr-config
+      lcl:
+        enabled: true
+        existingClaim: lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads
