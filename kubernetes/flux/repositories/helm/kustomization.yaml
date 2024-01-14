@@ -6,6 +6,7 @@ resources:
   - ./backube.yaml
   - ./bitnami.yaml
   - ./bjw-s.yaml
+  - ./blackblackshear.yaml
   - ./ceph-csi.yaml
   - ./cilium.yaml
   - ./csi-driver-smb.yaml
