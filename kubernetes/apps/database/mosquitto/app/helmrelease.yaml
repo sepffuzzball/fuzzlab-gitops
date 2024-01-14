@@ -19,16 +19,17 @@ spec:
     #  email: ${SECRET_ACME_EMAIL}
     #  password: ${SECRET_ACME_PASSWORD}
     ingress:
-      enabled: true
-      ingressClassName: internal
-      hosts:
-        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
-          paths:
-            - path: /
-              pathType: Prefix
-              service:
-                name: main
-                port: http
-      tls:
-        - hosts:
-            - *host
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
