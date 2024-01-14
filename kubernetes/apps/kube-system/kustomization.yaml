@@ -7,5 +7,6 @@ resources:
   - ./coredns/ks.yaml
   #- ./intel-device-plugin/ks.yaml
   - ./metrics-server/ks.yaml
+  - ./node-feature-discovery.yaml
   - ./reloader/ks.yaml
   #- ./system-upgrade-controller/ks.yaml    
