@@ -5,25 +5,22 @@ metadata:
   name: nextcloud-data-pv
 spec:
   capacity:
-    storage: 256Ti
+    storage: 1Mi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: nextcloud-data-sc
+  storageClassName: nfs-nextcloud-sc
   mountOptions:
-    - dir_mode=0750
-    - file_mode=0640
+    - nfsvers=4.1
+  volumeMode: Filesystem
   csi:
-    driver: smb.csi.k8s.io
+    driver: nfs.csi.k8s.io
     # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
     # make sure this value is unique for every share in the cluster
-    volumeHandle: lcl
+    volumeHandle: nextclouddata
     volumeAttributes:
-      source: //10.0.2.20/nextclouddata
-    nodeStageSecretRef:
-      name: smb-secrets
-      namespace: storage
-
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/nextcloud
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -35,6 +32,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1024Gi
-  storageClassName: nextcloud-data-sc
+      storage: 1Mi
+  storageClassName: nfs-nextcloud-sc
   volumeName: nextcloud-data-pv
+  

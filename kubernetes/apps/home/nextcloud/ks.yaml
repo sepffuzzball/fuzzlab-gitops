@@ -20,5 +20,5 @@ spec:
   timeout: 5m
   dependsOn:
     - name: ceph-csi-cephfs
-    - name: csi-driver-smb
+    - name: csi-driver-nfs
     - name: postgresql

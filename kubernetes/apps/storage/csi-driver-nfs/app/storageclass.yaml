@@ -2,11 +2,11 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: lcl-containers
+  name: nfs-nextcloud-sc
 provisioner: nfs.csi.k8s.io
 parameters:
   server: 10.0.2.20
-  share: /lcl/containers
+  share: /lcl/containers/k8s/nextcloud
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions: ["hard", "noatime"]
