@@ -11,8 +11,8 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nextcloud-data-sc
   mountOptions:
-    - dir_mode=0777
-    - file_mode=0777
+    - dir_mode=0770
+    - file_mode=0770
   csi:
     driver: smb.csi.k8s.io
     # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
