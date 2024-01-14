@@ -29,7 +29,7 @@ resource "proxmox_virtual_environment_vm" "k3scluster" {
     }
 
     agent {
-        enabled = false
+        enabled = true
     }
     
     startup {
