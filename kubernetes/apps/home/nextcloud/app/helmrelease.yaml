@@ -1,0 +1,97 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 4.5.10
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    nextcloud:
+      datadir: /var/www/data
+      extraEnv:
+        - name: REDIS_HOST
+          value: redis.database.svc.cluster.local
+        - name: REDIS_HOST_PORT
+          value: "6379"
+      existingSecret:
+        enabled: true
+        secretName: nextcloud
+      host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+      mail:
+        enabled: false
+        fromAddress: admin
+        domain: 
+        smtp:
+          host: 
+          port: 25
+          authtype: NONE
+          name: ""
+          password: ""
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: postgresql.database.svc.cluster.local:5432
+      database: nextcloud
+
+    ingress:
+      enabled: true
+      className: "external"
+      annotations:
+        nginx.ingress.kubernetes.io/proxy-body-size: "10G"
+        nginx.ingress.kubernetes.io/proxy-buffering: "off"
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hajimari.io/icon: cloud-circle
+      hosts:
+        - host: *host 
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      tls:
+        - hosts:
+            - *host 
+
+    persistence:
+      enabled: true
+      existingClaim: nextcloud-config
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-data
+        accessMode: ReadWriteMany
+
+  valuesFrom:
+    - targetPath: externalDatabase.user
+      kind: Secret
+      name: home-secrets
+      valuesKey: NEXTCLOUD_POSTGRES_USER
+    - targetPath: externalDatabase.password
+      kind: Secret
+      name: home-secrets
+      valuesKey: NEXTCLOUD_POSTGRES_PASSWORD
