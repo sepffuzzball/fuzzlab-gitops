@@ -25,7 +25,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
+    image:
+      flavor: fpm
+    nginx:
+      enabled: true
     nextcloud:
       datadir: /var/www/data
       extraEnv:
