@@ -7,6 +7,6 @@ provisioner: nfs.csi.k8s.io
 parameters:
   server: 10.0.2.20
   share: /lcl/containers/k8s/nextcloud
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 volumeBindingMode: Immediate
 mountOptions: ["hard", "noatime"]
