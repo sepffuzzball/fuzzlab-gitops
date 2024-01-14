@@ -36,17 +36,17 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud
-      host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+      host: &host "nextcloud.${SECRET_DOMAIN}"
       mail:
         enabled: false
-        fromAddress: admin
-        domain: 
-        smtp:
-          host: 
-          port: 25
-          authtype: NONE
-          name: ""
-          password: ""
+        #fromAddress: admin
+        #domain: 
+        #smtp:
+        #  host: 
+        #  port: 25
+        #  authtype: NONE
+        #  name: ""
+        #  password: ""
     internalDatabase:
       enabled: false
     externalDatabase:
