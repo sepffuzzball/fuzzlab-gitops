@@ -1,5 +1,0 @@
-nameReference:
-- kind: Secret
-  version: v1
-  fieldSpecs:
-  - path: spec/valuesFrom/name
