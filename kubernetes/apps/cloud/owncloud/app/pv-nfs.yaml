@@ -1,0 +1,248 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-nats-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudnats
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/nats
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-search-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudsearch
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/search
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-storagesystem-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudstoragesystem
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/storagesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-storageusers-pv
+spec:
+  capacity:
+    storage: 2Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudstorageusers
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/storageusers
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-store-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudstore
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/store
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-thumbnails-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudthumbnails
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/thumbnails
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: owncloud-web-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudweb
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/web
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-nats
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-nats-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-search
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-search-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-storagesystem
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-storagesystem-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-storageusers
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Ti
+  storageClassName: nfs-sc
+  volumeName: owncloud-storageusers-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-store
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-store-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-thumbnails
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-thumbnails-pv
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-web
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-web-pv
