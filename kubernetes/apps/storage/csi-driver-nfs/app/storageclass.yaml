@@ -10,3 +10,16 @@ parameters:
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
 mountOptions: ["hard", "noatime"]
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-owncloud-sc
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 10.0.2.20
+  share: /lcl/containers/k8s/owncloud
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions: ["hard", "noatime"]

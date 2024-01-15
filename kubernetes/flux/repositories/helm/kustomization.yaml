@@ -21,6 +21,7 @@ resources:
   - ./influxdata.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml
+  - ./jacobcolvin.yaml
   - ./jetstack.yaml
   - ./k8s-at-home.yaml
   - ./k8s-gateway.yaml
