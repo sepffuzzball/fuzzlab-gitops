@@ -9,7 +9,7 @@ spec:
   timeout: 5m
   url: https://github.com/owncloud/ocis-charts
   ref:
-    branch: main
+    branch: master
   ignore: |-
     # exclude all
     /*
