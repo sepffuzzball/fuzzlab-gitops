@@ -51,9 +51,9 @@ spec:
         #  name: ""
         #  password: ""
     internalDatabase:
-      enabled: false
-    externalDatabase:
       enabled: true
+    externalDatabase:
+      enabled: false
       type: postgresql
       host: postgresql.database.svc.cluster.local:5432
       database: nextcloud
