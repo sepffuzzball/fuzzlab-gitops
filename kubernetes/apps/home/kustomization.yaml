@@ -5,5 +5,5 @@ resources:
   - ./namespace.yaml
  # - ./frigate/ks.yaml
  # - ./nextcloud/ks.yaml
- # - ./owncloud/ks.yaml
+  - ./owncloud/ks.yaml
   - ./secrets.sops.yaml 
