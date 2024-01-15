@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     image:
-      flavor: fpm
+      flavor: fpm-alpine
     nginx:
       enabled: false
     nextcloud:
