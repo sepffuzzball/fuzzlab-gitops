@@ -14,8 +14,9 @@ spec:
         kind: GitRepository
         name: owncloud
         namespace: flux-system
-      valuesFiles:
-        - values.yaml
+  valuesFrom:
+    - kind: Secret
+      name: owncloud-secret
   maxHistory: 2
   install:
     remediation:
