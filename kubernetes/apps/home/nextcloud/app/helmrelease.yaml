@@ -26,9 +26,9 @@ spec:
     keepHistory: false
   values:
     image:
-      flavor: fpm-alpine
+      flavor: fpm
     nginx:
-      enabled: true
+      enabled: false
     nextcloud:
       datadir: /var/www/data
       extraEnv:
@@ -51,9 +51,9 @@ spec:
         #  name: ""
         #  password: ""
     internalDatabase:
-      enabled: true
-    externalDatabase:
       enabled: false
+    externalDatabase:
+      enabled: true
       type: postgresql
       host: postgresql.database.svc.cluster.local:5432
       database: nextcloud
