@@ -8,6 +8,6 @@ resources:
 secretGenerator:
   - name: owncloud-secret
     files:
-      - values.yaml = my-values.enc.yaml
+      - values.yaml=my-values.enc.yaml
 configurations:
   - kustomizeconfig.yaml
