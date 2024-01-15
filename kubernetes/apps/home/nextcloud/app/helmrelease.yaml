@@ -26,9 +26,9 @@ spec:
     keepHistory: false
   values:
     image:
-      flavor: fpm-alpine
+      flavor: fpm
     nginx:
-      enabled: false
+      enabled: true
     nextcloud:
       datadir: /var/www/data
       extraEnv:
@@ -62,6 +62,8 @@ spec:
       enabled: true
       className: "external"
       annotations:
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/proxy-body-size: "10G"
         nginx.ingress.kubernetes.io/proxy-buffering: "off"
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
