@@ -15,7 +15,14 @@ spec:
         name: blakeblackshear
         namespace: flux-system
   values:
-
+    image:
+      # -- Docker registry/repository to pull the image from
+      repository: ghcr.io/blakeblackshear/frigate
+      # -- Overrides the default tag (appVersion) used in Chart.yaml ([Docker Hub](https://hub.docker.com/r/blakeblackshear/frigate/tags?page=1))
+      tag: 0.12.0
+      # -- Docker image pull policy
+      pullPolicy: IfNotPresent
+      
     coral:
       enabled: false
       hostpath: "/dev/bus/usb"
@@ -27,7 +34,7 @@ spec:
         external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hajimari.io/icon: video-input-antenna
       hosts:
-        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+        - host: &host "frigate.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
