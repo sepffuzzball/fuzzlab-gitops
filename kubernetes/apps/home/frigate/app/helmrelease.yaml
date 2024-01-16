@@ -4,6 +4,8 @@ kind: HelmRelease
 metadata:
   name: frigate
   namespace: home
+  labels:
+    app.kubernetes.io/name: jellyfin
 spec:
   interval: 10m
   chart:
