@@ -80,7 +80,7 @@ spec:
           apps.kubernetes.io/pod-index: "0"
         type: LoadBalancer
         externalTrafficPolicy: Local
-        loadBalancerIP: ${ADGUARD_ADDR}
+        #loadBalancerIP: ${ADGUARD_ADDR}
         ports:
           http:
             port: 3000
@@ -90,7 +90,7 @@ spec:
           apps.kubernetes.io/pod-index: "0"
         type: LoadBalancer
         externalTrafficPolicy: Local
-        loadBalancerIP: ${ADGUARD_DNS_ADDR}
+        #loadBalancerIP: ${ADGUARD_DNS_ADDR}
         ports:
           dns-tcp:
             port: 53
@@ -107,7 +107,7 @@ spec:
         <<: *origin-dns
         extraSelectorLabels:
           apps.kubernetes.io/pod-index: "1"
-        loadBalancerIP: ${ADGUARD_REPLICA_ADDR}
+        #loadBalancerIP: ${ADGUARD_REPLICA_ADDR}
 
     ingress:
       origin: &ingress
