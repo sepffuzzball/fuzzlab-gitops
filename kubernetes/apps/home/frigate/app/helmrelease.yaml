@@ -28,7 +28,7 @@ spec:
         ffmpeg:
           inputs:
             #- path: rtsp://10.0.1.1:7447/GoolnFMF6Jz7ZKrF #Unifi Protect
-            - path: rtsp://admin:Anniv60023110@10.0.5.101:554/cam/realmonitor?channel=1&subtype=0&authbasic=64
+            - path: rtsp://admin:${SECRET_ACME_PASSWORD}@10.0.5.101:554/cam/realmonitor?channel=1&subtype=0&authbasic=64
               roles:
                 - detect
                 - rtmp
@@ -55,9 +55,12 @@ spec:
           min_area: 5000
     ingress:
       enabled: true
-      ingressClassName: internal
+      ingressClassName: internal  
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hajimari.io/icon: video-input-antenna
       hosts:
-        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
