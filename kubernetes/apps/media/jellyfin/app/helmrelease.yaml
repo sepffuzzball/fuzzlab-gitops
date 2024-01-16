@@ -31,13 +31,13 @@ spec:
           hajimari.io/icon: simple-icons:jellyfin
           hajimari.io/group: Media
         hosts:
-          - host: &host "jellyfin.${SECRET_DOMAIN}"
+          - host: &host "jellyfin.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 pathType: Prefix
-        tls:
-          - hosts:
-              - *host
+        #tls:
+        #  - hosts:
+        #      - *host
             
     podSecurityContext:
       securityContext:
