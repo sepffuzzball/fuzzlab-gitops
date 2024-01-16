@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storage-users # default for configRefs.storageusersConfigRef
+data:
+  storage-uuid: a7e6ac5d-3d88-4c39-8d6c-edbc675d77b9
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graph # default for configRefs.graphConfigRef
+data:
+  application-id: 228c5091-71cf-408e-ba06-eb865aa17d33
