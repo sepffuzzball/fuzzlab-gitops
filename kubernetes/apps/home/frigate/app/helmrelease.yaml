@@ -15,44 +15,11 @@ spec:
         name: blakeblackshear
         namespace: flux-system
   values:
+
     coral:
       enabled: false
       hostpath: "/dev/bus/usb"
-    mqtt:
-      host: 10.0.2.10
-      port: 1883
-      user: mqtt
-      password: ${SECRET_ACME_PASSWORD}
-    cameras:
-      front_door:
-        ffmpeg:
-          inputs:
-            #- path: rtsp://10.0.1.1:7447/GoolnFMF6Jz7ZKrF #Unifi Protect
-            - path: rtsp://admin:${SECRET_ACME_PASSWORD}@10.0.5.101:554/cam/realmonitor?channel=1&subtype=0&authbasic=64
-              roles:
-                - detect
-                - rtmp
-        detect:
-          width: 1280
-          height: 720
-    record:
-      enabled: True
-      events:
-        retain:
-          default: 10
-    motion:
-      mask:
-        - 1250,720,1065,366,605,358,609,78,981,89,1034,359,1086,372,1068,0,537,0,552,720
-        - 313,134,0,170,0,0,458,0,468,720,0,720,0,464,297,434
-    objects:
-      track:
-        - person
-        - dog
-        - cat
-        #- bird
-      filters:
-        person:
-          min_area: 5000
+    
     ingress:
       enabled: true
       ingressClassName: internal  
@@ -70,3 +37,41 @@ spec:
       tls:
         - hosts:
             - *host
+
+
+    config: |  
+      mqtt:
+        host: 10.0.2.10
+        port: 1883
+        user: mqtt
+        password: ${SECRET_ACME_PASSWORD}
+      cameras:
+        front_door:
+          ffmpeg:
+            inputs:
+              #- path: rtsp://10.0.1.1:7447/GoolnFMF6Jz7ZKrF #Unifi Protect
+              - path: rtsp://admin:${SECRET_ACME_PASSWORD}@10.0.5.101:554/cam/realmonitor?channel=1&subtype=0&authbasic=64
+                roles:
+                  - detect
+                  - rtmp
+          detect:
+            width: 1280
+            height: 720
+      record:
+        enabled: True
+        events:
+          retain:
+            default: 10
+      motion:
+        mask:
+          - 1250,720,1065,366,605,358,609,78,981,89,1034,359,1086,372,1068,0,537,0,552,720
+          - 313,134,0,170,0,0,458,0,468,720,0,720,0,464,297,434
+      objects:
+        track:
+          - person
+          - dog
+          - cat
+          #- bird
+        filters:
+          person:
+            min_area: 5000
