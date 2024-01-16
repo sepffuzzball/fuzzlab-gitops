@@ -37,6 +37,7 @@ spec:
           volumeClaimTemplates:
             - existingClaim: adguard-config
               size: 2Gi
+              accessMode: ['ReadWriteMany']
       
       sync:
         containers:
