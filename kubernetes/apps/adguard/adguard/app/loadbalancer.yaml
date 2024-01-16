@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: adguard
-  namespace: network
+  namespace: adguard
 spec:
   selector:
     app.kubernetes.io/name: adguard
