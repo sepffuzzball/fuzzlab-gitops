@@ -35,9 +35,15 @@ spec:
         
         statefulset:
           volumeClaimTemplates:
-            - existingClaim: adguard-config
+            - name: data
+              storageClass: csi-cephfs-sc
               size: 2Gi
               accessMode: ReadWriteMany
+              globalMounts:
+                - path: /opt/adguardhome/conf
+                  subPath: conf
+                - path: /opt/adguardhome/work
+                  subPath: work
       
       sync:
         containers:
