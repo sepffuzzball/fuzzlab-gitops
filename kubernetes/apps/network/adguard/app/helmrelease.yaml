@@ -78,6 +78,9 @@ spec:
         controller: main
         extraSelectorLabels:
           apps.kubernetes.io/pod-index: "0"
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        loadBalancerIP: ${ADGUARD_ADDR}
         ports:
           http:
             port: 3000
@@ -87,7 +90,7 @@ spec:
           apps.kubernetes.io/pod-index: "0"
         type: LoadBalancer
         externalTrafficPolicy: Local
-        loadBalancerIP: ${ADGUARD_ADDR}
+        loadBalancerIP: ${ADGUARD_DNS_ADDR}
         ports:
           dns-tcp:
             port: 53
