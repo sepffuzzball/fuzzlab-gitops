@@ -28,22 +28,23 @@ spec:
       hostpath: "/dev/bus/usb"
     
     ingress:
-      enabled: true
-      ingressClassName: external  
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hajimari.io/icon: video-input-antenna
-      hosts:
-        - host: &host "frigate.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-              service:
-                name: main
-                port: http
-      tls:
-        - hosts:
-            - *host
+      main: 
+        enabled: true
+        ingressClassName: external  
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          hajimari.io/icon: video-input-antenna
+        hosts:
+          - host: &host "frigate.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *host
 
 
     config: |  
