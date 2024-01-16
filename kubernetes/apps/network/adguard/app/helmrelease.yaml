@@ -36,6 +36,7 @@ spec:
         statefulset:
           volumeClaimTemplates:
             - existingClaim: adguard-config
+              size: 2Gi
       
       sync:
         containers:
