@@ -69,6 +69,9 @@ spec:
         ports:
           http:
             port: 3000
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        #loadBalancerIP: ${ADGUARD_ADDR}
       sync:
         controller: sync
         ports:
