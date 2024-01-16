@@ -5,6 +5,7 @@ resources:
   - ./pv-ceph.yaml
   - ./pv-nfs.yaml
   - ./helmrelease.yaml
+  - ./secrets.sops.yaml
 secretGenerator:
   - name: owncloud-secret
     files:
