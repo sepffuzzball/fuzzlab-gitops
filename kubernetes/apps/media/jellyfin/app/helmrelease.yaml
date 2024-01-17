@@ -39,7 +39,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     controllers:
       main:
-        type: statefulset
+        #type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -76,14 +76,14 @@ spec:
               limits:
                 #gpu.intel.com/i915: 1
                 memory: 4Gi
-        statefulset:
-          volumeClaimTemplates:
-            - name: jellyfin-config
-              accessMode: ReadWriteMany
-              size: 50Gi
-              storageClass: csi-cephfs-sc
-              globalMounts:
-                - path: /config
+        #statefulset:
+        #  volumeClaimTemplates:
+        #    - name: jellyfin-config
+        #      accessMode: ReadWriteMany
+        #      size: 50Gi
+        #      storageClass: csi-cephfs-sc
+        #      globalMounts:
+        #        - path: /config
     service:
       main:
         type: LoadBalancer
