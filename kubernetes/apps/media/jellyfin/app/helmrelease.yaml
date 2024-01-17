@@ -88,7 +88,7 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: *loadBalancerIP
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 8096
