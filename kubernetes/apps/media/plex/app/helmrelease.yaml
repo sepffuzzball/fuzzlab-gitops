@@ -70,10 +70,11 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
+                cpu: 10m
               limits:
                 #gpu.intel.com/i915: 1
-                memory: 16Gi
+                cpu: 100m
+                memory: 4Gi
         pod:
           # affinity:
           #   podAntiAffinity:
