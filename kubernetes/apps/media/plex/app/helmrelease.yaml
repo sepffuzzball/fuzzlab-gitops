@@ -1,0 +1,122 @@
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app plex
+  namespace: media
+  labels:
+    app.kubernetes.io/name: plex
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    defaultPodOptions:
+      enableServiceLinks: false
+      #nodeSelector:
+      #  intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        runAsUser: ${PUID}
+        runAsGroup: ${PGID}
+        fsGroup: ${PGID}
+        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      main:
+        #type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/plex-beta
+              tag: 1.40.0.7775-456fbaf97@sha256:cd6bafd8cf9f75c2d5b6517de312a82a986049f89f089da74b6bdb23928b8b37
+            env:
+              TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: 32400
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                #gpu.intel.com/i915: 1
+                memory: 16Gi
+        pod:
+          # affinity:
+          #   podAntiAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #       - labelSelector:
+          #           matchExpressions:
+          #             - key: app.kubernetes.io/name
+          #               operator: In
+          #               values: ["frigate"]
+          #         topologyKey: kubernetes.io/hostname
+          # nodeSelector:
+          #   intel.feature.node.kubernetes.io/gpu: "true"
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            runAsNonRoot: true
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
+            #supplementalGroups: [44, 105, 10000]
+    service:
+      main:
+        type: LoadBalancer
+        #annotations:
+        #  io.cilium/lb-ipam-ips: 192.168.42.210
+        loadBalancerIP: *loadBalancerIP
+        externalTrafficPolicy: Cluster
+        ports:
+          http:
+            port: 32400
+    #ingress:
+    #  main:
+    #    enabled: true
+    #    className: internal
+    #    annotations:
+    #      hajimari.io/icon: simple-icons:plex
+    #    hosts:
+    #      - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+    #        paths:
+    #          - path: /
+    #            service:
+    #              name: main
+    #              port: http
+        #tls:
+        #  - hosts:
+        #      - *host
+    
