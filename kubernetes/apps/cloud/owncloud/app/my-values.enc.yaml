@@ -65,7 +65,7 @@ debug:
 deploymentStrategy:
     type: ENC[AES256_GCM,data:+gAsaKTUhIWct4VSSw==,iv:CbdGxy22ec3l/VLjKh1+tcQ7TAqwEHC71uyfswUn6ao=,tag:O7RSIyehKUVBC93WVt1ruA==,type:str]
 #ENC[AES256_GCM,data:NsRG5Vw1mE37ahMGRzLOjQh9BMJiLPb7rHFLUbCBTNowCPlRjevEWxDPDUxOfbaxvFsRHsranx0=,iv:kkctFrHAcFdejU1i2hxmOJGxgAEClfm3hEbIQNOKH+w=,tag:nPWKT58UBO8KoAElVt8HPw==,type:comment]
-externalDomain: ENC[AES256_GCM,data:k75MGaLuVZ5rtE3YYbU=,iv:WBIn1W9kmwHNRB6zh55mRJigmYZVMrROCdr9Xz6T1ZU=,tag:beCXYBAqHyR/cnkKy66ntQ==,type:str]
+externalDomain: ENC[AES256_GCM,data:fRakfXbVxssb+ZA90LVxiw==,iv:sHtr2SdypQ6tzrF5ss/GyMlg0VzSXAUo5jQ8k80TwcA=,tag:/hYenRBWfTNc4KF/osVmmQ==,type:str]
 #ENC[AES256_GCM,data:dfU10VEDDV43vXOneaf+4Aki,iv:Pkghm/LcSkHwh9kIxv2Qw5wWOHSREtVAMDMXJpkTlu4=,tag:TqnAAWAkjSkrKWNJypZjuA==,type:comment]
 #ENC[AES256_GCM,data:9AsxZsKY9TpMRodXfhyomhLxfyqtPkxPa284uPotyeMcbVoNeMFgS9W1EkVJlQ4dt9VxXswlmCvyQgp9TpnNQkL56a3lQOiD80Rmj68=,iv:S6QjFHtJSpEeJ93kZhdhnnPMQpW/pq8rHDCLS6EFQE0=,tag:Wap/BMLX/0FbgTSe5NsUQQ==,type:comment]
 insecure:
@@ -1765,8 +1765,8 @@ sops:
             MEkwcXVhKy9tMDFFRTE0NytmR2pJcDAKpoXVSCXEU1JKNKpPvdlFTHBmwoTgdxNn
             hCy9Z7IDejLWdqKdtqbPQ5cux9HBKIqB8fYnSkhRQAtehdu7eH2LqA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-17T11:16:57Z"
-    mac: ENC[AES256_GCM,data:3sJiCmCPE4oSB+l1bhLc4s8EJD8HVxPeyLiU5Ps/OHw90VgPLT6s6oyw4JtiUVqP3XCv1fv/zJqa1wMvQDXN/4INw4Zsb5YxP+Lo1AMJ0NNY4FQQNAwE2+tHW20cLH6NcVf3fR85ZxEdPH35PMz8o8MzKGTZ/I6vlbere/Y/Zs4=,iv:BDoYFCmC78fjITYu2QiWoz3w9drnf2mfp6ktlRsUq8g=,tag:IliygKbYV4lfh+bh+Xehpw==,type:str]
+    lastmodified: "2024-01-17T11:22:02Z"
+    mac: ENC[AES256_GCM,data:+zPOJG4EnHSQ+0mn+rAMpWykCbI4LkLugxEZMr55p1GJhl53+nVs/Ws6iIdl+WnWLN4i31pyX0oApAVn1GXXFJcLuI/DUlpe/Z5x8X/HuSyavIFnFnJNRAsYUKpq5povEF+QDawvBVRN1JXKjd9kZiw3ZHbJbH2agt1jmhikkrY=,iv:8UML0CpuZ2JuS8sTXEtdtZyfrUA0nDPzpry6kb4CdDU=,tag:MLBaQ9PoBtRuaVga1eJK6Q==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.1
