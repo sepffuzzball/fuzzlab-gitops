@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: cert-manager
   path: ./kubernetes/apps/monitoring/uptime-kuma/app
   prune: true
   sourceRef:
