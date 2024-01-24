@@ -54,11 +54,11 @@ spec:
             args: [run]
             env:
               ORIGIN_URL: http://adguard-home-origin:3000
-              ORIGIN_WEB_URL: https://adguard.fzbl.xyz
+              ORIGIN_WEB_URL: https://adguard-home-origin.fzbl.xyz
               ORIGIN_USERNAME: admin
               ORIGIN_PASSWORD: ${SECRET_POSTGRES_PASSWORD}
               REPLICA_URL: http://adguard-home-replica:3000
-              REPLICA_WEB_URL: https://replica.adguard.fzbl.xyz
+              REPLICA_WEB_URL: https://adguard-home-replica.fzbl.xyz
               REPLICA_USERNAME: admin
               REPLICA_PASSWORD: ${SECRET_POSTGRES_PASSWORD}
               REPLICA_AUTO_SETUP: "true"
