@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kuma-config
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: csi-cephfs-sc
+  volumeName: kuma-config-pv
+  
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kuma-config-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  claimRef:
+    name: kuma-config
+    namespace: monitoring
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: storage
+    volumeAttributes:
+      # Required options from storageclass parameters need to be added in volumeAttributes
+      "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
+      "fsName": "k8s-cephfs"
+      "staticVolume": "true"
+      "rootPath": /volumes/csi/k8s-monitoring/kuma/config
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: kuma
