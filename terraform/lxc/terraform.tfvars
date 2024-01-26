@@ -65,8 +65,8 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/palworld/config"
             },
             mount2  = {
-                path = ""
-                volume = ""
+                path = "/db"
+                volume = "/mnt/pve/cephfs/palworld/db"
             }, 
             mount3  = {
                 path = ""
