@@ -48,6 +48,31 @@ lxcs = {
                 volume = ""
             },
         }
+    },
+    ansible = {
+        name        = "palworld01"
+        desc        = "Palworld dedicated server"
+        vmip        = "10.0.2.103/22"
+        vmid        = 103
+        node        = "pvenode02"
+        order       = 5
+        cpus        = 6
+        disk        = 32
+        ram         = 32768
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/palworld/config"
+            },
+            mount2  = {
+                path = ""
+                volume = ""
+            }, 
+            mount3  = {
+                path = ""
+                volume = ""
+            },
+        }
     }
 }
 
