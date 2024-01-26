@@ -49,7 +49,7 @@ lxcs = {
             },
         }
     },
-    ansible = {
+    palworld01 = {
         name        = "palworld01"
         desc        = "Palworld dedicated server"
         vmip        = "10.0.2.103/22"
