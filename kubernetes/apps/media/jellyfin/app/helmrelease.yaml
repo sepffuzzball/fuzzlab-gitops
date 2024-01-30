@@ -84,14 +84,14 @@ spec:
         #      storageClass: csi-cephfs-sc
         #      globalMounts:
         #        - path: /config
-    service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: *loadBalancerIP
-        externalTrafficPolicy: Cluster
-        ports:
-          http:
-            port: 8096
+    #service:
+    #  main:
+    #    type: LoadBalancer
+    #    loadBalancerIP: *loadBalancerIP
+    #    externalTrafficPolicy: Cluster
+    #    ports:
+    #      http:
+    #        port: 8096
     #ingress:
     #  main:
     #    enabled: true
