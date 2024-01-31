@@ -9,3 +9,8 @@ spec:
   type: LoadBalancer
   loadBalancerIP: ${JELLYFIN_ADDR}
   externalTrafficPolicy: Cluster
+  ports:
+    - port: 8096
+      targetPort: 8096
+      name: web
+      protocol: TCP
