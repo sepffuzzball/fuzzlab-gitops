@@ -104,10 +104,10 @@ spec:
                     key: "SONARR_0_API_KEY"
             resources:
               requests:
-                cpu: 18m
+                cpu: 100m
                 memory: 128Mi
               limits:
-                memory: 256Mi
+                memory: 1024Mi
     service:
       main:
         ports:
