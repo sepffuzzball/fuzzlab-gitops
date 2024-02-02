@@ -85,8 +85,8 @@ spec:
               SEND_REGISTRATION_MAIL: false
               SEND_ERROR_MESSAGE: false
               SEND_LOGIN_NEW_IP_WARNING: false
-              COOKIE_DOMAIN: "${SECRET_DOMAIN_LOCAL}"
-              COOKIE_SECURE: "true"
+              COOKIE_DOMAIN: "firefly.${SECRET_DOMAIN_LOCAL}"
+              COOKIE_SECURE: "false"
               COOKIE_SAMESITE: "lax"
               AUTHENTICATION_GUARD: "remote_user_guard"
               AUTHENTICATION_GUARD_HEADER: "X-authentik-uid"
