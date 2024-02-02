@@ -93,7 +93,7 @@ spec:
               # FIREFLY_III_LAYOUT: v2
             envFrom:
               - secretRef:
-                  name: home-secrets
+                  name: firefly-secrets
             resources:
               requests:
                 cpu: 100m
