@@ -5,3 +5,4 @@ resources:
   - helmrelease.yaml
   #- loadbalancer.yaml
   - pv-ceph.yaml
+  - secrets.sops.yaml
