@@ -116,9 +116,9 @@ spec:
         annotations:
           hajimari.io/icon: mdi:cash
           nginx.ingress.kubernetes.io/auth-url: |-
-            http://ak-outpost-authentik-embedded-outpost.security.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+            http://authentik.security.svc.cluster.local:9300/outpost.goauthentik.io/auth/nginx
           nginx.ingress.kubernetes.io/auth-signin: |-
-            https://cash.skylab.fi/outpost.goauthentik.io/start?rd=$escaped_request_uri
+            https://firefly.fzbl.xyz/outpost.goauthentik.io/start?rd=$escaped_request_uri
           nginx.ingress.kubernetes.io/auth-response-headers: |-
             Set-Cookie,X-authentik-username,X-authentik-uid,X-authentik-email
           nginx.ingress.kubernetes.io/auth-snippet: |
