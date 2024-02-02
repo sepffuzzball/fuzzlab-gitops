@@ -78,6 +78,8 @@ spec:
               DB_CONNECTION: "pgsql"
               DB_HOST: *postgres
               DB_PORT: "5432"
+              DB_DATABASE: firefly
+              DB_USERNAME: firefly_postgres_user
               MAIL_MAILER: log
               TRUSTED_PROXIES: "**" # TODO: This should be changed..
               SEND_REGISTRATION_MAIL: false
