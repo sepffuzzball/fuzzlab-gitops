@@ -17,12 +17,12 @@
         - /config:/config
       restart_policy: unless-stopped
       env:
-        - PUID=1100
-        - PGID=1100
-        - TZ=America/New_York
-        - EMAIL=kylemunn@gmail.com
-        - VALIDATION=dns
-        - DNSPLUGIN=cloudflare
-        - URL=fuzzball.me
-        - SUBDOMAINS=wildcard
-        - EXTRA_DOMAINS=*.fuzzball.me,sepffuzzball.com,*.sepffuzzball.com,kylemunn.com,*.kylemunn.com,fuzzball.social,*.fuzzball.social
+        PUID: "1100"
+        PGID: "1100"
+        TZ: "America/New_York"
+        EMAIL: "kylemunn@gmail.com"
+        VALIDATION: "dns"
+        DNSPLUGIN: "cloudflare"
+        URL: "fuzzball.me"
+        SUBDOMAINS: "wildcard"
+        EXTRA_DOMAINS: "*.fuzzball.me,sepffuzzball.com,*.sepffuzzball.com,kylemunn.com,*.kylemunn.com,fuzzball.social,*.fuzzball.social"
