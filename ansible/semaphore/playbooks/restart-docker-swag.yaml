@@ -1,0 +1,14 @@
+---
+- name: Restart SWAG
+  hosts: swag
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+
+  tasks:
+    - name: Bounce Service
+      community.docker.docker_container:
+        restart: true
+        state: started
+        name: swag
+      timeout: 60
