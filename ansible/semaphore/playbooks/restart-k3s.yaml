@@ -1,0 +1,12 @@
+---
+- name: Restart K3s
+  hosts: all
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+
+  tasks:
+    - name: Bounce Service
+      ansible.builtin.systemd_service:
+        state: restarted
+        name: k3s
