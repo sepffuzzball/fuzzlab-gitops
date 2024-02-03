@@ -30,6 +30,30 @@
         group: root
         mode: u=rw,g=r,o=r
 
+    # - name: shell - create samba users
+    #   ansible.builtin.shell: >
+    #     set -e -o pipefail
+    #     && (pdbedit --user={{ username }} 2>&1 > /dev/null)
+    #     || (echo '{{ password }}'; echo '{{ password }}')
+    #     | smbpasswd -s -a {{ username }}
+    #   args:
+    #     executable: /bin/bash
+    #   register: samba_create_users
+    #   changed_when: "'Added user' in samba_create_users.stdout"
+    #   no_log: true
+
+    # - name: shell - set samba passwords correctly
+    #   ansible.builtin.shell: >
+    #     set -e -o pipefail
+    #     && (smbclient -U {{ username }}%{{ password }} -L 127.0.0.1 2>&1 > /dev/null)
+    #     || (echo '{{ password }}'; echo '{{ password }}')
+    #     | smbpasswd {{ username }}
+    #   args:
+    #     executable: /bin/bash
+    #   register: samba_verify_users
+    #   changed_when: "'New SMB password' in samba_verify_users.stdout"
+    #   no_log: true
+
     - name: Restart samba
       ansible.builtin.service:
         name: smbd.service
