@@ -22,12 +22,10 @@
         name: python3-pexpect
         state: present
 
-    - name: Create Samba configuration
-      ansible.builtin.template:
-        src: ../files/samba.conf.j2
+    - name: Update samba configuration
+      ansible.builtin.copy:
+        src: ../files/smb.conf
         dest: /etc/samba/smb.conf
         owner: root
         group: root
-        mode: u=rw,go=r
-
-    
+        mode: u=rw,g=r,o=r
