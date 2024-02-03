@@ -61,7 +61,7 @@ lxcs = {
         ram         = 32768
         mounts      = {
             mount1  = {
-                path = "/config"
+                path = "/home/steam"
                 volume = "/mnt/pve/cephfs/palworld/config"
             },
             mount2  = {
