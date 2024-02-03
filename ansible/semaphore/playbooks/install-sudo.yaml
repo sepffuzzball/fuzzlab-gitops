@@ -1,6 +1,6 @@
 ---
 - name: Install sudo
-  hosts: ansible
+  hosts: all
   tasks:
     - name: Install Sudo
       ansible.builtin.apt:

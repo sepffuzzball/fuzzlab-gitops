@@ -1,5 +1,5 @@
 ---
-- hosts: rancher
+- hosts: all
   tasks:
     - name: Install Sudo
       ansible.builtin.apt:

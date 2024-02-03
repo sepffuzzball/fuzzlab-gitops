@@ -1,5 +1,5 @@
 - name: Playbook to install sops
-  hosts: rancher
+  hosts: all
   tasks:
     # To use the sops_encrypt module on a remote host, you need to install sops on it:
     - name: Install sops on remote hosts

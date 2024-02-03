@@ -1,5 +1,5 @@
 ---
-- hosts: rancher
+- hosts: all
   become: true
   tasks:
     - name: Install NFS Common

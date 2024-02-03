@@ -1,6 +1,6 @@
 ---
 - name: Install prerequisites
-  hosts: ansible
+  hosts: all
   become: true
   tasks:
     - name: Install Python3
@@ -20,7 +20,7 @@
         update_cache: yes
 
 - name: Create user account
-  hosts: ansible
+  hosts: all
   become: true
   tasks:
     - name: Create semaphore group
@@ -38,7 +38,7 @@
         #password: 
 
 - name: Install semaphore
-  hosts: ansible
+  hosts: all
   become: true
   tasks:
     - name: Copy requirements.txt file
