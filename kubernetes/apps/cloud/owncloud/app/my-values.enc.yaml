@@ -137,7 +137,7 @@ features:
     basicAuthentication: ENC[AES256_GCM,data:ovsvqw==,iv:lhavfOFb25VT31CLBXjzrT0crV6y2JhToG6qO4uMVcc=,tag:ndnuas4fGsLc91DA2v4n+A==,type:bool]
     #ENC[AES256_GCM,data:TKPGv8IjMyYwrcQkVCynNRH6Wrwwp3dMtuhb2oU0OEsPDU/opnoEHbjmpQ==,iv:ElaqqIbA7RLADKFX/BCy1FOmmEjsXlnp1hgnaYt/+ec=,tag:CkpimRrn38TPGF8AoggHrg==,type:comment]
     #ENC[AES256_GCM,data:LO7IaEx8lOJgbp26zD++ZoynexMbKae8lzPgZFbzT9z5L3nyBscPDwK4Y9k88A==,iv:hOrmQ/rINzjgXn8Y5U14O6sMci4PmjLCM3R7rc6ckLI=,tag:MnwTCZL978JK797zxGHhEA==,type:comment]
-    demoUsers: ENC[AES256_GCM,data:6HJDm3U=,iv:8oTGhqJ8uIPg/l6tRmMPMywf005AQWKeasFLqB/tyDE=,tag:Erv1C8ZgKVCAk3GzPInRpw==,type:bool]
+    demoUsers: ENC[AES256_GCM,data:tnXdeA==,iv:IqYfNGBsvxNRtzgceB0GszB6Otw7AoYMEKDJWX8dEk4=,tag:JiR6kuu50wUoMpKln9rVNg==,type:bool]
     emailNotifications:
         #ENC[AES256_GCM,data:+NSz+H/MwuGZuESTU33UoDX71+AMJBJtYj6Pg3xtnWk=,iv:ItFjsirRIzIdDbJnw4mMaMncWiHAxaJlpo6/GXQ1nq4=,tag:hzOjh2+qC+VCQobbZvSixg==,type:comment]
         enabled: ENC[AES256_GCM,data:WegAKvg=,iv:N+7NEFw4lehLIwPcJUgZzTsj7ZOPgyWi1EpR/kIqT7s=,tag:otJDpmV9whm6Q9N5jmulUg==,type:bool]
@@ -1758,8 +1758,8 @@ sops:
             MEkwcXVhKy9tMDFFRTE0NytmR2pJcDAKpoXVSCXEU1JKNKpPvdlFTHBmwoTgdxNn
             hCy9Z7IDejLWdqKdtqbPQ5cux9HBKIqB8fYnSkhRQAtehdu7eH2LqA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-17T11:25:56Z"
-    mac: ENC[AES256_GCM,data:hA1u4NwFlQMWgr4hVlkAJXBhZgTGOQdbf5oTgEpHhsJhKS8m0riJ4MVLGfK7t1tn6hBWlRfl4pZXqjhPTIX6MGeEzWvp4psdUh4uDqNSNt3Ld/r2ay8/dDhC5EV2skLEECuDHyEXhfBqXjrj/Bqav15Y9ICurTe3o1UhebgkuQM=,iv:QANTIO/q0X7vHksyp433xx25niEw3UzkkaQ3v1ej7AU=,tag:zewNbmeE/9nQGeFQpB6j/Q==,type:str]
+    lastmodified: "2024-02-03T22:47:23Z"
+    mac: ENC[AES256_GCM,data:bMSZnMpqwBvAlQK3ZvhDzdOcDRwid50yhVWoPV5RpgqJB5ikjUmP8msvxzoapFuh6VlcAT9Iq/bHIxlQFebfXORRiLoYlrYlQ9BfH6y7UZlv/xA7ThIM9d+9pKbRg0/VNDWUF5e1AZYrA76F1OZqm7icGH+kRUCryHF9hoK5QdY=,iv:uYalDMX77m/mt8jIfxjilEeiUOn25+Uxc6CTWK5Foaw=,tag:Qj/tR6TUXcKHxHD5YBGLcQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.8.1
