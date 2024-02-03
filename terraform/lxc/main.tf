@@ -25,6 +25,10 @@ resource "proxmox_virtual_environment_container" "name" {
     dedicated     = each.value.ram
   }
 
+  features {
+    nesting       = each.value.nesting
+  }
+
   initialization {
     hostname = each.value.name
     
