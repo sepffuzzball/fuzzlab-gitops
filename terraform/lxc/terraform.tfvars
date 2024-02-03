@@ -73,6 +73,31 @@ lxcs = {
                 volume = ""
             },
         }
+    },
+    swag = {
+        name        = "swag"
+        desc        = "swag reverse proxy"
+        vmip        = "10.0.2.111/22"
+        vmid        = 111
+        node        = "pvenode01"
+        order       = 4
+        cpus        = 2
+        disk        = 32
+        ram         = 4096
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/swag/config"
+            },
+            mount2  = {
+                path = "/db"
+                volume = "/mnt/pve/cephfs/swag/db"
+            }, 
+            mount3  = {
+                path = ""
+                volume = ""
+            },
+        }
     }
 }
 
