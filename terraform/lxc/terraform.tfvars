@@ -9,6 +9,7 @@ lxcs = {
         cpus        = 2
         disk        = 32
         ram         = 2048
+        mount       = []
         nesting     = true
         mounts      = {
             mount1  = {
@@ -20,8 +21,8 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/adguard/sync"
             }, 
             mount3  = {
-                path = ""
-                volume = ""
+                path = "/null"
+                volume = "/mnt/null"
             },
         }
     },
@@ -35,6 +36,7 @@ lxcs = {
         cpus        = 2
         disk        = 32
         ram         = 2048
+        mount       = []
         nesting     = true
         mounts      = {
             mount1  = {
@@ -46,8 +48,8 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/ansible/db"
             }, 
             mount3  = {
-                path = ""
-                volume = ""
+                path = "/null"
+                volume = "/mnt/null"
             },
         }
     },
@@ -62,6 +64,7 @@ lxcs = {
         disk        = 32
         ram         = 32768
         nesting     = false
+        mount       = []
         mounts      = {
             mount1  = {
                 path = "/home/steam"
@@ -72,8 +75,8 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/palworld/db"
             }, 
             mount3  = {
-                path = ""
-                volume = ""
+                path = "/null"
+                volume = "/mnt/null"
             },
         }
     },
@@ -88,8 +91,7 @@ lxcs = {
         disk        = 32
         ram         = 4096
         nesting     = true
-        cifs        = true
-        nfs         = false
+        mount       = ["cifs"]
         mounts      = {
             mount1  = {
                 path = "/config"
@@ -100,8 +102,36 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/swag/db"
             }, 
             mount3  = {
-                path = ""
-                volume = ""
+                path = "/null"
+                volume = "/mnt/null"
+            },
+        }
+    },
+    nextcloud = {
+        name        = "nextcloud"
+        desc        = "nextcloud fileserver"
+        vmip        = "10.0.2.104/22"
+        vmid        = 104
+        node        = "pvenode02"
+        order       = 4
+        cpus        = 2
+        disk        = 32
+        ram         = 4096
+        nesting     = true
+        mount       = ["cifs", "nfs"]
+        nfs         = false
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/nextcloud/config"
+            },
+            mount2  = {
+                path = "/db"
+                volume = "/mnt/pve/cephfs/nextcloud/db"
+            }, 
+            mount3  = {
+                path = "/data"
+                volume = "/mnt/containerdata/nextclouddata"
             },
         }
     }

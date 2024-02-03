@@ -1,0 +1,38 @@
+---
+- name: deploy nextcloud
+  hosts: nextcloud
+  become: yes
+  tasks:
+
+  - name: deploy nextcloud db
+    community.docker.docker_container:
+      name: nextcloud-db
+      image: "linuxserver/mysql:latest"
+      capabilities:
+        - NET_ADMIN
+      ports:
+        - "3306:3306/tcp"
+      volumes:
+        - /db:/config
+      restart_policy: unless-stopped
+      env:
+        PUID: "1100"
+        PGID: "1100"        
+
+  - name: deploy nextcloud
+    community.docker.docker_container:
+      name: nextcloud
+      image: "lscr.io/linuxserver/nextcloud:version-24.0.6"
+      capabilities:
+        - NET_ADMIN
+      ports:
+        - "443:443/tcp"
+        - "80:80/tcp"
+      volumes:
+        - /config:/config
+        - /data:/data
+      restart_policy: unless-stopped
+      env:
+        PUID: "1100"
+        PGID: "1100"
+        TZ: "America/New_York"

@@ -27,6 +27,7 @@ resource "proxmox_virtual_environment_container" "name" {
 
   features {
     nesting       = each.value.nesting
+    mount         = each.value.mount
   }
 
   initialization {
@@ -60,7 +61,10 @@ resource "proxmox_virtual_environment_container" "name" {
     volume        = each.value.mounts.mount2.volume
   }
 
- 
+  mount_point {
+    path          = each.value.mounts.mount3.path
+    volume        = each.value.mounts.mount3.volume
+  } 
 
   network_interface {
       bridge      = "vmbr0"
