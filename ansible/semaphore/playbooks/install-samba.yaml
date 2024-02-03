@@ -29,3 +29,8 @@
         owner: root
         group: root
         mode: u=rw,g=r,o=r
+
+    - name: Restart samba
+      ansible.builtin.service:
+        name: smbd.service
+        state: restarted 
