@@ -74,8 +74,8 @@ spec:
             - name: tmp
               mountPath: /tmp
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.0.752@sha256:2f236cef4ed862a0000db61aaf23e9d42ebe51c1257b48f3a2a36fdc696bccaf
+              repository: ghcr.io/onedr0p/sonarr
+              tag: 4.0.1
             env:
               TZ: ${TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
@@ -104,10 +104,10 @@ spec:
                     key: "SONARR_0_API_KEY"
             resources:
               requests:
-                cpu: 18m
+                cpu: 100m
                 memory: 128Mi
               limits:
-                memory: 256Mi
+                memory: 1024Mi
     service:
       main:
         ports:
@@ -121,7 +121,7 @@ spec:
           #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: television
         hosts:
-          - host: &host "sonarr.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "sonarr.media.svc.cluster.local"
             paths:
               - path: /
                 service:

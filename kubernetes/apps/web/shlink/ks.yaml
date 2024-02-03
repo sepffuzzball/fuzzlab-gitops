@@ -5,7 +5,7 @@ metadata:
   name: shlink-database
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/production/web/shlink/database
+  path: ./kubernetes/apps/web/shlink/database
   prune: true
   sourceRef:
     kind: GitRepository
@@ -27,7 +27,7 @@ metadata:
 spec:
   dependsOn:
     - name: shlink-database
-  path: ./kubernetes/apps/production/web/shlink/app
+  path: ./kubernetes/apps/web/shlink/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -49,7 +49,7 @@ metadata:
 spec:
   dependsOn:
     - name: shlink
-  path: ./kubernetes/apps/production/web/shlink/client
+  path: ./kubernetes/apps/web/shlink/client
   prune: true
   sourceRef:
     kind: GitRepository
