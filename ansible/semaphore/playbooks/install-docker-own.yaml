@@ -1,0 +1,22 @@
+---
+- name: deploy owncloud
+  hosts: owncloud
+  become: yes
+  tasks:
+
+  - name: deploy owncloud
+    community.docker.docker_container:
+      name: ocis
+      image: "owncloud/ocis:latest"
+      capabilities:
+        - NET_ADMIN
+      ports:
+        - "9200:9200/tcp"
+      volumes:
+        - /config/ocis.yaml:/etc/ocis/ocis.yaml
+        - /data:/var/lib/ocis
+      restart_policy: unless-stopped
+      env:
+        OCIS_INSECURE: true
+        OCIS_URL: https://10.0.2.105:9200
+        OCIS_LOG_LEVEL: info

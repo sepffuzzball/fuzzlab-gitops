@@ -133,6 +133,33 @@ lxcs = {
                 volume = "/mnt/containerdata/nextclouddata"
             },
         }
+    },
+    owncloud = {
+        name        = "owncloud"
+        desc        = "owncloud fileserver"
+        vmip        = "10.0.2.105/22"
+        vmid        = 105
+        node        = "pvenode01"
+        order       = 4
+        cpus        = 4
+        disk        = 32
+        ram         = 8192
+        nesting     = true
+        mount       = ["cifs"]
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/owncloud/config"
+            },
+            mount2  = {
+                path = "/db"
+                volume = "/mnt/pve/cephfs/owncloud/db"
+            }, 
+            mount3  = {
+                path = "/data"
+                volume = "/mnt/containerdata/owncloud/data"
+            },
+        }
     }
 }
 
