@@ -9,7 +9,7 @@
       name: frigate
       image: ghcr.io/blakeblackshear/frigate:stable
       privileged: true
-      shm_size: "64mb"
+      shm_size: "64MB"
       devices:
         - /dev/bus/usb:/dev/bus/usb
       ports:
