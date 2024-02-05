@@ -1,0 +1,24 @@
+---
+- name: deploy frigate
+  hosts: frigate
+  become: yes
+  tasks:
+
+  - name: deploy frigate
+    community.docker.docker_container:
+      name: frigate
+      image: ghcr.io/blakeblackshear/frigate:stable
+      privileged: true
+      shm_size: "64mb"
+      devices:
+        - /dev/bus/usb:/dev/bus/usb
+      ports:
+        - "5000:5000"
+        - "8554:8554"
+        - "8555:8555/tcp"
+        - "8555:8555/udp"
+      volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /config:/config
+        - /data:/media/frigate
+      restart_policy: unless-stopped

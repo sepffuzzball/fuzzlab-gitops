@@ -22,7 +22,7 @@ lxcs = {
             }, 
             mount3  = {
                 path = "/null"
-                volume = "/mnt/null"
+                volume = "/mnt/pve/cephfs/adguard/null"
             },
         }
     },
@@ -49,7 +49,7 @@ lxcs = {
             }, 
             mount3  = {
                 path = "/null"
-                volume = "/mnt/null"
+                volume = "/mnt/pve/cephfs/ansible/null"
             },
         }
     },
@@ -76,7 +76,7 @@ lxcs = {
             }, 
             mount3  = {
                 path = "/null"
-                volume = "/mnt/null"
+                volume = "/mnt/pve/cephfs/palworld/null"
             },
         }
     },
@@ -103,7 +103,7 @@ lxcs = {
             }, 
             mount3  = {
                 path = "/null"
-                volume = "/mnt/null"
+                volume = "/mnt/pve/cephfs/swag/null"
             },
         }
     },
@@ -158,6 +158,33 @@ lxcs = {
             mount3  = {
                 path = "/data"
                 volume = "/mnt/containerdata/owncloud/data"
+            },
+        }
+    },
+    frigate = {
+        name        = "frigate"
+        desc        = "frigate camera"
+        vmip        = "10.0.2.106/22"
+        vmid        = 106
+        node        = "pvenode03"
+        order       = 4
+        cpus        = 4
+        disk        = 32
+        ram         = 8192
+        nesting     = true
+        mount       = ["cifs"]
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/frigate/config"
+            },
+            mount2  = {
+                path = "/db"
+                volume = "/mnt/pve/cephfs/frigate/db"
+            }, 
+            mount3  = {
+                path = "/data"
+                volume = "/mnt/pve/cephfs/frigate/data"
             },
         }
     }

@@ -1,0 +1,9 @@
+---
+- name: Install usbutils
+  hosts: all
+  tasks:
+    - name: Install usbutils
+      ansible.builtin.apt:
+        name: usbutils
+        state: present
+        update_cache: yes
