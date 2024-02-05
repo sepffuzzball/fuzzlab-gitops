@@ -10,8 +10,8 @@
       image: ghcr.io/blakeblackshear/frigate:stable
       privileged: true
       shm_size: "64MB"
-      devices:
-        - /dev/bus/usb:/dev/bus/usb
+      #devices:
+      #  - /dev/bus/usb:/dev/bus/usb
       ports:
         - "5000:5000"
         - "8554:8554"
@@ -19,6 +19,11 @@
         - "8555:8555/udp"
       volumes:
         - /etc/localtime:/etc/localtime:ro
+        - /dev/bus/usb:/dev/bus/usb
         - /config:/config
         - /data:/media/frigate
+        - type: tmpfs
+          target: /tmp/cache
+          tmpfs:
+            size: 1000000000
       restart_policy: unless-stopped
