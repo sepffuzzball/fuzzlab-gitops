@@ -22,8 +22,8 @@
         #- /dev/bus/usb:/dev/bus/usb
         - /config:/config
         - /data:/media/frigate
-        #- type: tmpfs
-        #  target: /tmp/cache
-        #  tmpfs:
-        #    size: 1000000000
+        - type: tmpfs
+          target: /tmp/cache
+          tmpfs:
+            size: 1000000000
       restart_policy: unless-stopped
