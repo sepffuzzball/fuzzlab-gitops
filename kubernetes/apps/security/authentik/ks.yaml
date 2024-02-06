@@ -13,10 +13,10 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-kubernetes
+    name: fuzzlab-gitops
   dependsOn:
     - name: crunchy-postgres-operator
-    - name: authentik-redis                                                                                                                                                                                     
+    - name: authentik-redis
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -26,7 +26,7 @@ spec:
       APP: *appname
       HOSTNAME: auth.fzbl.xyz
       DB_NAME: authentik
-      DB_USER: authentik                            
+      DB_USER: authentik
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -44,5 +44,5 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: home-kubernetes
+    name: fuzzlab-gitops
   wait: true

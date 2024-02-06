@@ -19,6 +19,6 @@ spec:
   retryInterval: 1m
   timeout: 5m
   dependsOn:
-    - name: ceph-csi-cephfs
+    - name: csi-driver-cephfs
     - name: csi-driver-smb
     - name: postgresql
