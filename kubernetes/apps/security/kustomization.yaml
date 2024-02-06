@@ -4,5 +4,3 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   #- ./authentik/ks.yaml
-  #- ./external-secrets/ks.yaml
-  #- ./vault/ks.yaml
