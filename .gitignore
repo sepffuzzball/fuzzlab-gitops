@@ -16,3 +16,4 @@ kubeconfig
 .venv*
 # Taskfile
 .tasks
+*.terraform.lock.hcl
