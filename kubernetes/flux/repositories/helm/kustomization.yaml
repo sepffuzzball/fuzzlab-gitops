@@ -17,7 +17,6 @@ resources:
   - ./hajimari.yaml
   - ./hashicorp.yaml
   - ./influxdata.yaml
-  - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./k8s-at-home.yaml
   - ./kubernetes-dashboard.yaml
