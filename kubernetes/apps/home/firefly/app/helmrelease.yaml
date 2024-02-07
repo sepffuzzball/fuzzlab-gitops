@@ -72,8 +72,8 @@ spec:
               repository: registry.samipsolutions.fi/docker/fireflyiii/core
               tag: version-6.0.30
             env:
-              TZ: ${TZ}
-              APP_URL: "http://firefly.${SECRET_DOMAIN_LOCAL}"
+              TZ: "America/New_York"
+              APP_URL: "http://firefly.${SECRET_DOMAIN}"
               APP_ENV: "production"
               DB_CONNECTION: "pgsql"
               DB_HOST: *postgres
@@ -81,11 +81,11 @@ spec:
               DB_DATABASE: firefly
               DB_USERNAME: firefly_postgres_user
               MAIL_MAILER: log
-              TRUSTED_PROXIES: "**" # TODO: This should be changed..
+              TRUSTED_PROXIES: "*" # TODO: This should be changed..
               SEND_REGISTRATION_MAIL: false
               SEND_ERROR_MESSAGE: false
               SEND_LOGIN_NEW_IP_WARNING: false
-              COOKIE_DOMAIN: "firefly.${SECRET_DOMAIN_LOCAL}"
+              COOKIE_DOMAIN: "firefly.${SECRET_DOMAIN}"
               COOKIE_SECURE: "false"
               COOKIE_SAMESITE: "lax"
               #AUTHENTICATION_GUARD: "remote_user_guard"
