@@ -25,7 +25,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: ceph-csi-cephfs
+    - name: csi-driver-cephfs
       namespace: storage
   values:
     controllers:
@@ -36,7 +36,7 @@ spec:
         #- name: tmp
         #  emptyDir:
         #    medium: Memory
-        
+
         pod:
           #labels:
           #  egress.home.arpa/internet: allow
@@ -49,7 +49,7 @@ spec:
             runAsNonRoot: true
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
-        
+
         containers:
           main:
             volumeMounts:
@@ -131,7 +131,7 @@ spec:
       lcl:
         enabled: true
         existingClaim: lcl
-        
+
       downloads:
         enabled: true
         existingClaim: lcl-downloads
