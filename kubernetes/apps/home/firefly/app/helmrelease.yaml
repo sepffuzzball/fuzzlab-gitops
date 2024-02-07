@@ -112,8 +112,9 @@ spec:
     ingress:
       main:
         enabled: true
-        className: "internal"
-        #annotations:
+        className: "external"
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           #nginx.ingress.kubernetes.io/auth-url: |-
           #  http://authentik.security.svc.cluster.local:9300/outpost.goauthentik.io/auth/nginx
           #nginx.ingress.kubernetes.io/auth-signin: |-
@@ -123,7 +124,7 @@ spec:
           #nginx.ingress.kubernetes.io/auth-snippet: |
           #  proxy_set_header X-Forwarded-Host $http_host;
         hosts:
-          - host: &host "firefly.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "firefly.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
