@@ -107,12 +107,6 @@ spec:
               service:
                 name: main
                 port: http
-        - host: "firefly.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
         #- host: "*.${SECRET_DOMAIN}"
         #  paths:
         #    - path: /(.*)
@@ -164,13 +158,13 @@ spec:
         secretKeyRef:
           name: authentik-secret
           key: redisPassword
-    
-    volumes: 
+
+    volumes:
       - name: media
         persistentVolumeClaim:
           claimName: authentik-media
 
-    volumeMounts: 
+    volumeMounts:
       - mountPath: /media
         name: media
 
@@ -185,4 +179,3 @@ spec:
 
     redis:
       enabled: false
-    
