@@ -26,9 +26,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: local-path-provisioner
-      namespace: storage
+#  dependsOn:
+#    - name: local-path-provisioner
+#      namespace: storage
   valuesFrom:
     - name: kube-prometheus-stack-values
       kind: ConfigMap
