@@ -88,9 +88,9 @@ spec:
               COOKIE_DOMAIN: "firefly.${SECRET_DOMAIN}"
               COOKIE_SECURE: "false"
               COOKIE_SAMESITE: "lax"
-              #AUTHENTICATION_GUARD: "remote_user_guard"
-              #AUTHENTICATION_GUARD_HEADER: "X-authentik-uid"
-              #AUTHENTICATION_GUARD_EMAIL: "X-authentik-email"
+              AUTHENTICATION_GUARD: "remote_user_guard"
+              AUTHENTICATION_GUARD_HEADER: "X-authentik-uid"
+              AUTHENTICATION_GUARD_EMAIL: "X-authentik-email"
               # Requires version 6.0.21.
               # FIREFLY_III_LAYOUT: v2
             envFrom:
@@ -115,14 +115,14 @@ spec:
         className: "external"
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          #nginx.ingress.kubernetes.io/auth-url: |-
-          #  http://authentik.security.svc.cluster.local:9300/outpost.goauthentik.io/auth/nginx
-          #nginx.ingress.kubernetes.io/auth-signin: |-
-          #  https://firefly.fzbl.xyz/outpost.goauthentik.io/start?rd=$escaped_request_uri
-          #nginx.ingress.kubernetes.io/auth-response-headers: |-
-          #  Set-Cookie,X-authentik-username,X-authentik-uid,X-authentik-email
-          #nginx.ingress.kubernetes.io/auth-snippet: |
-          #  proxy_set_header X-Forwarded-Host $http_host;
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://authentik.security.svc.cluster.local:9300/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://firefly.fzbl.xyz/outpost.goauthentik.io/start?rd=$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-uid,X-authentik-email
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
         hosts:
           - host: &host "firefly.${SECRET_DOMAIN}"
             paths:
