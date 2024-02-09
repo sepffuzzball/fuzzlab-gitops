@@ -121,7 +121,7 @@ spec:
           #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: television
         hosts:
-          - host: &host "sonarr.media.svc.cluster.local"
+          - host: &host "sonarr.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:
