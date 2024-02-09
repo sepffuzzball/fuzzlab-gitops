@@ -53,14 +53,15 @@ spec:
         repository: ghcr.io/ressu/kube-plex
         tag: latest
         pullPolicy: Always
-      resources: {}
+      resources:
         # Limits and requests that are applied to the kube-plex transcoding pod. Can
         # be used to request GPU instances for pods as well as normal Kubernetes
         # limits.
-        # requests:
-        #   cpu: 100m
+        requests:
+          cpu: 200m
         #   "gpu.intel.com/i915: 1
-        # limits:
+        limits:
+          cpu: 2000m
         #   "gpu.intel.com/i915: 1
 
       # Mounts which should be carried over to kube-plex transcoder. By default only
