@@ -19,7 +19,7 @@ lxcs = {
             mount2  = {
                 path = "/sync"
                 volume = "/mnt/pve/cephfs/adguard/sync"
-            }, 
+            },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/adguard/null"
@@ -46,7 +46,7 @@ lxcs = {
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/ansible/db"
-            }, 
+            },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/ansible/null"
@@ -73,7 +73,7 @@ lxcs = {
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/palworld/db"
-            }, 
+            },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/palworld/null"
@@ -100,7 +100,7 @@ lxcs = {
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/swag/db"
-            }, 
+            },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/swag/null"
@@ -127,7 +127,7 @@ lxcs = {
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/nextcloud/db"
-            }, 
+            },
             mount3  = {
                 path = "/data"
                 volume = "/mnt/containerdata/nextclouddata"
@@ -154,7 +154,7 @@ lxcs = {
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/owncloud/db"
-            }, 
+            },
             mount3  = {
                 path = "/data"
                 volume = "/mnt/containerdata/owncloud/data"
@@ -181,10 +181,37 @@ lxcs = {
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/frigate/db"
-            }, 
+            },
             mount3  = {
                 path = "/data"
                 volume = "/mnt/pve/cephfs/frigate/data"
+            },
+        }
+    },
+    samba = {
+        name        = "samba"
+        desc        = "cephfs share"
+        vmip        = "10.0.2.110/22"
+        vmid        = 110
+        node        = "pvenode03"
+        order       = 4
+        cpus        = 2
+        disk        = 32
+        ram         = 4096
+        nesting     = true
+        mount       = ["cifs"]
+        mounts      = {
+            mount1  = {
+                path = "/cephfs"
+                volume = "/mnt/pve/cephfs"
+            },
+            mount2  = {
+                path = "/k8s-cephfs"
+                volume = "/mnt/pve/k8s-cephfs"
+            },
+            mount3  = {
+                path = "/null"
+                volume = "/mnt/pve/null"
             },
         }
     }

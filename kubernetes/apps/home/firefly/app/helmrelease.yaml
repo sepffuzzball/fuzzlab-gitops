@@ -107,7 +107,7 @@ spec:
           http:
             port: 8080
         type: LoadBalancer
-        loadBalancerIP: 10.0.2.68
+        loadBalancerIP: ${FIREFLY_ADDR}
 
     ingress:
       main:
