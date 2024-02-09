@@ -92,7 +92,7 @@ spec:
       ## Specify the nodePort value for the LoadBalancer and NodePort service types.
       ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
       ##
-      nodePort: 32400
+      #nodePort: 32400
       ## Provide any additional annotations which may be required. This can be used to
       ## set the LoadBalancer service type to internal only.
       ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
@@ -105,7 +105,7 @@ spec:
       loadBalancerIP: ${PLEX_ADDR}
       # loadBalancerSourceRanges: []
       ## Set the externalTrafficPolicy in the Service to either Cluster or Local
-      externalTrafficPolicy: Local
+      externalTrafficPolicy: Cluster
 
     # Probe configuration
     # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes
@@ -160,12 +160,16 @@ spec:
       # For backwards compatibility, a string array of hosts is also allowed i.e. `hosts: ['chart-example.local']`
       hosts:
         - host: plex.${SECRET_DOMAIN_LOCAL}
-          # path: /
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
           # pathType: ImplementationSpecific
       annotations:
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
-      tls:
+      #tls:
         # Secrets must be manually created in the namespace.
         # - secretName: chart-example-tls
         #   hosts:
