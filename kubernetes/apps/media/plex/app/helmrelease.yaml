@@ -95,23 +95,23 @@ spec:
         ports:
           http:
             port: 32400
-    #ingress:
-    #  main:
-    #    enabled: true
-    #    className: internal
+    ingress:
+      main:
+        enabled: true
+        className: internal
     #    annotations:
     #      hajimari.io/icon: simple-icons:plex
-    #    hosts:
-    #      - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
-    #        paths:
-    #          - path: /
-    #            service:
-    #              name: main
-    #              port: http
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
         #tls:
         #  - hosts:
         #      - *host
-    
+
     persistence:
       config:
         enabled: true
