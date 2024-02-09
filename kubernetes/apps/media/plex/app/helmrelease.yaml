@@ -104,7 +104,7 @@ spec:
       loadBalancerIP: ${PLEX_ADDR}
       # loadBalancerSourceRanges: []
       ## Set the externalTrafficPolicy in the Service to either Cluster or Local
-      # externalTrafficPolicy: Cluster
+      externalTrafficPolicy: Local
 
     # Probe configuration
     # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes
