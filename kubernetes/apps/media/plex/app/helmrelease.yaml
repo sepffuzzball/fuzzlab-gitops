@@ -70,7 +70,7 @@ spec:
 
 
     # Override this with the plex claim token from plex.tv/claim
-    claimToken: "claim-pBPxEiPS22PvcNQJyfjz"
+    claimToken: "claim-GCAxxX2V4fBS6NkPhQ_h"
 
     # Set the timezone of the plex server
     timezone: ${TIMEZONE}

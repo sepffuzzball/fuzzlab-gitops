@@ -19,6 +19,7 @@ resources:
   - ./influxdata.yaml
   - ./intel.yaml
   - ./k8s-at-home.yaml
+  - ./kube-plex.yaml
   - ./kubernetes-dashboard.yaml
   - ./metallb.yaml
   - ./nextcloud.yaml
