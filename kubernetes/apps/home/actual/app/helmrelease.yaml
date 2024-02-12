@@ -42,6 +42,13 @@ spec:
               requests:
                 cpu: 100m
                 memory: 256Mi
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+        type: LoadBalancer
+        loadBalancerIP: ${BUDGET_ADDR}
 
     ingress:
       main:
@@ -56,7 +63,7 @@ spec:
               - path: /
                 service:
                   name: main
-                  port: 5006
+                  port: http
         tls:
           - hosts:
               - *host
