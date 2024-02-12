@@ -81,7 +81,7 @@ spec:
               DB_DATABASE: firefly
               DB_USERNAME: firefly_postgres_user
               MAIL_MAILER: log
-              TRUSTED_PROXIES: "*" # TODO: This should be changed..
+              TRUSTED_PROXIES: "**" # TODO: This should be changed..
               SEND_REGISTRATION_MAIL: false
               SEND_ERROR_MESSAGE: false
               SEND_LOGIN_NEW_IP_WARNING: false
