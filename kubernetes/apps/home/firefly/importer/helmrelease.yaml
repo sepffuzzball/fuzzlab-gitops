@@ -41,7 +41,7 @@ spec:
               tag: version-1.3.12
             env:
               TRUSTED_PROXIES: "**"
-              FIREFLY_III_URL: "http://firefly.home.svc.cluster.local:8080"
+              FIREFLY_III_URL: "http://firefly-iii.home.svc.cluster.local:8080"
               VANITY_URL: "http://firefly.${SECRET_DOMAIN}"
               FIREFLY_III_ACCESS_TOKEN:
                 valueFrom:
