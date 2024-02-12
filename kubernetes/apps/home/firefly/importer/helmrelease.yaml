@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: registry.samipsolutions.fi/docker/fireflyiii/data-importer
-              tag: version-1.3.12
+              tag: version-1.4.3
             env:
               TRUSTED_PROXIES: "**"
               FIREFLY_III_URL: "http://firefly-iii.home.svc.cluster.local:8080"
