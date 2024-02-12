@@ -46,7 +46,7 @@ spec:
       main:
         ports:
           http:
-            port: 8080
+            port: 5006
         type: LoadBalancer
         loadBalancerIP: ${BUDGET_ADDR}
 
