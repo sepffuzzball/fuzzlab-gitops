@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentik
+  namespace: security
+spec:
+  selector:
+    app.kubernetes.io/name: authentik
+  type: LoadBalancer
+  loadBalancerIP: ${AUTH_ADDR}
+  externalTrafficPolicy: Cluster
+  ports:
+    - port: 9300
+      targetPort: 9300
+      name: embeddedOutpost
+      protocol: TCP
