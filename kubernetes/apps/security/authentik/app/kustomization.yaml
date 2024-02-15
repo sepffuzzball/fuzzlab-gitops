@@ -6,5 +6,4 @@ resources:
 #  - ./secret.sops.yaml
   - ./pv.yaml
   - ./postgresCluster.yaml
-  - ./loadbalancer.yaml
 #  - ./storageclass.yaml
