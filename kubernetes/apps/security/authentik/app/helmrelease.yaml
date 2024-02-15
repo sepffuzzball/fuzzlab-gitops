@@ -40,10 +40,10 @@ spec:
         host: "authentik-redis.security.svc.cluster.local"
         password: ""
 
-    #service:
-    #  loadBalancerIP: ${AUTH_ADDR}
-    #  externalTrafficPolicy: Cluster
-    #  type: LoadBalancer
+    service:
+      loadBalancerIP: ${AUTH_ADDR}
+      externalTrafficPolicy: Cluster
+      type: LoadBalancer
 
     ingress:
       enabled: true
