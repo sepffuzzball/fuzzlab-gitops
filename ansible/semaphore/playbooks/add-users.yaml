@@ -1,0 +1,57 @@
+---
+- name: Add user accounts
+  hosts: all
+
+
+  tasks:
+    - name: Includes all yaml files for vars
+      ansible.builtin.include_vars:
+        dir: vars
+        extensions:
+         - 'yaml'
+
+    - name: create rancher group
+      ansible.builtin.group:
+        name: rancher
+        state: present
+        gid: 1100
+
+    - name: create default group
+      ansible.builtin.group:
+        name: default
+        state: present
+        gid: 1000
+
+    - name: Create sepfy group
+      ansible.builtin.group:
+        name: sepfy
+        state: present
+        gid: 3333
+
+    - name: Create sepfy user
+      ansible.builtin.user:
+        name: sepfy
+        state: present
+        password: {{ sepfy  }}
+        uid: 3333
+        groups:
+          - sudo
+          - sepfy
+
+    - name: Create rancher user
+      ansible.builtin.user:
+        name: rancher
+        state: present
+        password: {{ rancher  }}
+        uid: 1100
+        groups:
+          - rancher
+
+    - name: Create default user
+      ansible.builtin.user:
+        name: default
+        state: present
+        password: {{ rancher  }}
+        uid: 1000
+        groups:
+          - default
