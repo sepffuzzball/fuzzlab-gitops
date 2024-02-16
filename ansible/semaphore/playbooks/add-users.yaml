@@ -10,6 +10,18 @@
         extensions:
          - 'yaml'
 
+    - name: make sure we have a sudo group
+      ansible.builtin.group:
+        name: wheel
+        state: present
+        gid: 6666
+
+    - name: sudo without password for wheel group
+      ansible.builtin.copy:
+        content: '%wheel ALL=(ALL:ALL) NOPASSWD:ALL'
+        dest: /etc/sudoers.d/wheel_nopasswd
+        mode: 0440
+
     - name: create rancher group
       ansible.builtin.group:
         name: rancher
@@ -35,7 +47,7 @@
         password: "{{ sepfy  }}"
         uid: 3333
         groups:
-          - sudo
+          - wheel
           - sepfy
 
     - name: Create rancher user
