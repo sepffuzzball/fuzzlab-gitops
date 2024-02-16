@@ -32,7 +32,7 @@
       ansible.builtin.user:
         name: sepfy
         state: present
-        password: {{ sepfy  }}
+        password: "{{ sepfy  }}"
         uid: 3333
         groups:
           - sudo
@@ -42,7 +42,7 @@
       ansible.builtin.user:
         name: rancher
         state: present
-        password: {{ rancher  }}
+        password: "{{ rancher  }}"
         uid: 1100
         groups:
           - rancher
@@ -51,7 +51,7 @@
       ansible.builtin.user:
         name: default
         state: present
-        password: {{ rancher  }}
+        password: "{{ rancher  }}"
         uid: 1000
         groups:
           - default
