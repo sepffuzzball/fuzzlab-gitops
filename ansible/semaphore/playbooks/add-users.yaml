@@ -50,6 +50,12 @@
           - wheel
           - sepfy
 
+    - name: Set authorized key for sepfy
+      ansible.posix.authorized_key:
+        user: sepfy
+        state: present
+        key: "{{ sepfykey }}"
+
     - name: Create rancher user
       ansible.builtin.user:
         name: rancher
