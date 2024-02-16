@@ -25,13 +25,13 @@
 
     - name: create cockpit identities directory
       ansible.builtin.file:
-        path: /home/default/cockpit-identities_0.1.12_generic
+        path: /home/default/
         state: directory
 
     - name: extract cockpit identities
       ansible.builtin.unarchive:
         src: https://github.com/45Drives/cockpit-identities/releases/download/v0.1.12/cockpit-identities_0.1.12_generic.tar.gz
-        dest: /home/default/cockpit-identities_0.1.12_generic
+        dest: /home/default/
         remote_src: yes
 
     - name: install cockpit identities
@@ -42,13 +42,13 @@
 
     - name: create cockpit file sharing directory
       ansible.builtin.file:
-        path: /home/default/cockpit-file-sharing_3.2.9_generic
+        path: /home/default/
         state: directory
 
     - name: extract cockpit file sharing
       ansible.builtin.unarchive:
         src: https://github.com/45Drives/cockpit-file-sharing/releases/download/v3.2.9/cockpit-file-sharing_3.2.9_generic.zip
-        dest: /home/default/cockpit-file-sharing_3.2.9_generic
+        dest: /home/default/
         remote_src: yes
 
     - name: install cockpit file sharing
