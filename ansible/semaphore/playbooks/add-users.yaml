@@ -44,7 +44,7 @@
       ansible.builtin.user:
         name: sepfy
         state: present
-        password: "{{ sepfy  }}"
+        password: "{{ sepfypass | password_hash('sha512', upassword_salt) }}"
         uid: 3333
         groups:
           - wheel
@@ -54,7 +54,7 @@
       ansible.builtin.user:
         name: rancher
         state: present
-        password: "{{ rancher  }}"
+        password: "{{ rancherpass | password_hash('sha512', upassword_salt) }}"
         uid: 1100
         groups:
           - rancher
@@ -63,7 +63,7 @@
       ansible.builtin.user:
         name: default
         state: present
-        password: "{{ rancher  }}"
+        password: "{{ rancherpass | password_hash('sha512', upassword_salt) }}"
         uid: 1000
         groups:
           - default
