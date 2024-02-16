@@ -1,5 +1,3 @@
-api_url             = "https://10.0.2.31:8006/"
-
 proxmox_nodes = {
     pvenode01 = {
         name        = "pvenode01"
@@ -18,6 +16,7 @@ proxmox_nodes = {
     },
 }
 
+api_url             = "https://10.0.2.31:8006/"
 dns                 = ["10.0.2.50", "10.0.2.10"]
 domain              = "fzbl.xyz"
 gateway             = "10.0.1.1"

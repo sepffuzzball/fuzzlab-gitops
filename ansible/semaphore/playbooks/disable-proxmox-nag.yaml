@@ -1,0 +1,9 @@
+---
+- name: Disable proxmox sub popup
+  hosts: all
+  tasks:
+    - name: disable proxmox subscription popup
+      ansible.builtin.replace:
+        path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+        regexp: '^(.*)Ext\.Msg\.show\(\{(.*)$\n^(.*)No valid subscription(.*)$'
+        replace: '\1void({\2\n\3No valid subscription\4'
