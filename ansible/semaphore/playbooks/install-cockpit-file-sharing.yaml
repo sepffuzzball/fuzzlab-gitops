@@ -20,6 +20,7 @@
           - perl
           - openssh-client
           - make
+          - unzip
         state: present
         update_cache: yes
 
