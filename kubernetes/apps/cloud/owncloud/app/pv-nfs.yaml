@@ -168,7 +168,20 @@ spec:
       share: /lcl/containers/k8s/owncloud/web
 
 
-
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: owncloud-idm
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-sc
+  volumeName: owncloud-idm-pv
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
