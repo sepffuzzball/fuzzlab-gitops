@@ -22,6 +22,10 @@
         state: present
         update_cache: yes
 
+    - name: create cockpit identities directory
+      ansible.builtin.file:
+        path: /home/default/cockpit-identities_0.1.12_generic
+        state: directory
 
     - name: extract cockpit identities
       ansible.builtin.unarchive:
@@ -34,6 +38,11 @@
         chdir: /home/default/cockpit-identities_0.1.12_generic
         target: install
       become: true
+
+    - name: create cockpit file sharing directory
+      ansible.builtin.file:
+        path: /home/default/cockpit-file-sharing_3.2.9_generic
+        state: directory
 
     - name: extract cockpit file sharing
       ansible.builtin.unarchive:
