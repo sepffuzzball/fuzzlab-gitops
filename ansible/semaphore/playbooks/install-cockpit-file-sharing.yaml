@@ -1,0 +1,58 @@
+---
+- name: Install cockpit file sharing
+  hosts: all
+  tasks:
+    - name: Install samba and dependencies
+      ansible.builtin.apt:
+        name:
+          - attr
+          - coreutils
+          - libc-bin
+          - nfs-kernel-server
+          - samba-common-bin
+          - systemd
+          - winbind
+          - gawk
+          - bash
+          - passwd
+          - psmisc
+          - util-linux
+          - perl
+          - openssh-client
+        state: present
+        update_cache: yes
+
+
+    - name: download cockpit identities
+      ansible.builtin.get_url:
+        url: https://github.com/45Drives/cockpit-identities/releases/download/v0.1.12/cockpit-identities_0.1.12_generic.tar.gz
+        dest: /home/default/cockpit-identities_0.1.12_generic.tar.gz
+        mode: '0440'
+
+    - name: extract cockpit identities
+      ansible.builtin.unarchive:
+        src: /home/default/cockpit-identities_0.1.12_generic.tar.gz
+        dest: /home/default/cockpit-identities_0.1.12_generic
+
+    - name: install cockpit identities
+      community.general.make:
+        chdir: /home/default/cockpit-identities_0.1.12_generic
+        target: install
+      become: true
+
+    - name: download cockpit file sharing
+      ansible.builtin.get_url:
+        url: https://github.com/45Drives/cockpit-file-sharing/releases/download/v3.2.9/cockpit-file-sharing_3.2.9_generic.zip
+        dest: /home/default/cockpit-file-sharing_3.2.9_generic.zip
+        mode: '0440'
+
+    - name: extract cockpit file sharing
+      ansible.builtin.unarchive:
+        src: /home/default/cockpit-file-sharing_3.2.9_generic.zip
+        dest: /home/default/cockpit-file-sharing_3.2.9_generic
+
+    - name: install cockpit file sharing
+      community.general.make:
+        chdir: /home/default/cockpit-file-sharing_3.2.9_generic
+        target: install
+      become: true
