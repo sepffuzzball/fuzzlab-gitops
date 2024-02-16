@@ -2,6 +2,27 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: owncloud-idm-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: owncloudidm
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /lcl/containers/k8s/owncloud/idm
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: owncloud-nats-pv
 spec:
   capacity:
