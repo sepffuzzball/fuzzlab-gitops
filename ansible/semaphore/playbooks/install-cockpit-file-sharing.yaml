@@ -2,7 +2,7 @@
 - name: Install cockpit file sharing
   hosts: all
   tasks:
-    - name: Install samba and dependencies
+    - name: Install dependencies
       ansible.builtin.apt:
         name:
           - attr
@@ -19,6 +19,7 @@
           - util-linux
           - perl
           - openssh-client
+          - make
         state: present
         update_cache: yes
 
