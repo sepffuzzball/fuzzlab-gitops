@@ -1,0 +1,17 @@
+---
+- name: Install cockpit
+  hosts: all
+  tasks:
+    - name: Install debian backports repo
+      ansible.builtin.apt_repository:
+        repo: deb http://deb.debian.org/debian bookworm-backports main
+        filename: backports
+        state: present
+
+
+    - name: Make sure cockpit is installed
+      ansible.builtin.apt:
+        name: cockpit
+        state: present
+        default_release: bookworm-backports
+        update_cache: yes
