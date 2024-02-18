@@ -112,9 +112,6 @@ spec:
       main:
         enabled: true
         className: internal
-        annotations:
-          #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          hajimari.io/icon: music-box
         hosts:
           - host: &host "lidarr.${SECRET_DOMAIN_LOCAL}"
             paths:
@@ -122,9 +119,6 @@ spec:
                 service:
                   name: main
                   path: http
-        #tls:
-        #  - hosts:
-        #      - *host
     persistence:
       config:
         enabled: true
