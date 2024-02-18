@@ -47,7 +47,7 @@ spec:
           01-init-db:
               image:
                 repository: ghcr.io/onedr0p/postgres-init
-                tag: 16.2
+                tag: 16.2@sha256:20e2e34f2bc5b761b2ca735cae2c20e662c2d47e50516db2338d1415ec7ca33c
               imagePullPolicy: IfNotPresent
               env:
                 INIT_POSTGRES_DBNAME: lidarr lidarr-log
