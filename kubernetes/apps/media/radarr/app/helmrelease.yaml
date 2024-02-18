@@ -43,26 +43,26 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
-        initContainers:
-          01-init-db:
-              image:
-                repository: ghcr.io/onedr0p/postgres-init
-                tag: 16.1
-              imagePullPolicy: IfNotPresent
-              env:
-                INIT_POSTGRES_DBNAME: radarr radarr-log
-                INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
-                INIT_POSTGRES_USER:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-media-secrets
-                      key: "RADARR_0_POSTGRES_USER"
-                INIT_POSTGRES_PASS:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-media-secrets
-                      key: "RADARR_0_POSTGRES_PASSWORD"
-                INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
+        #initContainers:
+        #  01-init-db:
+        #      image:
+        #        repository: ghcr.io/onedr0p/postgres-init
+        #        tag: 16.1
+        #      imagePullPolicy: IfNotPresent
+        #      env:
+        #        INIT_POSTGRES_DBNAME: radarr radarr-log
+        #        INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
+        #        INIT_POSTGRES_USER:
+        #          valueFrom:
+        #            secretKeyRef:
+        #              name: cluster-media-secrets
+        #              key: "RADARR_0_POSTGRES_USER"
+        #        INIT_POSTGRES_PASS:
+        #          valueFrom:
+        #            secretKeyRef:
+        #              name: cluster-media-secrets
+        #              key: "RADARR_0_POSTGRES_PASSWORD"
+        #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
             volumeMounts:
@@ -70,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/radarr
-              tag: 5.2.6.8376
+              tag: 5.3.6.8612
             env:
               TZ: ${TIMEZONE}
               RADARR__INSTANCE_NAME: radarr

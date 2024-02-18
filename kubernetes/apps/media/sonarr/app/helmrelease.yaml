@@ -48,26 +48,26 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
-        initContainers:
-          01-init-db:
-              image:
-                repository: ghcr.io/onedr0p/postgres-init
-                tag: 16.1
-              imagePullPolicy: IfNotPresent
-              env:
-                INIT_POSTGRES_DBNAME: sonarr sonarr-log
-                INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
-                INIT_POSTGRES_USER:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-media-secrets
-                      key: "SONARR_0_POSTGRES_USER"
-                INIT_POSTGRES_PASS:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-media-secrets
-                      key: "SONARR_0_POSTGRES_PASSWORD"
-                INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
+        #initContainers:
+        #  01-init-db:
+        #      image:
+        #        repository: ghcr.io/onedr0p/postgres-init
+        #        tag: 16.1
+        #      imagePullPolicy: IfNotPresent
+        #      env:
+        #        INIT_POSTGRES_DBNAME: sonarr sonarr-log
+        #        INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
+        #        INIT_POSTGRES_USER:
+        #          valueFrom:
+        #            secretKeyRef:
+        #              name: cluster-media-secrets
+        #              key: "SONARR_0_POSTGRES_USER"
+        #        INIT_POSTGRES_PASS:
+        #          valueFrom:
+        #            secretKeyRef:
+        #              name: cluster-media-secrets
+        #              key: "SONARR_0_POSTGRES_PASSWORD"
+        #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
             volumeMounts:
@@ -75,7 +75,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.1
+              tag: 4.0.1.929
             env:
               TZ: ${TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
