@@ -1,0 +1,9 @@
+---
+- name: Install corosync-qdevice
+  hosts: all
+  tasks:
+    - name: Install corosync-qdevice
+      ansible.builtin.apt:
+        name: corosync-qdevice
+        state: present
+        update_cache: yes
