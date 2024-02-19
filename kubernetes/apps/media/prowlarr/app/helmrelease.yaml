@@ -84,7 +84,7 @@ spec:
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__THEME: dark
-              PROWLARR__POSTGRES_HOST: *postgres
+              PROWLARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
               PROWLARR__POSTGRES_MAIN_DB: "prowlarr"
               PROWLARR__POSTGRES_LOG_DB: "prowlarr-log"
               PROWLARR__POSTGRES_PASSWORD:

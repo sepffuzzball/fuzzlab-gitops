@@ -79,7 +79,7 @@ spec:
               LIDARR__ANALYTICS_ENABLED: "False"
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__THEME: dark
-              LIDARR__POSTGRES_HOST: *postgres
+              LIDARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
               LIDARR__POSTGRES_MAIN_DB: "lidarr"
               LIDARR__POSTGRES_LOG_DB: "lidarr-log"
               LIDARR__POSTGRES_PASSWORD:

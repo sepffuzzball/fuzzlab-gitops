@@ -84,7 +84,7 @@ spec:
               SONARR__ANALYTICS_ENABLED: "False"
               SONARR__AUTHENTICATION_METHOD: External
               SONARR__THEME: dark
-              SONARR__POSTGRES_HOST: *postgres
+              SONARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
               SONARR__POSTGRES_MAIN_DB: "sonarr"
               SONARR__POSTGRES_LOG_DB: "sonarr-log"
               SONARR__POSTGRES_PASSWORD:
