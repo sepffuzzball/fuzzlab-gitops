@@ -5,12 +5,12 @@
   tasks:
     - name: Create leading directory git
       ansible.builtin.file:
-        path: /git
+        path: ~/git
         state: directory
         mode: '0775'
-    - name: Create leading directory wyoming-satellite
+    - name: Create leading directory wyoming
       ansible.builtin.file:
-        path: /git/wyoming-satellite
+        path: ~/git/wyoming-satellite
         state: directory
         mode: '0775'
     - name: Clone Repository
@@ -18,7 +18,7 @@
         clone: true
         repo: https://github.com/rhasspy/wyoming-satellite.git
         version: master
-        dest: /git/wyoming-satellite
+        dest: ~/git/wyoming-satellite
 
 # https://github.com/rhasspy/wyoming-satellite/blob/master/docs/tutorial_installer.md
 
