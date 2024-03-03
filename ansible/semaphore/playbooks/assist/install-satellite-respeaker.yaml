@@ -1,0 +1,30 @@
+---
+- name: Install git and python
+  hosts: all
+  #become: yes
+  tasks:
+    - name: Clone Repository
+      ansible.builtin.git:
+        clone: true
+        repo: https://github.com/rhasspy/wyoming-satellite.git
+        version: master
+        dest: /git/wyoming-satellite
+    - name: Install python virtual directory
+      ansible.builtin.shell: python3 -m venv .venv
+      args:
+        chdir: /git/wyoming-satellite
+    - name: Upgrade pip
+      ansible.builtin.shell: .venv/bin/pip3 install --upgrade pip
+      args:
+        chdir: /git/wyoming-satellite
+    - name: Upgrade wheel and setuptools
+      ansible.builtin.shell: .venv/bin/pip3 install --upgrade wheel setuptools
+      args:
+        chdir: /git/wyoming-satellite
+    - name: Install wyoming-satellite
+      ansible.builtin.shell: .venv/bin/pip3 install -f 'https://synesthesiam.github.io/prebuilt-apps/' -r requirements.txt -r requirements_audio_enhancement.txt -r requirements_vad.txt
+      args:
+        chdir: /git/wyoming-satellite
+
+
+#https://github.com/rhasspy/wyoming-satellite/blob/master/docs/tutorial_2mic.md
