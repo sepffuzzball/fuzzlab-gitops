@@ -1,6 +1,6 @@
 ---
 - name: Download and compile drivers
-  hosts: zeros
+  hosts: respeaker
   become: yes
   tasks:
     - name: Download drivers

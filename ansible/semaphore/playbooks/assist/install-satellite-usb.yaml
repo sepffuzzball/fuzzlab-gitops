@@ -1,6 +1,6 @@
 ---
 - name: Install git and python
-  hosts: all
+  hosts: usb
   #become: yes
   tasks:
     - name: Clone Repository
