@@ -1,0 +1,16 @@
+---
+- name: Download and compile drivers
+  hosts: zeros
+  tasks:
+    - name: Download drivers
+      ansible.builtin.git:
+        clone: true
+        repo: https://github.com/rhasspy/wyoming-satellite.git
+        version: master
+        dest: /git/wyoming-satellite
+    - name: Run driver installation
+      ansible.builtin.shell: bash etc/install-respeaker-drivers.sh
+      args:
+        chdir: /git/wyoming-satellite
+    - name: Reboot after driver install
+      ansible.builtin.reboot:
