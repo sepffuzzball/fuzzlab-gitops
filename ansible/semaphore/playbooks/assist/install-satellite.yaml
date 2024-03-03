@@ -1,0 +1,11 @@
+---
+- name: Install git and python
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download drivers
+      ansible.builtin.git:
+        clone: true
+        repo: https://github.com/rhasspy/wyoming-satellite.git
+        version: master
+        dest: /git/wyoming-satellite

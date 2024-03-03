@@ -1,6 +1,7 @@
 ---
 - name: Download and compile drivers
   hosts: zeros
+  become: yes
   tasks:
     - name: Download drivers
       ansible.builtin.git:

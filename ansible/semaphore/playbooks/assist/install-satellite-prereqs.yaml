@@ -1,6 +1,7 @@
 ---
 - name: Install git and python
   hosts: all
+  become: yes
   tasks:
     - name: Install git
       ansible.builtin.apt:
