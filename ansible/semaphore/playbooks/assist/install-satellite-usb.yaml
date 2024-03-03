@@ -1,7 +1,7 @@
 ---
 - name: Install git and python
   hosts: usb
-  #become: yes
+  become: yes
   tasks:
     - name: Clone Repository
       ansible.builtin.git:
