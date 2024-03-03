@@ -1,8 +1,18 @@
 ---
 - name: Clone repository
   hosts: usb
-  become: yes
+  #become: yes
   tasks:
+    - name: Create leading directory git
+      ansible.builtin.file:
+        path: /git
+        state: directory
+        mode: '0775'
+    - name: Create leading directory wyoming-satellite
+      ansible.builtin.file:
+        path: /git/wyoming-satellite
+        state: directory
+        mode: '0775'
     - name: Clone Repository
       ansible.builtin.git:
         clone: true
