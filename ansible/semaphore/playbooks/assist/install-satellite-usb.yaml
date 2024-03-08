@@ -22,5 +22,5 @@
 
 # https://github.com/rhasspy/wyoming-satellite/blob/master/docs/tutorial_installer.md
 
-# cd /git/wyoming-satellite/
+# cd ~/git/wyoming-satellite/
 # python3 -m installer
