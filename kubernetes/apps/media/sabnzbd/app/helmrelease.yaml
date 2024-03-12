@@ -98,10 +98,10 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
+                cpu: 500m
                 memory: 256Mi
               limits:
-                memory: 1024Mi
+                memory: 2048Mi
     service:
       main:
         ports:
