@@ -1,0 +1,17 @@
+---
+- name: deploy dockge
+  hosts: dockge
+  become: yes
+  tasks:
+
+  - name: deploy dockge
+    community.docker.docker_container:
+      name: dockge
+      image: "louislam/dockge:1"
+      ports:
+        - "5001:5001"
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ~/data:/app/data
+        - /mnt/stacks:/mnt/stacks
+      restart_policy: unless-stopped

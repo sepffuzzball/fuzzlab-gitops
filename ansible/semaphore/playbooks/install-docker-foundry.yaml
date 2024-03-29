@@ -1,0 +1,19 @@
+---
+- name: deploy foundry
+  hosts: foundry
+  become: yes
+  tasks:
+
+  - name: deploy foundry
+    community.docker.docker_container:
+      name: foundry
+      image: felddy/foundryvtt:release
+      ports:
+        - "30000:30000/tcp"
+      volumes:
+        - /config:/config
+      restart_policy: unless-stopped
+      env:
+        FOUNDRY_PASSWORD: ""
+        FOUNDRY_USERNAME: ""
+        FOUNDRY_ADMIN_KEY: ""
