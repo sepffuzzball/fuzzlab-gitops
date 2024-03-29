@@ -214,6 +214,33 @@ lxcs = {
                 volume = "/mnt/pve/null"
             },
         }
+    },
+    foundry = {
+        name        = "foundry"
+        desc        = "foundryvtt"
+        vmip        = "10.0.2.112/22"
+        vmid        = 112
+        node        = "pvenode03"
+        order       = 4
+        cpus        = 4
+        disk        = 64
+        ram         = 8192
+        nesting     = true
+        mount       = ["cifs"]
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/foundrydelvers/Config"
+            },
+            mount2  = {
+                path = "/logs"
+                volume = "/mnt/pve/cephfs/foundrydelvers/Logs"
+            },
+            mount3  = {
+                path = "/data"
+                volume = "/mnt/pve/cephfs/foundrydelvers/Data"
+            },
+        }
     }
 }
 
