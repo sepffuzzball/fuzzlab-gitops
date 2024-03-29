@@ -258,8 +258,8 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/foundrydelvers/Logs"
             },
             mount3  = {
-                path = "/data"
-                volume = "/mnt/pve/cephfs/foundrydelvers/Data"
+                path = "/mnt/stacks"
+                volume = "/mnt/pve/cephfs/stacks"
             },
         }
     }
