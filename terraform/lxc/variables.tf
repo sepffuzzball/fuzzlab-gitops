@@ -30,6 +30,6 @@ locals {
             for k in yamldecode(data.sops_file.pm-sshkeys-secret.raw).keys :
             k.sshkey => k
         }
-    )    
+    )
 }
 

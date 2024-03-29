@@ -15,14 +15,17 @@ lxcs = {
             mount1  = {
                 path = "/config"
                 volume = "/mnt/pve/cephfs/adguard/config"
+                shared = true
             },
             mount2  = {
                 path = "/sync"
                 volume = "/mnt/pve/cephfs/adguard/sync"
+                shared = true
             },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/adguard/null"
+                shared = true
             },
         }
     },
@@ -42,14 +45,17 @@ lxcs = {
             mount1  = {
                 path = "/config"
                 volume = "/mnt/pve/cephfs/ansible/config"
+                shared = true
             },
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/ansible/db"
+                shared = true
             },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/ansible/null"
+                shared = true
             },
         }
     },
@@ -69,14 +75,17 @@ lxcs = {
             mount1  = {
                 path = "/home/steam"
                 volume = "/mnt/pve/cephfs/palworld/config"
+                shared = true
             },
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/palworld/db"
+                shared = true
             },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/palworld/null"
+                shared = true
             },
         }
     },
@@ -96,14 +105,17 @@ lxcs = {
             mount1  = {
                 path = "/config"
                 volume = "/mnt/pve/cephfs/swag/config"
+                shared = true
             },
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/swag/db"
+                shared = true
             },
             mount3  = {
                 path = "/null"
                 volume = "/mnt/pve/cephfs/swag/null"
+                shared = true
             },
         }
     },
@@ -123,14 +135,17 @@ lxcs = {
             mount1  = {
                 path = "/config"
                 volume = "/mnt/pve/cephfs/nextcloud/config"
+                shared = true
             },
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/nextcloud/db"
+                shared = true
             },
             mount3  = {
                 path = "/data"
-                volume = "/mnt/containerdata/nextclouddata"
+                volume = "/mnt/containers/nextclouddata"
+                shared = true
             },
         }
     },
@@ -150,14 +165,17 @@ lxcs = {
             mount1  = {
                 path = "/config"
                 volume = "/mnt/pve/cephfs/owncloud/config"
+                shared = true
             },
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/owncloud/db"
+                shared = true
             },
             mount3  = {
                 path = "/data"
                 volume = "/mnt/containerdata/owncloud/data"
+                shared = true
             },
         }
     },
@@ -177,14 +195,17 @@ lxcs = {
             mount1  = {
                 path = "/config"
                 volume = "/mnt/pve/cephfs/frigate/config"
+                shared = true
             },
             mount2  = {
                 path = "/db"
                 volume = "/mnt/pve/cephfs/frigate/db"
+                shared = true
             },
             mount3  = {
                 path = "/data"
                 volume = "/mnt/pve/cephfs/frigate/data"
+                shared = true
             },
         }
     },
