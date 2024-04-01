@@ -262,6 +262,33 @@ lxcs = {
                 volume = "/mnt/pve/cephfs/stacks"
             },
         }
+    },
+    macosx = {
+        name        = "macosx"
+        desc        = "macosx"
+        vmip        = "10.0.2.113/22"
+        vmid        = 113
+        node        = "pvenode03"
+        order       = 4
+        cpus        = 4
+        disk        = 64
+        ram         = 8192
+        nesting     = true
+        mount       = ["cifs"]
+        mounts      = {
+            mount1  = {
+                path = "/config"
+                volume = "/mnt/pve/cephfs/macosx/Config"
+            },
+            mount2  = {
+                path = "/logs"
+                volume = "/mnt/pve/cephfs/macosx/Logs"
+            },
+            mount3  = {
+                path = "/data"
+                volume = "/mnt/pve/cephfs/macosx/Data"
+            },
+        }
     }
 }
 

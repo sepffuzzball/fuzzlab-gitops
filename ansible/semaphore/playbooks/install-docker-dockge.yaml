@@ -1,6 +1,6 @@
 ---
 - name: deploy dockge
-  hosts: foundry
+  hosts: all
   become: yes
   tasks:
 
