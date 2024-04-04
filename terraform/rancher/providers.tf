@@ -18,7 +18,7 @@ terraform {
 provider "sops" {}
 
 provider "proxmox" {
-  endpoint = "https://10.0.2.31:8006/"
+  endpoint = "https://10.0.1.31:8006/"
   insecure = true
   username = "root@pam"
   password = data.sops_file.pm-password-secret.data["password"]

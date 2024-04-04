@@ -1,6 +1,6 @@
 variable "proxmox_nodes" {
     type = list(string)
-    default = ["pvenode01", "pvenode02", "pvenode03"]
+    default = ["pve01", "pve02", "pve03", "pve04", "pve05"]
 }
 
 variable "vms" {
@@ -28,6 +28,6 @@ locals {
         }
     )
 
-    
+
 }
 

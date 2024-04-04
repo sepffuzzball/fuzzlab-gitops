@@ -5,19 +5,6 @@ provider "registry.terraform.io/bpg/proxmox" {
   version     = "0.46.4"
   constraints = "0.46.4"
   hashes = [
-    "h1:+HWOyrhxyAiPxUSIJuesoYYCgDPz2pLnXHRgmS9LEfo=",
-    "h1:3fmznpTuWc15oQvgT8wzDtG5WbQ46NjJQLOsEq1JlvM=",
-    "h1:5xgp2Cbv9cAKqaRbQY/10lfoOlLF1pOy5GtEUObitZU=",
-    "h1:8xS8w64VPx6VhLRjbB4VBU3A269VnXkBTB1N/eZdw1U=",
-    "h1:Cu8sy7RvfTYtC6zkA7i0fHrPz9cGBM2cbSAOpAShDQQ=",
-    "h1:KcOWBcRKORTvct5eyE24Sb4zEX1dtb7w2dxNSYkMtE0=",
-    "h1:OL+QDvX3GnQZAmQhjceZPEyq+VLKyyhXy5lsC3i/7+E=",
-    "h1:SNgbSVsjRgDCh/aq4BLm+cmSD9h03ac7Vpj+zdO7F24=",
-    "h1:akJlNsPPLS6pKzBbcQiGwOBfRc3Klyj6xk/FAmJ9xro=",
-    "h1:efito/UnXVMyH6wa9O23vbOlcCk3hOPwOOm99cqEHNs=",
-    "h1:iHK5aFTcwSacZ4ZW2hJHSPVkGpisfKyFGvSEETBq7mA=",
-    "h1:j1FuAtiwXsjXxrJWYZTtgHh4qLKYq11lVcGFiEQZI90=",
-    "h1:nTqpmKGr7qBBO82/gDZ9xBYLqaUkstV/OB8zh1A7QU8=",
     "h1:wgBt4+wjMxS01BvKLTpe7nP93hJGLNlLgm/a+xPFucI=",
     "zh:0e4edda53fd7e7233d39a9f6bb0b6f26ea407182a90514e09ad3f46817c72082",
     "zh:13ef89edbe5ee34354f3918dc465cf570bf35c3d070f5016184e3a548df9296e",

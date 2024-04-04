@@ -13,7 +13,7 @@ resource "proxmox_virtual_environment_vm" "k3scluster" {
 
     clone {
         datastore_id = "ceph-stor"
-        node_name = "pvenode01"
+        node_name = "pve01"
         retries = 5
         vm_id = 2000
         full = true
@@ -25,7 +25,7 @@ resource "proxmox_virtual_environment_vm" "k3scluster" {
     }
 
     memory {
-      dedicated = 16384
+      dedicated = 8192
     }
 
     agent {
@@ -48,6 +48,8 @@ resource "proxmox_virtual_environment_vm" "k3scluster" {
 
     initialization {
 
+      datastore_id = "local-zfs"
+
       dns {
         servers = var.dns
         domain = var.domain
@@ -68,7 +70,7 @@ resource "proxmox_virtual_environment_vm" "k3scluster" {
     }
 
     network_device {
-      bridge = "vmbr0"
+      bridge = "vmbr1"
     }
 
     serial_device {}
