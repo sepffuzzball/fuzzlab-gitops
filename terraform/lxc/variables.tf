@@ -3,11 +3,6 @@ variable "proxmox_nodes" {
     description = "List of Proxmox Nodes"
 }
 
-variable "lxcs" {
-    type = map(any)
-    description = "List of LXC containers to create"
-}
-
 variable "dns" {
     description = "DNS search providers"
 }
@@ -22,6 +17,30 @@ variable "gateway" {
 
 variable "api_url" {
     description = "Proxmox API URL"
+}
+
+variable "primary_datastore" {
+    description = "Primary datastore"
+}
+
+variable "bridge" {
+  description = "Network Bridge"
+}
+
+variable "ethernet" {
+  description = "Network adapter"
+}
+
+variable "os" {
+  description = "OS Type"
+}
+
+variable "stackspath" {
+  description = "Stacks Mount Path"
+}
+
+variable "stacksvolume" {
+  description = "Stacks Volume Path"
 }
 
 locals {

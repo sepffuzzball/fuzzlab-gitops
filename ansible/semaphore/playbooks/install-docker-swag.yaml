@@ -20,7 +20,7 @@
         PUID: "1100"
         PGID: "1100"
         TZ: "America/New_York"
-        EMAIL: "kylemunn@gmail.com"
+        EMAIL: "cloudflare@mail.kylemunn.com"
         VALIDATION: "dns"
         DNSPLUGIN: "cloudflare"
         URL: "fuzzball.me"
