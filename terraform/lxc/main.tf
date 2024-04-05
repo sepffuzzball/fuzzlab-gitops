@@ -3,6 +3,13 @@ resource "proxmox_virtual_environment_pool" "lxc" {
     comment = "Pool for any direct lxc containers"
 }
 
+resource "proxmox_virtual_environment_download_file" "deb-pve00" {
+  content_type = "vztmpl"
+  datastore_id = "local"
+  node_name    = "pve00"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+}
+
 resource "proxmox_virtual_environment_download_file" "deb-pve01" {
   content_type = "vztmpl"
   datastore_id = "local"
@@ -35,7 +42,77 @@ resource "proxmox_virtual_environment_download_file" "deb-pve05" {
   url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
 }
 
-resource "proxmox_virtual_environment_container" "adguard" {
+resource "proxmox_virtual_environment_container" "adguard02" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve00.id
+    type          = var.os
+  }
+
+  vm_id           = 2050
+  node_name       = "pve00"
+
+  description     = "Adguard Home LXC + Sync"
+
+  cpu {
+    cores         = 2
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 32
+  }
+
+  memory {
+    dedicated     = 2048
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "adguard02"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.50/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/adguard"
+    volume        = "/mnt/pve/local/adguard"
+    shared        = true
+  }
+
+  mount_point {
+    path          = "/dockge"
+    volume        = "/mnt/pve/local/dockge"
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = "vmbr0"
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
+resource "proxmox_virtual_environment_container" "adguard01" {
   operating_system {
     template_file_id = proxmox_virtual_environment_download_file.deb-pve02.id
     type          = var.os
@@ -65,7 +142,7 @@ resource "proxmox_virtual_environment_container" "adguard" {
   }
 
   initialization {
-    hostname = "adguard"
+    hostname = "adguard01"
 
     dns {
       domain      = var.domain
@@ -86,14 +163,8 @@ resource "proxmox_virtual_environment_container" "adguard" {
   }
 
   mount_point {
-    path          = "/config"
-    volume        = "/mnt/pve/cephfs/adguard/config"
-    shared        = true
-  }
-
-  mount_point {
-    path          = "/sync"
-    volume        = "/mnt/pve/cephfs/adguard/sync"
+    path          = "/adguard"
+    volume        = "/mnt/pve/cephfs/adguard"
     shared        = true
   }
 
@@ -269,16 +340,16 @@ resource "proxmox_virtual_environment_container" "nextcloud" {
   description     = "Nextcloud Fileserver"
 
   cpu {
-    cores         = 2
+    cores         = 8
   }
 
   disk {
     datastore_id  = var.primary_datastore
-    size          = 32
+    size          = 128
   }
 
   memory {
-    dedicated     = 4096
+    dedicated     = 8192
   }
 
   features {
@@ -308,20 +379,14 @@ resource "proxmox_virtual_environment_container" "nextcloud" {
   }
 
   mount_point {
-    path          = "/config"
-    volume        = "/mnt/pve/cephfs/nextcloud/config"
+    path          = "/nextcloud"
+    volume        = "/mnt/pve/cephfs/nextcloud"
     shared        = true
   }
 
   mount_point {
-    path          = "/db"
-    volume        = "/mnt/pve/cephfs/nextcloud/db"
-    shared        = true
-  }
-
-  mount_point {
-    path          = "/data"
-    volume        = "/mnt/dat/containers/nextclouddata"
+    path          = "/containers"
+    volume        = "/mnt/dat/containers"
     shared        = true
   }
 
@@ -338,6 +403,89 @@ resource "proxmox_virtual_environment_container" "nextcloud" {
 
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
+
+resource "proxmox_virtual_environment_container" "deluge" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve02.id
+    type          = var.os
+  }
+
+  vm_id           = 2105
+  node_name       = "pve02"
+
+  description     = "Deluge-VPN"
+
+  cpu {
+    cores         = 2
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 32
+  }
+
+  memory {
+    dedicated     = 4096
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "deluge"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.105/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/config"
+    volume        = "/mnt/pve/cephfs/deluge/config"
+    shared        = true
+  }
+
+  mount_point {
+    path          = "/data"
+    volume        = "/mnt/pve/cephfs/deluge/data"
+    shared        = true
+  }
+
+  mount_point {
+    path          = "/downloads"
+    volume        = "/mnt/dat/downloads"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
 
 resource "proxmox_virtual_environment_container" "frigate" {
   operating_system {
@@ -502,7 +650,7 @@ resource "proxmox_virtual_environment_container" "foundry" {
 
   disk {
     datastore_id  = var.primary_datastore
-    size          = 32
+    size          = 128
   }
 
   memory {
