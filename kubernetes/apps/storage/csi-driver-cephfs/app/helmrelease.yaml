@@ -25,17 +25,19 @@ spec:
     keepHistory: false
   values:
     csiConfig:
-      - clusterID: 872c236b-2dc0-4856-81b2-e04499487caa
+      - clusterID: ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3
         monitors:
-          - 10.0.2.31:6789
-          - 10.0.2.32:6789
-          - 10.0.2.33:6789
+          - 10.0.1.31:6789
+          - 10.0.1.32:6789
+          - 10.0.1.33:6789
+          - 10.0.1.34:6789
+          - 10.0.1.35:6789
         cephFS:
           subvolumeGroup: "csi"
     storageClass:
       create: true
       name: csi-cephfs-sc
-      clusterID: 872c236b-2dc0-4856-81b2-e04499487caa
+      clusterID: ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3
       # (required) CephFS filesystem name into which the volume shall be created
       fsName: k8s-cephfs
       reclaimPolicy: Delete
