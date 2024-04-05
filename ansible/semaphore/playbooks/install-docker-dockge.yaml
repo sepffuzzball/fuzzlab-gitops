@@ -12,6 +12,6 @@
         - "5001:5001"
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - /dockge/config:/app/data
+        - ~/data:/app/data
         - /dockge/stacks:/opt/stacks
       restart_policy: unless-stopped
