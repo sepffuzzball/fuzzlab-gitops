@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: ceph-csi-cephfs
-      version: v3.10.1
+      version: v3.11.0
       sourceRef:
         kind: HelmRepository
         name: ceph-csi
