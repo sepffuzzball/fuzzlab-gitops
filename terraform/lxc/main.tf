@@ -354,7 +354,7 @@ resource "proxmox_virtual_environment_container" "nextcloud" {
 
   features {
     nesting       = true
-    mount         = []
+    mount         = ["nfs","cifs"]
   }
 
   initialization {
@@ -381,12 +381,6 @@ resource "proxmox_virtual_environment_container" "nextcloud" {
   mount_point {
     path          = "/nextcloud"
     volume        = "/mnt/pve/cephfs/nextcloud"
-    shared        = true
-  }
-
-  mount_point {
-    path          = "/containers"
-    volume        = "/mnt/dat/containers"
     shared        = true
   }
 
@@ -540,6 +534,76 @@ resource "proxmox_virtual_environment_container" "frigate" {
   mount_point {
     path          = "/config"
     volume        = "/mnt/pve/cephfs/frigate/config"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
+resource "proxmox_virtual_environment_container" "ocis" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve02.id
+    type          = var.os
+  }
+
+  vm_id           = 2107
+  node_name       = "pve02"
+
+  description     = "OCIS 5"
+
+  cpu {
+    cores         = 8
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 32
+  }
+
+  memory {
+    dedicated     = 16384
+  }
+
+  features {
+    nesting       = true
+    mount         = ["nfs"]
+  }
+
+  initialization {
+    hostname = "owncloud"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.107/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/ocis"
+    volume        = "/mnt/pve/cephfs/ocis"
     shared        = true
   }
 
