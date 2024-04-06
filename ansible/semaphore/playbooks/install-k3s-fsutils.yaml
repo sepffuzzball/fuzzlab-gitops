@@ -3,6 +3,7 @@
   hosts: all
   tasks:
     - name: Install fs utils
+      become: yes
       ansible.builtin.apt:
         name:
           - samba
