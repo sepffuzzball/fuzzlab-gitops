@@ -40,7 +40,7 @@ spec:
       clusterID: ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3
       # (required) CephFS filesystem name into which the volume shall be created
       fsName: k8s-cephfs
-      reclaimPolicy: Delete
+      reclaimPolicy: Retain
       allowVolumeExpansion: true
       volumeNamePrefix: "k8s-"
       provisionerSecret: csi-cephfs-secret
