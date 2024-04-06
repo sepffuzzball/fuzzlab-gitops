@@ -11,7 +11,7 @@ spec:
       storage: 2Gi
   storageClassName: csi-cephfs-sc
   volumeName: nextcloud-config-pv
-  
+
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -37,7 +37,7 @@ spec:
       namespace: storage
     volumeAttributes:
       # Required options from storageclass parameters need to be added in volumeAttributes
-      "clusterID": "872c236b-2dc0-4856-81b2-e04499487caa"
+      "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
       "rootPath": /volumes/csi/k8s-home/nextcloud/config
