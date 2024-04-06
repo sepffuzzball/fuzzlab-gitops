@@ -1,0 +1,14 @@
+---
+- name: Install fs utils
+  hosts: all
+  tasks:
+    - name: Install fs utils
+      ansible.builtin.apt:
+        name:
+          - samba
+          - samba-common
+          - cifs-utils
+          - nfs-common
+          - cephadm
+        state: present
+        update_cache: yes
