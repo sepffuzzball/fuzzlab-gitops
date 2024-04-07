@@ -83,7 +83,7 @@ metadata:
 spec:
   storageClassName: csi-cephfs-sc
   capacity:
-    storage: 2Gi5Gi
+    storage: 25Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
