@@ -193,9 +193,7 @@ spec:
 
     prometheus:
       rules:
-        create: true
-      serviceMonitor:
-        create: true
+        enabled: true
 
     redis:
       enabled: false
