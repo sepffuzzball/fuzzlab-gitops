@@ -56,17 +56,21 @@ spec:
         #      imagePullPolicy: IfNotPresent
         #      env:
         #        INIT_POSTGRES_DBNAME: sonarr sonarr-log
-        #        INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
+        #        INIT_POSTGRES_HOST:
+        #          valueFrom:
+        #            secretKeyRef:
+        #              name: ${APP}-pguser-${DB_USER}
+        #              key: host
         #        INIT_POSTGRES_USER:
         #          valueFrom:
         #            secretKeyRef:
-        #              name: cluster-media-secrets
-        #              key: "SONARR_0_POSTGRES_USER"
+        #              name: ${APP}-pguser-${DB_USER}
+        #              key: user
         #        INIT_POSTGRES_PASS:
         #          valueFrom:
         #            secretKeyRef:
-        #              name: cluster-media-secrets
-        #              key: "SONARR_0_POSTGRES_PASSWORD"
+        #              name: ${APP}-pguser-${DB_USER}
+        #              key: password
         #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
@@ -75,7 +79,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.2.1183
+              tag: 4.0.3
             env:
               TZ: ${TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
@@ -84,19 +88,23 @@ spec:
               SONARR__ANALYTICS_ENABLED: "False"
               SONARR__AUTHENTICATION_METHOD: External
               SONARR__THEME: dark
-              SONARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
-              SONARR__POSTGRES_MAIN_DB: "sonarr"
-              SONARR__POSTGRES_LOG_DB: "sonarr-log"
+              SONARR__POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: host
+              SONARR__POSTGRES_MAIN_DB: "${DB_NAME}"
+              SONARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               SONARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "SONARR_0_POSTGRES_PASSWORD"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: password
               SONARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "SONARR_0_POSTGRES_USER"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: user
               SONARR__API_KEY:
                 valueFrom:
                   secretKeyRef:

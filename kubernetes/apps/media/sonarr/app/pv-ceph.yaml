@@ -44,3 +44,63 @@ spec:
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: sonarr
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-db-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  capacity:
+    storage: 25Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: storage
+    volumeAttributes:
+      # Required options from storageclass parameters need to be added in volumeAttributes
+      "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
+      "fsName": "k8s-cephfs"
+      "staticVolume": "true"
+      "rootPath": /volumes/csi/k8s-media/sonarr/db
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: sonarrdb
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonarr-dbbak-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  capacity:
+    storage: 2Gi5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: storage
+    volumeAttributes:
+      # Required options from storageclass parameters need to be added in volumeAttributes
+      "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
+      "fsName": "k8s-cephfs"
+      "staticVolume": "true"
+      "rootPath": /volumes/csi/k8s-media/sonarr/dbbak
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: sonarrdbbak
