@@ -8,6 +8,6 @@ resources:
   - ./crunchy-postgres-operator/ks.yaml
   #- ./mosquitto/ks.yaml
   #- ./redis/ks.yaml
-  - ./postgresql/ks.yaml
+  #- ./postgresql/ks.yaml
   - ./pgadmin/ks.yaml
   #- ./influxdb/ks.yaml
