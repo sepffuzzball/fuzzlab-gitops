@@ -21,4 +21,3 @@ spec:
   dependsOn:
     - name: csi-driver-cephfs
     - name: csi-driver-smb
-    - name: postgresql
