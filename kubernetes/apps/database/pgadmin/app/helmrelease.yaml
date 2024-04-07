@@ -16,7 +16,7 @@ spec:
         namespace: flux-system
   values:
     env:
-      email: ${SECRET_ACME_EMAIL}
+      email: ${SECRET_PERSONAL_EMAIL}
       password: ${SECRET_ACME_PASSWORD}
     ingress:
       enabled: true
