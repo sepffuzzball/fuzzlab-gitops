@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./device-plugin-operator/ks.yaml
-  - ./gpu-device-plugin/ks.yaml
+  #- ./gpu-device-plugin/ks.yaml
