@@ -25,141 +25,174 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    global:
+      image:
+        repository: ghcr.io/goauthentik/server
+        tag: 2024.2.2
+      fullnameOverride: authentik
+
+      podAnnotations:
+        secret.reloader.stakater.com/reload: *app
+
+      env:
+        - name: AUTHENTIK_POSTGRESQL__HOST
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-pguser-${DB_USER}
+              key: host
+        - name: AUTHENTIK_POSTGRESQL__NAME
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-pguser-${DB_USER}
+              key: dbname
+        - name: AUTHENTIK_POSTGRESQL__USER
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-pguser-${DB_USER}
+              key: user
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ${APP}-pguser-${DB_USER}
+              key: password
+        - name: AUTHENTIK_EMAIL__HOST
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secret
+              key: authentik_email_host
+        - name: AUTHENTIK_EMAIL__FROM
+          secretKeyRef:
+            name: authentik-secret
+            key: authentik_email_from
+        - name: AUTHENTIK_EMAIL__USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secret
+              key: authentik_email_username
+        - name: AUTHENTIK_EMAIL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secret
+              key: authentik_email_password
+        - name: AUTHENTIK_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secret
+              key: authentik_secret_key
+        - name: AUTHENTIK_REDIS__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secret
+              key: redisPassword
+
     authentik:
       log_level: info
       email:
         port: 587
         use_tls: true
+      secret_key: "${SECRET_AUTHENTIK_KEY}"
+      outposts:
+        container_image_base: ghcr.io/goauthentik/%(type)s:%(version)s
       error_reporting:
         enabled: false
         send_pii: false
       redis:
         host: "authentik-redis.security.svc.cluster.local"
-        password: ""
 
-    service:
-      loadBalancerIP: ${AUTH_ADDR}
-      externalTrafficPolicy: Cluster
-      type: LoadBalancer
+    server:
+      replicas: 1
+      autoscaling:
+        enabled: true
+      pdb:
+        enabled: true
+        minAvailable: 1
+        maxUnavailable: 1
+      ingress:
+        enabled: true
+        ingressClassName: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hosts:
+          - host: &host "auth.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "sonarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "prowl.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "prowlarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "lidarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "radarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "hubble.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "sab.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "sabnzbd.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          - host: "adguard.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+          #- host: "*.${SECRET_DOMAIN}"
+          #  paths:
+          #    - path: /(.*)
+          #      service:
+          #        name: main
+          #        port: http
+        tls:
+          - hosts:
+              - *host
 
-    ingress:
-      enabled: true
-      ingressClassName: external
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hajimari.io/icon: badge-account-horizontal
-      hosts:
-        - host: &host "auth.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "sonarr.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "prowl.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "prowlarr.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "lidarr.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "radarr.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "hubble.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "sab.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "sabnzbd.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        - host: "adguard.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              service:
-                name: main
-                port: http
-        #- host: "*.${SECRET_DOMAIN}"
-        #  paths:
-        #    - path: /(.*)
-        #      service:
-        #        name: main
-        #        port: http
-      tls:
-        - hosts:
-            - *host
-
-    envValueFrom:
-      AUTHENTIK_SECRET_KEY:
-        secretKeyRef:
-          name: authentik-secret
-          key: authentik_secret_key
-      AUTHENTIK_EMAIL__HOST:
-        secretKeyRef:
-          name: authentik-secret
-          key: authentik_email_host
-      AUTHENTIK_EMAIL__USERNAME:
-        secretKeyRef:
-          name: authentik-secret
-          key: authentik_email_username
-      AUTHENTIK_EMAIL__PASSWORD:
-        secretKeyRef:
-          name: authentik-secret
-          key: authentik_email_password
-      AUTHENTIK_EMAIL__FROM:
-        secretKeyRef:
-          name: authentik-secret
-          key: authentik_email_from
-      AUTHENTIK_POSTGRESQL__HOST:
-        secretKeyRef:
-          name: ${APP}-pguser-${DB_USER}
-          key: host
-      AUTHENTIK_POSTGRESQL__NAME:
-        secretKeyRef:
-          name: ${APP}-pguser-${DB_USER}
-          key: dbname
-      AUTHENTIK_POSTGRESQL__USER:
-        secretKeyRef:
-          name: ${APP}-pguser-${DB_USER}
-          key: user
-      AUTHENTIK_POSTGRESQL__PASSWORD:
-        secretKeyRef:
-          name: ${APP}-pguser-${DB_USER}
-          key: password
-      AUTHENTIK_REDIS__PASSWORD:
-        secretKeyRef:
-          name: authentik-secret
-          key: redisPassword
+    worker:
+      replicas: 1
+      autoscaling:
+        enabled: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 512Mi
+        limits:
+          memory: 1Gi
 
     volumes:
       - name: media
@@ -181,21 +214,9 @@ spec:
 
     redis:
       enabled: false
-#---
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#    name: authentik
-#spec:
-#    rules:
-#        - host: auth.${SECRET_DOMAIN}
-#          http:
-##              paths: /outpost.goauthentik.io
-#              pathType: Prefix
-#              backend:
-                  # Or, to use an external Outpost, create an ExternalName service and reference that here.
-                  # See https://kubernetes.io/docs/concepts/services-networking/service/#externalname
-#                  service:
-#                      name: ak-outpost-authentik-embedded-outpost
-#                      port:
-#                          number: 9000
+
+    serviceAccount:
+      # -- Create service account. Needed for managed outposts
+      create: true
+
+    kubernetesIntegration: true
