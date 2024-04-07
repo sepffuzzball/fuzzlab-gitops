@@ -21,4 +21,9 @@ spec:
   dependsOn:
     - name: csi-driver-cephfs
     - name: csi-driver-smb
-    - name: postgresql
+    - name: crunchy-postgres-operator
+  postBuild:
+    substitute:
+      APP: *app
+      DB_NAME: *app
+      DB_USER: *app

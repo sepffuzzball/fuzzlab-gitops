@@ -70,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/radarr
-              tag: 5.3.6.8612
+              tag: 5.3.6
             env:
               TZ: ${TIMEZONE}
               RADARR__INSTANCE_NAME: radarr
@@ -79,19 +79,23 @@ spec:
               RADARR__ANALYTICS_ENABLED: "False"
               RADARR__AUTHENTICATION_METHOD: External
               RADARR__THEME: dark
-              RADARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
-              RADARR__POSTGRES_MAIN_DB: "radarr"
-              RADARR__POSTGRES_LOG_DB: "radarr-log"
+              RADARR__POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: host
+              RADARR__POSTGRES_MAIN_DB: "${DB_NAME}"
+              RADARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               RADARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "RADARR_0_POSTGRES_PASSWORD"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: password
               RADARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "RADARR_0_POSTGRES_USER"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: user
               RADARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -102,7 +106,7 @@ spec:
                 cpu: 18m
                 memory: 128Mi
               limits:
-                memory: 256Mi
+                memory: 512Mi
     service:
       main:
         ports:

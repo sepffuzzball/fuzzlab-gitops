@@ -7,8 +7,8 @@ resources:
   - ./secrets.sops.yaml
  # - ./jellyfin/ks.yaml
  # - ./plex/ks.yaml
- # - ./prowlarr/ks.yaml
- # - ./lidarr/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./lidarr/ks.yaml
   - ./sonarr/ks.yaml
- # - ./radarr/ks.yaml
+  - ./radarr/ks.yaml
  # - ./sabnzbd/ks.yaml

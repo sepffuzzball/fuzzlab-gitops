@@ -70,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/lidarr
-              tag: 2.1.7.4030
+              tag: 2.1.7
             env:
               TZ: ${TIMEZONE}
               LIDARR__INSTANCE_NAME: Lidarr
@@ -79,19 +79,23 @@ spec:
               LIDARR__ANALYTICS_ENABLED: "False"
               LIDARR__AUTHENTICATION_METHOD: External
               LIDARR__THEME: dark
-              LIDARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
-              LIDARR__POSTGRES_MAIN_DB: "lidarr"
-              LIDARR__POSTGRES_LOG_DB: "lidarr-log"
+              LIDARR__POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: host
+              LIDARR__POSTGRES_MAIN_DB: "${DB_NAME}"
+              LIDARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               LIDARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "LIDARR_0_POSTGRES_PASSWORD"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: password
               LIDARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "LIDARR_0_POSTGRES_USER"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: user
               LIDARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -102,7 +106,7 @@ spec:
                 cpu: 18m
                 memory: 128Mi
               limits:
-                memory: 256Mi
+                memory: 512Mi
     service:
       main:
         ports:

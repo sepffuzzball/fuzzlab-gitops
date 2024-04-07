@@ -36,11 +36,6 @@ spec:
             medium: Memory
 
         pod:
-          #labels:
-          #  egress.home.arpa/internet: allow
-          #  egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-          #  ingress.home.arpa/nginx-internal: allow
-          #  ingress.home.arpa/internal: allow
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -75,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.13.3.4273
+              tag: 1.15.0
             env:
               TZ: ${TIMEZONE}
               PROWLARR__INSTANCE_NAME: Prowlarr
@@ -84,19 +79,23 @@ spec:
               PROWLARR__ANALYTICS_ENABLED: "False"
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__THEME: dark
-              PROWLARR__POSTGRES_HOST: postgresql.database.svc.cluster.local
-              PROWLARR__POSTGRES_MAIN_DB: "prowlarr"
-              PROWLARR__POSTGRES_LOG_DB: "prowlarr-log"
+              PROWLARR__POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: host
+              PROWLARR__POSTGRES_MAIN_DB: "${DB_NAME}"
+              PROWLARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               PROWLARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "PROWLARR_0_POSTGRES_PASSWORD"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: password
               PROWLARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "PROWLARR_0_POSTGRES_USER"
+                    name: ${APP}-pguser-${DB_USER}
+                    key: user
               PROWLARR__API_KEY:
                 valueFrom:
                   secretKeyRef:

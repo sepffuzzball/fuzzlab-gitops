@@ -36,11 +36,6 @@ spec:
             medium: Memory
 
         pod:
-          #labels:
-          #  egress.home.arpa/internet: allow
-          #  egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-          #  ingress.home.arpa/nginx-internal: allow
-          #  ingress.home.arpa/internal: allow
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -115,7 +110,7 @@ spec:
                 cpu: 100m
                 memory: 128Mi
               limits:
-                memory: 1024Mi
+                memory: 2048Mi
     service:
       main:
         ports:
