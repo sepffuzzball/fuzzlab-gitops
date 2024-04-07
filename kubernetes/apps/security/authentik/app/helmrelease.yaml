@@ -25,9 +25,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    annotations:
-      secret.reloader.stakater.com/reload: authentik-secret
-
     authentik:
       log_level: info
       email:
