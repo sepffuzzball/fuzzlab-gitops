@@ -103,7 +103,7 @@ spec:
                     key: "PROWLARR_0_API_KEY"
             resources:
               requests:
-                cpu: 18m
+                cpu: 100m
                 memory: 128Mi
               limits:
                 memory: 256Mi
