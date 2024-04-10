@@ -34,10 +34,22 @@ spec:
           reloader.stakater.com/auto: 'true'
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/felddy/foundryvtt
               tag: 11.315.1
+              pullPolicy: IfNotPresent
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
 
             env:
               TIMEZONE: ${TIMEZONE}
@@ -56,14 +68,14 @@ spec:
                   name: foundry-secrets
 
     service:
-      main:
+      app:
         controller: foundry
         ports:
           http:
             port: 30000
 
     ingress:
-      main:
+      app:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -72,7 +84,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
