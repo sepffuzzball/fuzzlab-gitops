@@ -33,14 +33,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: 'true'
 
-        pod:
-          securityContext:
-            runAsUser: ${PUID}
-            runAsGroup: ${PGID}
-            runAsNonRoot: true
-            fsGroup: ${PGID}
-            fsGroupChangePolicy: OnRootMismatch
-
         containers:
           main:
             image:
