@@ -92,10 +92,3 @@ spec:
         existingClaim: foundry-data
         globalMounts:
           - path: /data
-
-
-      main:
-        volumes:
-        - name: tmp
-          emptyDir:
-            medium: Memory
