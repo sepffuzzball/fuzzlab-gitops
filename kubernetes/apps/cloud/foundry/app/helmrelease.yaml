@@ -42,7 +42,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/felddy/foundryvtt
               tag: 11.315.1
@@ -64,14 +64,14 @@ spec:
                   name: foundry-secret
 
     service:
-      app:
+      main:
         controller: foundry
         ports:
           http:
             port: 30000
 
     ingress:
-      app:
+      main:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
