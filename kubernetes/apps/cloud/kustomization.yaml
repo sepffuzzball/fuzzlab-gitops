@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   #- ./owncloud/ks.yaml
-  #- ./foundry/ks.yaml
+  - ./foundry/ks.yaml
