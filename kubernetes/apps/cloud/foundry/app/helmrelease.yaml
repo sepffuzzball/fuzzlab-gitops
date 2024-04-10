@@ -29,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      foundryvtt:
+      foundry:
         annotations:
           reloader.stakater.com/auto: 'true'
 
