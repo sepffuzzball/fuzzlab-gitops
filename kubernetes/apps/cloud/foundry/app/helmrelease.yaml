@@ -60,7 +60,7 @@ spec:
         controller: foundry
         ports:
           http:
-            port: &port 30000
+            port: 30000
 
     ingress:
       main:
@@ -73,7 +73,7 @@ spec:
               - path: /
                 service:
                   name: main
-                  port: *port
+                  port: http
         tls:
           - hosts:
               - *host
