@@ -44,7 +44,7 @@ spec:
       app:
         controller: adguard
         type: LoadBalancer
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
         loadBalancerIP: ${ADGUARD_ADDR}
         ports:
           http:
