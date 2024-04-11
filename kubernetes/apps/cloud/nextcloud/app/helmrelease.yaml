@@ -56,10 +56,7 @@ spec:
           authtype: NONE
           name: ""
           password: ""
-      securityContext:
-        runAsUser: 1100
-        runAsGroup: 1100
-        runAsNonRoot: true
+
     internalDatabase:
       enabled: false
     externalDatabase:
