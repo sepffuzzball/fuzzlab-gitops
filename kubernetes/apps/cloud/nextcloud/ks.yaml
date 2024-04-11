@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app nextcloud
+  namespace: flux-system
+spec:
+  targetNamespace: cloud
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/cloud/nextcloud/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: fuzzlab-gitops
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  dependsOn:
+    - name: csi-driver-cephfs
+    - name: redis
+    - name: crunchy-postgres-operator
+  postBuild:
+    substitute:
+      APP: *app
+      DB_NAME: *app
+      DB_USER: *app
