@@ -18,8 +18,10 @@ spec:
   install:
     remediation:
       retries: 3
+    timeout: 30m
   upgrade:
     cleanupOnFail: true
+    timeout: 30m
     remediation:
       strategy: rollback
       retries: 3
@@ -27,6 +29,7 @@ spec:
   values:
     image:
       flavor: fpm-alpine
+
     nginx:
       enabled: true
     nextcloud:
@@ -73,7 +76,7 @@ spec:
       enabled: true
       className: external
       annotations:
-        external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+        #external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         nginx.ingress.kubernetes.io/proxy-body-size: "10G"
         nginx.ingress.kubernetes.io/proxy-buffering: "off"
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
