@@ -28,7 +28,7 @@ spec:
 
   values:
     image:
-      flavor: fpm-alpine
+      flavor: fpm
 
     nginx:
       ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
