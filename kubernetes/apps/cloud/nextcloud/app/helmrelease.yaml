@@ -51,11 +51,6 @@ spec:
       #      - secretRef:
       #          name: nextcloud-secret
       datadir: /var/www/data
-      extraEnv:
-        - name: REDIS_HOST
-          value: redis.database.svc.cluster.local
-        - name: REDIS_HOST_PORT
-          value: "6379"
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
@@ -92,6 +87,8 @@ spec:
         passwordKey: password
         hostKey: host
         databaseKey: dbname
+    redis:
+      enabled: true
     ingress:
       enabled: true
       className: external
