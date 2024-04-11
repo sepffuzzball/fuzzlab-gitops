@@ -70,7 +70,16 @@ spec:
           authtype: NONE
           name: ""
           password: ""
-
+      configs:
+        proxy.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array(
+              0 => '127.0.0.1',
+              1 => '10.0.0.0/8',
+            ),
+            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+          );
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -88,6 +97,8 @@ spec:
       className: external
       annotations:
         external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/proxy-body-size: "10G"
         nginx.ingress.kubernetes.io/proxy-buffering: "off"
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
@@ -120,6 +131,7 @@ spec:
       tls:
         - hosts:
             - *host
+
     persistence:
       enabled: true
       existingClaim: nextcloud-config
