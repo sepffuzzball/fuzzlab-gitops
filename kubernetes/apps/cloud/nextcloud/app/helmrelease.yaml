@@ -89,9 +89,9 @@ spec:
       existingSecret:
         enabled: true
         secretName: ${APP}-pguser-${DB_USER}
-        usernameKey: user
-        passwordKey: password
-        hostKey: host
+        username: user
+        password: password
+        host: host
     ingress:
       enabled: true
       className: external
