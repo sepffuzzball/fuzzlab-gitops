@@ -31,7 +31,18 @@ spec:
       flavor: fpm-alpine
 
     nginx:
+      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
       enabled: true
+      image:
+        repository: nginx
+        tag: "1.25.4"
+      config:
+        default: true
+      resources:
+        requests:
+          cpu: 50m
+          memory: 20Mi
+
     nextcloud:
       #extraInitContainers:
       #  - name: init-db
@@ -115,11 +126,31 @@ spec:
       nextcloudData:
         enabled: true
         existingClaim: lcl-nextcloud
+
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
-      enabled: true
-      initialDelaySeconds: 10
-      periodSeconds: 20
+      enabled: false
+      initialDelaySeconds: 5
+      periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 30
+      failureThreshold: 60
       successThreshold: 1
+    livenessProbe:
+      enabled: false
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+    readinessProbe:
+      enabled: false
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+      successThreshold: 1
+
+    resources:
+      requests:
+        cpu: 200m
+        memory: 250M
