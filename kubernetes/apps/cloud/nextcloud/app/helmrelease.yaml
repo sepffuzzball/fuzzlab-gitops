@@ -85,7 +85,6 @@ spec:
     externalDatabase:
       enabled: true
       type: postgresql
-      database: *app
       existingSecret:
         enabled: true
         secretName: ${APP}-pguser-${DB_USER}
