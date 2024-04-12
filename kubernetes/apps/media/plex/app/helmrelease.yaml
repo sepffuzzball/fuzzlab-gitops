@@ -59,10 +59,10 @@ spec:
         # limits.
         requests:
           cpu: 2000m
-        #   "gpu.intel.com/i915: 1
+          gpu.intel.com/i915: 1
         limits:
           cpu: 8000m
-        #   "gpu.intel.com/i915: 1
+          gpu.intel.com/i915: 1
 
       # Mounts which should be carried over to kube-plex transcoder. By default only
       # /data and /transcode are cloned to the transcoding pod. A comma separated list.
