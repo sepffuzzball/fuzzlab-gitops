@@ -140,7 +140,7 @@ spec:
       existingClaim: nextcloud-config
       nextcloudData:
         enabled: true
-        existingClaim: lcl-nextcloud
+        existingClaim: nextcloud-data
 
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
