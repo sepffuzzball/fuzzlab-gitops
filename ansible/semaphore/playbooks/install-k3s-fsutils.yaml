@@ -10,6 +10,7 @@
           - samba-common
           - cifs-utils
           - nfs-common
+          - nfs-kernel-server
           - cephadm
         state: present
         update_cache: yes
