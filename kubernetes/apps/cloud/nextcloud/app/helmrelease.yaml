@@ -89,6 +89,8 @@ spec:
         databaseKey: dbname
     redis:
       enabled: true
+      persistence:
+        storageClass: csi-cephfs-sc
     ingress:
       enabled: true
       className: external
