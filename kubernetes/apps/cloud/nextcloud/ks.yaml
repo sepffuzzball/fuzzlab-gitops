@@ -20,6 +20,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: csi-driver-cephfs
+    - name: csi-driver-nfs
     - name: crunchy-postgres-operator
   postBuild:
     substitute:
