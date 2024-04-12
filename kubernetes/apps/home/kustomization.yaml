@@ -5,7 +5,4 @@ resources:
   - ./namespace.yaml
  # - ./firefly/ks.yaml
  # - ./actual/ks.yaml
- # - ./frigate/ks.yaml
- # - ./nextcloud/ks.yaml
- # - ./owncloud/ks.yaml
   - ./secrets.sops.yaml
