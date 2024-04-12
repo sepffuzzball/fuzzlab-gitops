@@ -47,7 +47,7 @@ spec:
     #   pullPolicy: IfNotPresent
 
     kubePlex:
-      enabled: true
+      enabled: false
       loglevel: ""
       image:
         repository: ghcr.io/ressu/kube-plex
