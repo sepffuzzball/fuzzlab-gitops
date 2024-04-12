@@ -1,0 +1,12 @@
+---
+- name: Install nfs
+  hosts: all
+  tasks:
+    - name: Install nfs
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - nfs-kernel-server
+        state: present
+        update_cache: yes
+
