@@ -28,7 +28,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    name: gpudeviceplugin-sample
+    name: intel-gpu-plugin
 
     image:
       hub: intel
@@ -39,7 +39,7 @@ spec:
       hub: intel
       tag: ""
 
-    sharedDevNum: 1
+    sharedDevNum: 3
     logLevel: 2
     resourceManager: false
     enableMonitoring: true
