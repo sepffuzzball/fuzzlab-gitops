@@ -100,16 +100,14 @@ spec:
           plex:
             app:
               - path: /config/Library/Application Support/Plex Media Server/Logs
-      nfs-nas-media:
-        type: nfs
-        server: gladius.bjw-s.casa
-        path: /tank/Media
+      lcl:
+        existingClaim: lcl
         advancedMounts:
           plex:
             app:
-              - path: /data/nas-media
+              - path: /data
       transcode:
-        type: emptyDir
+        existingClaim: plex-transcode
         advancedMounts:
           plex:
             app:
