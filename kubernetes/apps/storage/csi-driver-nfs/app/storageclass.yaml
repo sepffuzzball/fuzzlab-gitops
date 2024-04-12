@@ -1,15 +1,15 @@
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: nfs-nextcloud-sc
-provisioner: nfs.csi.k8s.io
-parameters:
-  server: 10.0.2.20
-  share: /lcl/containers/k8s/nextcloud
-reclaimPolicy: Retain
-volumeBindingMode: Immediate
-mountOptions: ["hard", "noatime"]
+# ---
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: nfs-nextcloud-sc
+# provisioner: nfs.csi.k8s.io
+# parameters:
+#   server: 10.0.2.20
+#   share: /lcl/containers/k8s/nextcloud
+# reclaimPolicy: Retain
+# volumeBindingMode: Immediate
+# mountOptions: ["hard", "noatime"]
 
 ---
 apiVersion: storage.k8s.io/v1
@@ -20,4 +20,6 @@ provisioner: nfs.csi.k8s.io
 parameters:
   archiveOnDelete: "false"
 reclaimPolicy: Retain
-mountOptions: ["hard", "noatime"]
+mountOptions:
+  - hard
+  - nfsvers=4.1

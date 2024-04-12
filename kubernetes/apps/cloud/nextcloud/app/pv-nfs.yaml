@@ -9,7 +9,7 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: nfs-nextcloud-sc
+  storageClassName: nfs-sc
   mountOptions:
     - nfsvers=4.1
     - nconnect=8
