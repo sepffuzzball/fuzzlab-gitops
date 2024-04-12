@@ -144,6 +144,12 @@ spec:
         enabled: true
         existingClaim: nextcloud-data
 
+    hpa:
+      enabled: true
+      cputhreshold: 60
+      minPods: 2
+      maxPods: 5
+
     # this seems to be required for nextcloud initialization which takes a long time
     startupProbe:
       enabled: false
