@@ -52,7 +52,7 @@ spec:
       image:
         repository: ghcr.io/ressu/kube-plex
         tag: latest
-        pullPolicy: Always
+        pullPolicy: IfNotPresent
       resources:
         # Limits and requests that are applied to the kube-plex transcoding pod. Can
         # be used to request GPU instances for pods as well as normal Kubernetes
