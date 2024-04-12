@@ -54,14 +54,10 @@ spec:
         tag: latest
         pullPolicy: IfNotPresent
       resources:
-        # Limits and requests that are applied to the kube-plex transcoding pod. Can
-        # be used to request GPU instances for pods as well as normal Kubernetes
-        # limits.
         requests:
-          cpu: 2000m
+          cpu: 200m
           gpu.intel.com/i915: 1
         limits:
-          cpu: 8000m
           gpu.intel.com/i915: 1
 
       # Mounts which should be carried over to kube-plex transcoder. By default only
@@ -238,17 +234,12 @@ spec:
         # Access mode for this volume
         accessMode: ReadWriteMany
 
-    resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #  cpu: 100m
-      #  memory: 128Mi
-      # requests:
-      #  cpu: 100m
-      #  memory: 128Mi
+    resources:
+      requests:
+        cpu: 200m
+        gpu.intel.com/i915: 1
+      limits:
+        gpu.intel.com/i915: 1
 
     podAnnotations: {}
 
