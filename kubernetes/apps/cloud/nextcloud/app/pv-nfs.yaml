@@ -35,6 +35,6 @@ spec:
   resources:
     requests:
       storage: 1Mi
-  storageClassName: nfs-nextcloud-sc
+  storageClassName: nfs-sc
   volumeName: nextcloud-data-pv
 
