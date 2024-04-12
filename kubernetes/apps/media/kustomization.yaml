@@ -6,7 +6,7 @@ resources:
   - ./pv-smb.yaml
   - ./secrets.sops.yaml
   - ./jellyfin/ks.yaml
-  - ./plex/ks.yaml
+ # - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./lidarr/ks.yaml
   - ./sonarr/ks.yaml
