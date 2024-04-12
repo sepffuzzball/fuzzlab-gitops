@@ -115,7 +115,7 @@ spec:
     storage: 8Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: cephfs.csi.ceph.com
@@ -144,7 +144,7 @@ spec:
     storage: 8Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: cephfs.csi.ceph.com
