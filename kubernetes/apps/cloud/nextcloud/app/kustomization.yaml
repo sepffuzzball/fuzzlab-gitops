@@ -5,6 +5,6 @@ resources:
   - ./pv-ceph.yaml
   #- ./pv-smb.yaml
   - ./pv-nfs.yaml
-  #- ./helmrelease.yaml
+  - ./helmrelease.yaml
   - ./secrets.sops.yaml
-  #- ./postgresCluster.yaml
+  - ./postgresCluster.yaml
