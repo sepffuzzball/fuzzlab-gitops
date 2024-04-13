@@ -18,5 +18,6 @@
         name:
           - intel-media-va-driver-non-free
           - vainfo
+          - intel-gpu-tools
         state: present
         update_cache: yes
