@@ -8,6 +8,10 @@
         repo: deb http://deb.debian.org/debian bookworm main non-free-firmware
         state: present
 
+    - name: Current debian bug where add apt isn't working
+      become: yes
+      ansible.builtin.shell: 'sed -i "s/Components: main/Components: main non-free/" /etc/apt/sources.list.d/debian.sources'
+
     - name: Install non-free-firmware
       become: yes
       ansible.builtin.apt:
