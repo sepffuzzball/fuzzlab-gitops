@@ -56,11 +56,11 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
-      host: &host cloud.${SECRET_DOMAIN}
+      host: &host cloud.${SECRET_DOMAIN_LOCAL}
       mail:
         enabled: false
         fromAddress: admin
-        domain: ${SECRET_DOMAIN}
+        domain: ${SECRET_DOMAIN_LOCAL}
         smtp:
           host: smtp.${SECRET_DOMAIN}
           port: 25
@@ -99,9 +99,9 @@ spec:
           existingClaim: redis-replica
     ingress:
       enabled: true
-      className: external
+      className: internal
       annotations:
-        external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+        #external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/proxy-body-size: "10G"
@@ -133,9 +133,16 @@ spec:
           }
       path: /
       pathType: Prefix
-      tls:
-        - hosts:
-            - *host
+      hosts:
+        - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+          paths:
+            - path: /
+              service:
+                name: main
+                port: http
+      #tls:
+      #  - hosts:
+      #      - *host
 
     persistence:
       enabled: true
