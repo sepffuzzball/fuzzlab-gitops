@@ -17,5 +17,6 @@
       ansible.builtin.apt:
         name:
           - intel-media-va-driver-non-free
+          - vainfo
         state: present
         update_cache: yes
