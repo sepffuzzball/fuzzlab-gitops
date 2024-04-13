@@ -97,6 +97,10 @@ spec:
       replica:
         persistence:
           existingClaim: redis-replica
+    service:
+      type: LoadBalancer
+      loadBalancerIP: ${NEXTCLOUD_ADDR}
+
     ingress:
       enabled: true
       className: internal
