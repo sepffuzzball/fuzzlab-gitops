@@ -91,13 +91,13 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
-          - host: ansible.${SECRET_DOMAIN_NAME}
+          - host: ansible.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: semaphore.${SECRET_DOMAIN_NAME}
+          - host: semaphore.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
@@ -105,5 +105,5 @@ spec:
                   port: http
         tls:
           - hosts:
-              - ansible.${SECRET_DOMAIN_NAME}
-              - semaphore.${SECRET_DOMAIN_NAME}
+              - ansible.${SECRET_DOMAIN}
+              - semaphore.${SECRET_DOMAIN}
