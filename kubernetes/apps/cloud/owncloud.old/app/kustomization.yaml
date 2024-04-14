@@ -6,3 +6,10 @@ resources:
   - ./pv-nfs.yaml
   - ./helmrelease.yaml
   - ./secrets.sops.yaml
+ # - ./generic-configs.yaml
+secretGenerator:
+  - name: owncloud-secret
+    files:
+      - values.yaml=my-values.enc.yaml
+configurations:
+  - kustomizeconfig.yaml

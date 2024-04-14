@@ -1,22 +1,19 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: cloud
+  name: &app owncloud
   namespace: cloud
 spec:
   interval: 30m
   chart:
     spec:
-      chart: charts/ocis
-      version: 0.5.0
+      chart: app-template
+      version: 3.1.0
       sourceRef:
-        kind: GitRepository
-        name: owncloud
+        kind: HelmRepository
+        name: bjw-s
         namespace: flux-system
-  valuesFrom:
-    - kind: Secret
-      name: owncloud-secret
   maxHistory: 2
   install:
     remediation:
@@ -27,3 +24,77 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: csi-driver-cephfs
+      namespace: storage
+  values:
+    controllers:
+      owncloud:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: owncloud/ocis
+              tag: 5.0.1
+              pullPolicy: IfNotPresent
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            env:
+              DEMO_USERS: 'false'
+              PROXY_TLS: 'false'
+              OCIS_INSECURE: 'true'
+              PROXY_HTTP_ADDR: '0.0.0.0:9200'
+              PROXY_AUTOPROVISION_ACCOUNTS: 'true'
+              OCIS_LOG_LEVEL: 'info'
+              OCIS_LOG_COLOR: 'true'
+              OCIS_LOG_PRETTY: 'true'
+            envFrom:
+              - secretRef:
+                  name: owncloud-secrets
+
+    service:
+      app:
+        controller: owncloud
+        ports:
+          http:
+            port: 9200
+
+    ingress:
+      app:
+        className: fbe
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN_FBE}"
+        hosts:
+          - host: &host 'cloud.${SECRET_DOMAIN_FBE}'
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: owncloud-config
+        globalMounts:
+          - path: /etc/ocis
+      data:
+        enabled: true
+        existingClaim: owncloud-data
+        globalMounts:
+          - path: /var/lib/ocis

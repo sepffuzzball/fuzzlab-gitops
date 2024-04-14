@@ -40,7 +40,7 @@ spec:
       "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-cloud/owncloud/config
+      "rootPath": /volumes/csi/k8s-home/owncloud/config
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: owncloud
