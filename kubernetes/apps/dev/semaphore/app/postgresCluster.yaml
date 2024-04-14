@@ -32,7 +32,7 @@ spec:
           - "ReadWriteMany"
         resources:
           requests:
-            storage: 25Gi
+            storage: 5Gi
 
   users:
     - name: "${DB_USER}"
@@ -56,4 +56,4 @@ spec:
             - "ReadWriteOnce"
             resources:
               requests:
-                storage: 25Gi
+                storage: 5Gi
