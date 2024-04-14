@@ -95,17 +95,19 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: fbe
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN_FBE}"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_LOCAL}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN_FBE}"
             paths:
               - path: /
                 service:
                   name: main
                   port: http
-        #tls:
-        #  - hosts:
-        #      - *host
+        tls:
+          - hosts:
+              - *host
 
 
 

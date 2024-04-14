@@ -38,7 +38,7 @@ spec:
               repository: ghcr.io/onedr0p/plex
               tag: 1.40.1.8227-c0dd5a73e@sha256:c8d74539a40530fa9770c6d67f37aef8f3a7b3f30ee353c2cb5685b84ed5b04c
             env:
-              PLEX_ADVERTISE_URL: https://plex.fuzzball.me,http://plex.fzbl.local,http://${PLEX_ADDR}:32400,https://plex.bjw-s.dev:443
+              PLEX_ADVERTISE_URL: https://plex.fuzzball.me,https://plex.fuzball.enterprises,http://plex.fzbl.local,http://${PLEX_ADDR}:32400
               PLEX_NO_AUTH_NETWORKS: ${CLUSTER_CIDR},${NODE_CIDR}
             probes:
               liveness:
@@ -72,17 +72,19 @@ spec:
 
     ingress:
       app:
-        className: internal
+        className: fbe
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN_FBE}"
         hosts:
-          - host: &hostName plex.${SECRET_DOMAIN_LOCAL}
+          - host: &hostName plex.${SECRET_DOMAIN_FBE}
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        #tls:
-        #  - hosts:
-        #      - *hostName
+        tls:
+          - hosts:
+              - *hostName
 
     persistence:
       config:
