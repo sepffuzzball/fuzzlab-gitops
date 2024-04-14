@@ -70,7 +70,9 @@ spec:
                 sab.fzbl.xyz,
                 sabnzbd.fzbl.xyz,
                 sab.fzbl.local,
-                sabnzbd.fzbl.local
+                sabnzbd.fzbl.local,
+                sab.fuzzball.enterprises,
+                sabnzbd.fuzzball.enterprises
               SABNZBD__API_KEY: &apiKey
                 valueFrom:
                     secretKeyRef:
