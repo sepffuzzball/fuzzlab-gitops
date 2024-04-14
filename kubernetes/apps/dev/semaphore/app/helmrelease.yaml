@@ -1,0 +1,109 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: semaphore
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-charts
+
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+
+  values:
+    controllers:
+      semaphore:
+        annotations:
+          reloader.stakater.com/auto: 'true'
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/semaphore
+              tag: v2.9.37@sha256:da37f0083a1a3d642eb5d4494244ede866bd8dfe6837dc8eae1250a6c1a411f6
+
+            envFrom:
+              - secretRef:
+                  name: semaphore-secrets
+
+            env:
+              SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
+              SEMAPHORE_PORT: &port 3000
+
+              SEMAPHORE_LDAP_ACTIVATED: 'no'
+              SEMAPHORE_DB_DIALECT: postgres
+              SEMAPHORE_DB_PORT: '5432'
+              SEMAPHORE_DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: user
+              SEMAPHORE_DB_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: password
+              SEMAPHORE_DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: host
+              SEMAPHORE_DB:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: database
+
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 1Gi
+
+    service:
+      app:
+        controller: semaphore
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hosts:
+          - host: ansible.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: semaphore.${SECRET_DOMAIN_NAME}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - ansible.${SECRET_DOMAIN_NAME}
+              - semaphore.${SECRET_DOMAIN_NAME}
