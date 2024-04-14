@@ -75,7 +75,7 @@ spec:
       app:
         className: fbe
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN_FBE}"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN_FBE}"
         hosts:
           - host: &host 'cloud.${SECRET_DOMAIN_FBE}'
             paths:
