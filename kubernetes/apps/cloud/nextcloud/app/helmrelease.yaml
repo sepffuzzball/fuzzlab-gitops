@@ -56,13 +56,13 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
-      host: &host nextcloud.${SECRET_DOMAIN_LOCAL}
+      host: &host nextcloud.${SECRET_DOMAIN_FBE}
       mail:
         enabled: false
         fromAddress: admin
-        domain: ${SECRET_DOMAIN_LOCAL}
+        domain: ${SECRET_DOMAIN_FBE}
         smtp:
-          host: smtp.${SECRET_DOMAIN}
+          host: smtp.${SECRET_DOMAIN_FBE}
           port: 25
           authtype: NONE
           name: ""
@@ -97,15 +97,15 @@ spec:
       replica:
         persistence:
           existingClaim: redis-replica
-    service:
-      type: LoadBalancer
-      loadBalancerIP: ${NEXTCLOUD_ADDR}
+    #service:
+    #  type: LoadBalancer
+    #  loadBalancerIP: ${NEXTCLOUD_ADDR}
 
     ingress:
       enabled: true
-      className: internal
+      className: fbe
       annotations:
-        #external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+        external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
         nginx.ingress.kubernetes.io/proxy-body-size: "10G"
@@ -144,9 +144,9 @@ spec:
               service:
                 name: main
                 port: http
-      #tls:
-      #  - hosts:
-      #      - *host
+      tls:
+        - hosts:
+            - *host
 
     persistence:
       enabled: true
