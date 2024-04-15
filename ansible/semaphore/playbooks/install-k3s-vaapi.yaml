@@ -17,6 +17,7 @@
       ansible.builtin.apt:
         name:
           - intel-media-va-driver-non-free
+          - intel-opencl-icd
           - vainfo
           - intel-gpu-tools
         state: present
