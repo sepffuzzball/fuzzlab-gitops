@@ -22,7 +22,7 @@ spec:
     key: init.sql
   instances:
     - name: instance
-      replicas: 1
+      replicas: 3
       dataVolumeClaimSpec:
         #volumeName: immich-db-pv
         storageClassName: csi-cephfs-sc
