@@ -12,6 +12,6 @@ resources:
   - ./secrets.sops.yaml
   - ./database
   - ./redis
-  #- ./server
-  #- ./microservices
-  #- ./machine-learning
+  - ./server
+  - ./microservices
+  - ./machine-learning
