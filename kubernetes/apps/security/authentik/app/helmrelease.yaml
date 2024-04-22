@@ -127,6 +127,7 @@ spec:
           - "lidarr.${SECRET_DOMAIN}"
           - "prowlarr.${SECRET_DOMAIN}"
           - "radarr.${SECRET_DOMAIN}"
+          - "readarr.${SECRET_DOMAIN}"
           - "sab.${SECRET_DOMAIN}"
           - "sonarr.${SECRET_DOMAIN}"
         paths: ["/"]
