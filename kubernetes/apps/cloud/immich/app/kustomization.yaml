@@ -12,7 +12,7 @@ resources:
   - ./pv-nfs.yaml
   - ./secret.sops.yaml
   - ./database
-  - ./redis
+#  - ./redis
 #  - ./server
 #  - ./microservices
 #  - ./machine-learning
