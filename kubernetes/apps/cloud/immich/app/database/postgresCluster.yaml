@@ -1,0 +1,72 @@
+---
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: &name immich-database
+spec:
+  postgresVersion: 16
+  image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:79c727039b2fea1c97f9efa36e52f6631ba0c11c0383cfec594aeafea403ca7d
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        synchronous_commit: "on"
+        parameters:
+          shared_preload_libraries: "vectors.so"
+          search_path: '"$user", public, vectors"'
+        pg_hba:
+          - hostnossl all all 10.42.0.0/16 md5
+          - hostssl all all all md5
+  databaseInitSQL:
+    name: immich-database-init-sql
+    key: init.sql
+  instances:
+    - name: instance
+      replicas: 3
+      dataVolumeClaimSpec:
+        volumeName: immich-db-pv
+        storageClassName: csi-cephfs-sc
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 5Gi
+      walVolumeClaimSpec:
+        volumeName: immich-dbwal-pv
+        storageClassName: csi-cephfs-sc
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
+  users:
+    - name: immich
+      databases:
+        - immich
+  backups:
+    pgbackrest:
+      global:
+        repo1-retention-full: "14"
+        repo1-retention-full-type: time
+        archive-push-queue-max: 4GiB
+      repos:
+        - name: repo1
+          schedules:
+            full: 0 1 * * 0
+            incremental: 0 1 * * 1-6
+          volume:
+            volumeClaimSpec:
+              accessModes:
+                - ReadWriteMany
+              resources:
+                requests:
+                  storage: 5Gi
+              volumeName: immich-dbbak-pv
+              storageClassName: csi-cephfs-sc
