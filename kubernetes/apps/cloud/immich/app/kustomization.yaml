@@ -11,6 +11,7 @@ resources:
   - ./pv-nfs.yaml
   - ./secrets.sops.yaml
   - ./database
+  - ./redis
   - ./server
   - ./microservices
   - ./machine-learning
