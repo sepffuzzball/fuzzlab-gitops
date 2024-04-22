@@ -22,4 +22,3 @@ spec:
     - name: csi-driver-cephfs
     - name: csi-driver-nfs
     - name: crunchy-postgres-operator
-    - name: redis

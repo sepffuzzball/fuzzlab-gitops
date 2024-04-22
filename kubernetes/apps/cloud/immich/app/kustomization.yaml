@@ -9,9 +9,9 @@ labels:
 resources:
   - ./configmap.yaml
   - ./pv-nfs.yaml
-  - ./secrets.sops.yaml
+  - ./secret.sops.yaml
   - ./database
   - ./redis
-  - ./server
-  - ./microservices
-  - ./machine-learning
+#  - ./server
+#  - ./microservices
+#  - ./machine-learning
