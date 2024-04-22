@@ -12,6 +12,6 @@ resources:
   - ./pv-cephfs.yaml
   - ./secrets.sops.yaml
   - ./database
-  #- ./server
-  #- ./microservices
-  #- ./machine-learning
+  - ./server
+  - ./microservices
+  - ./machine-learning
