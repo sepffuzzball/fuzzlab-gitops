@@ -8,4 +8,6 @@ labels:
       app.kubernetes.io/part-of: immich
 resources:
   - ./helmrelease.yaml
-  - ./secrets.sops.yaml
+  - ./configmap.yaml
+  - ./pv-ceph.yaml
+  - ./secret.sops.yaml
