@@ -24,7 +24,7 @@ spec:
     - name: instance
       replicas: 1
       dataVolumeClaimSpec:
-        volumeName: immich-db-pv
+        #volumeName: immich-db-pv
         storageClassName: csi-cephfs-sc
         accessModes:
           - ReadWriteMany
@@ -32,7 +32,7 @@ spec:
           requests:
             storage: 5Gi
       walVolumeClaimSpec:
-        volumeName: immich-dbwal-pv
+        #volumeName: immich-dbwal-pv
         storageClassName: csi-cephfs-sc
         accessModes:
           - ReadWriteOnce
@@ -68,5 +68,5 @@ spec:
               resources:
                 requests:
                   storage: 5Gi
-              volumeName: immich-dbbak-pv
+              #volumeName: immich-dbbak-pv
               storageClassName: csi-cephfs-sc
