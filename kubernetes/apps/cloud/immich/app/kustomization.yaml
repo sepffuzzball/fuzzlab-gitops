@@ -10,9 +10,8 @@ resources:
   - ./configmap.yaml
   - ./pv-nfs.yaml
   - ./pv-cephfs.yaml
-  - ./helmrelease.yaml
   - ./secrets.sops.yaml
   - ./database
-  - ./server
-  - ./microservices
-  - ./machine-learning
+  #- ./server
+  #- ./microservices
+  #- ./machine-learning
