@@ -9,7 +9,6 @@ labels:
 resources:
   - ./configmap.yaml
   - ./pv-nfs.yaml
-  - ./pv-cephfs.yaml
   - ./secrets.sops.yaml
   - ./database
   - ./server
