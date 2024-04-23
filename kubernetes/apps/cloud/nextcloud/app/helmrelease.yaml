@@ -38,10 +38,12 @@ spec:
         tag: "1.25.4"
       config:
         default: true
-      #resources:
-      #  requests:
-      #    cpu: 50m
-      #    memory: 20Mi
+      resources:
+        requests:
+          cpu: 50m
+          memory: 20Mi
+        limits:
+          memory: 100Mi
 
     nextcloud:
       podSecurityContext:
@@ -77,6 +79,24 @@ spec:
       #       ),
       #       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
       #     );
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 3600
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 100
+          pm.start_servers = 10
+          pm.min_spare_servers = 10
+          pm.max_spare_servers = 40
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
     internalDatabase:
       enabled: false
     externalDatabase:
