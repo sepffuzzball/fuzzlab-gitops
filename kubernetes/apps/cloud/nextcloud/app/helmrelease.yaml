@@ -38,10 +38,10 @@ spec:
         tag: "1.25.4"
       config:
         default: true
-      resources:
-        requests:
-          cpu: 50m
-          memory: 20Mi
+      #resources:
+      #  requests:
+      #    cpu: 50m
+      #    memory: 20Mi
 
     nextcloud:
       podSecurityContext:
