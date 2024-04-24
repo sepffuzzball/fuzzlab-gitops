@@ -79,12 +79,12 @@ spec:
       #       ),
       #       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
       #     );
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
+      #phpConfigs:
+      #  uploadLimit.ini: |
+      #    upload_max_filesize = 16G
+      #    post_max_size = 16G
+      #    max_input_time = 3600
+      #    max_execution_time = 3600
         #www.conf: |
         #  [www]
         #  user = www-data
