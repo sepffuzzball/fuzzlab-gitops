@@ -13,7 +13,7 @@ spec:
       postgresql:
         synchronous_commit: "on"
         pg_hba:
-          - hostnossl all all 10.69.0.0/16 md5z
+          - hostnossl all all 10.69.0.0/16 md5
           - hostssl all all all md5
 
   instances:
@@ -26,7 +26,7 @@ spec:
           egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
       replicas: 1
       dataVolumeClaimSpec:
-        volumeName: ${APP}-db-pv2
+        volumeName: ${APP}-db-pv
         storageClassName: csi-cephfs-sc
         accessModes:
           - "ReadWriteMany"
@@ -50,7 +50,7 @@ spec:
       - name: repo1
         volume:
           volumeClaimSpec:
-            volumeName: ${APP}-dbbak-pv2
+            volumeName: ${APP}-dbbak-pv
             storageClassName: csi-cephfs-sc
             accessModes:
             - "ReadWriteOnce"
