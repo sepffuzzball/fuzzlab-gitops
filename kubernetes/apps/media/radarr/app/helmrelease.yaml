@@ -70,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/radarr
-              tag: 5.3.6
+              tag: 5.6.0
             env:
               TZ: ${TIMEZONE}
               RADARR__INSTANCE_NAME: radarr

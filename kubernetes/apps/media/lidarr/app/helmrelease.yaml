@@ -70,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/lidarr
-              tag: 2.1.7
+              tag: 2.3.3
             env:
               TZ: ${TIMEZONE}
               LIDARR__INSTANCE_NAME: Lidarr
