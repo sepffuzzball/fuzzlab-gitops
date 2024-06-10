@@ -5,5 +5,6 @@ resources:
   - ./namespace.yaml
   - ./owncloud/ks.yaml
   - ./foundry/ks.yaml
+  - ./foundrydc20/ks.yaml
   - ./immich/ks.yaml
   - ./nextcloud/ks.yaml
