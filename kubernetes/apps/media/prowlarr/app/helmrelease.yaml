@@ -70,7 +70,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/prowlarr
-              tag: 1.15.0
+              tag: 1.20.1
             env:
               TZ: ${TIMEZONE}
               PROWLARR__INSTANCE_NAME: Prowlarr

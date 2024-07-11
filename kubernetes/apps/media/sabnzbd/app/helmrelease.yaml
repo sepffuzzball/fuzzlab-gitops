@@ -57,7 +57,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.2.3
+              tag: 4.3.2
             env:
               TZ: ${TIMEZONE}
               SABNZBD__PORT: &port 80
