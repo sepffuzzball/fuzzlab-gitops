@@ -50,7 +50,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/readarr-develop
-              tag: 0.3.23
+              tag: 0.3.32
             env:
               TZ: ${TIMEZONE}
               READARR__INSTANCE_NAME: readarr
