@@ -61,19 +61,17 @@ spec:
 
     ingress:
       app:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        className: internal
         hosts:
-          - host: *host
+          - host: &host 'sillytavern.${SECRET_DOMAIN_LOCAL}'
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
+        #tls:
+        #  - hosts:
+        #      - *host
 
     persistence:
       config:
