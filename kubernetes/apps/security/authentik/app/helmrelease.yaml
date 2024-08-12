@@ -129,6 +129,7 @@ spec:
           - "radarr.${SECRET_DOMAIN}"
           - "readarr.${SECRET_DOMAIN}"
           - "sab.${SECRET_DOMAIN}"
+          - "sillytavern.${SECRET_DOMAIN}"
           - "sonarr.${SECRET_DOMAIN}"
         paths: ["/"]
         pathType: Prefix
