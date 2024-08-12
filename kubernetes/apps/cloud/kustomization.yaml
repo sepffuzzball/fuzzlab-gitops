@@ -8,3 +8,4 @@ resources:
   - ./foundrydc20/ks.yaml
   - ./immich/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./sillytavern/ks.yaml
