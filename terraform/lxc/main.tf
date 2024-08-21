@@ -411,3 +411,74 @@ resource "proxmox_virtual_environment_container" "macosx" {
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
 
+
+resource "proxmox_virtual_environment_container" "notes" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve03.id
+    type          = var.os
+  }
+
+  vm_id           = 2114
+  node_name       = "pve03"
+
+  description     = "Standard Notes"
+
+  cpu {
+    cores         = 4
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 128
+  }
+
+  memory {
+    dedicated     = 8192
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "notes"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.114/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/notes"
+    volume        = "/mnt/pve/cephfs/notes/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
