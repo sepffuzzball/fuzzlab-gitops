@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/kylemunn/weblog
-              tag: 2024.09.041720
+              tag: 2024.09.041759
             resources:
               requests:
                 cpu: 100m
