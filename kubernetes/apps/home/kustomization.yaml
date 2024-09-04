@@ -5,4 +5,5 @@ resources:
   - ./namespace.yaml
  # - ./firefly/ks.yaml
  # - ./actual/ks.yaml
+  - ./km/km/yaml
   - ./secrets.sops.yaml
