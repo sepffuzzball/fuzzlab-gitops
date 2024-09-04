@@ -37,11 +37,11 @@ spec:
           main:
             image:
               repository: ghcr.io/kylemunn/weblog
-              tag: 2024.09.041622
+              tag: 2024.09.041706
             resources:
               requests:
                 cpu: 100m
-                memory: 256Mi
+                memory: 128Mi
     service:
       main:
         ports:
