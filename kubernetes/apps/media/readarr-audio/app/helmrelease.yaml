@@ -1,0 +1,119 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app readarr-audio
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: csi-driver-cephfs
+      namespace: storage
+  values:
+    controllers:
+      main:
+        volumes:
+        - name: tmp
+          emptyDir:
+            medium: Memory
+
+        pod:
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            runAsNonRoot: true
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          main:
+            volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            image:
+              repository: ghcr.io/onedr0p/readarr-develop
+              tag: 0.3.32.2587
+            env:
+              TZ: ${TIMEZONE}
+              READARR__INSTANCE_NAME: readarr-audio
+              READARR__PORT: &port 80
+              READARR__LOG_LEVEL: info
+              READARR__ANALYTICS_ENABLED: "False"
+              READARR__AUTHENTICATION_METHOD: External
+              READARR__THEME: dark
+              #READARR__POSTGRES_HOST:
+              #  valueFrom:
+              #    secretKeyRef:
+              #      name: ${APP}-pguser-${DB_USER}
+              #      key: host
+              #READARR__POSTGRES_MAIN_DB: "${DB_NAME}"
+              #READARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
+              #READARR__POSTGRES_PASSWORD:
+              #  valueFrom:
+              #    secretKeyRef:
+              #      name: ${APP}-pguser-${DB_USER}
+              #      key: password
+              #READARR__POSTGRES_USER:
+              #  valueFrom:
+              #    secretKeyRef:
+              #      name: ${APP}-pguser-${DB_USER}
+              #      key: user
+              READARR__API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: "READARR_0_API_KEY"
+            resources:
+              requests:
+                cpu: 18m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+    ingress:
+      main:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host "readarr-audio.${SECRET_DOMAIN_LOCAL}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  path: http
+        #tls:
+        #  - hosts:
+        #      - *host
+    persistence:
+      config:
+        enabled: true
+        existingClaim: readarr-audio-config
+      lcl:
+        enabled: true
+        existingClaim: lcl
+      downloads:
+        enabled: true
+        existingClaim: lcl-downloads
+        mountPath: /downloads
