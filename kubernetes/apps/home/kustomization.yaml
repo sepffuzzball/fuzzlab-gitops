@@ -6,4 +6,5 @@ resources:
  # - ./firefly/ks.yaml
  # - ./actual/ks.yaml
   - ./km/ks.yaml
+  - ./blog/ks.yaml
   - ./secrets.sops.yaml
