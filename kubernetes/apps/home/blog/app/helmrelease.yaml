@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: ghcr.io/sepffuzzball/blog.sepffuzzball.com
-              tag: 2024.09.051408
+              tag: 2024.09.061322
             resources:
               requests:
                 cpu: 100m
