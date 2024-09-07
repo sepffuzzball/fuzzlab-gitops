@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: blog-sepffuzzball
+  name: beginnings-sepffuzzball
   namespace: home
 spec:
   interval: 30m
@@ -36,8 +36,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/sepffuzzball/blog.sepffuzzball.com
-              tag: 2024.09.062131
+              repository: ghcr.io/sepffuzzball/beginnings.sepffuzzball.com
+              tag: 2024.09.062119
             resources:
               requests:
                 cpu: 100m
@@ -55,7 +55,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN_SEPF}"
 
         hosts:
-          - host: &host "blog.${SECRET_DOMAIN_SEPF}"
+          - host: &host "beginnings.${SECRET_DOMAIN_SEPF}"
             paths:
               - path: /
                 service:
