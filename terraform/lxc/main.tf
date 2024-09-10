@@ -341,7 +341,7 @@ resource "proxmox_virtual_environment_container" "samba" {
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
 
-resource "proxmox_virtual_environment_container" "macosx" {
+resource "proxmox_virtual_environment_container" "kasm" {
   operating_system {
     template_file_id = proxmox_virtual_environment_download_file.deb-pve04.id
     type          = var.os
@@ -350,7 +350,7 @@ resource "proxmox_virtual_environment_container" "macosx" {
   vm_id           = 2113
   node_name       = "pve04"
 
-  description     = "Mac OS"
+  description     = "KASM"
 
   cpu {
     cores         = 4
@@ -371,7 +371,7 @@ resource "proxmox_virtual_environment_container" "macosx" {
   }
 
   initialization {
-    hostname = "macosx"
+    hostname = "kasm"
 
     dns {
       domain      = var.domain
@@ -393,7 +393,7 @@ resource "proxmox_virtual_environment_container" "macosx" {
 
   mount_point {
     path          = "/config"
-    volume        = "/mnt/pve/cephfs/macosx/config"
+    volume        = "/mnt/pve/cephfs/kasm/config"
     shared        = true
   }
 

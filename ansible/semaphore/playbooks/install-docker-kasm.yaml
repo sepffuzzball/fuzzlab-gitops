@@ -1,0 +1,24 @@
+---
+- name: deploy kasm latest
+  hosts: kasm
+  become: yes
+  tasks:
+
+  - name: deploy kasm
+    community.docker.docker_container:
+      name: kasm
+      image: "ghcr.io/linuxserver/docker-kasm"
+      capabilities:
+        - NET_ADMIN
+      privileged: true
+      ports:
+        - "443:443/tcp"
+        - "3000:3000/tcp"
+      volumes:
+        - /config/opt:/opt
+        - /config/profiles:/profiles
+        - /dev/input:/dev/input
+        - /run/udev/data:/run/udev/data
+      restart_policy: unless-stopped
+      env:
+        - KASM_PORT=443
