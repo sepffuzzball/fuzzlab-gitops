@@ -482,3 +482,142 @@ resource "proxmox_virtual_environment_container" "notes" {
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
 
+resource "proxmox_virtual_environment_container" "gitlab" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve03.id
+    type          = var.os
+  }
+
+  vm_id           = 2200
+  node_name       = "pve03"
+
+  description     = "Gitlab"
+
+  cpu {
+    cores         = 8
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 256
+  }
+
+  memory {
+    dedicated     = 16384
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "gitlab"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.200/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/gitlab"
+    volume        = "/mnt/pve/cephfs/gitlab/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
+resource "proxmox_virtual_environment_container" "gitlab-runner" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve02.id
+    type          = var.os
+  }
+
+  vm_id           = 2199
+  node_name       = "pve02"
+
+  description     = "gitlab-runner"
+
+  cpu {
+    cores         = 4
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 128
+  }
+
+  memory {
+    dedicated     = 4096
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "gitlab-runner"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.199/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/gitlab-runner"
+    volume        = "/mnt/pve/cephfs/gitlab-runner/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
