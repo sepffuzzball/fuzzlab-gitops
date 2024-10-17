@@ -3,7 +3,7 @@ resource "proxmox_virtual_environment_pool" "qemu" {
     comment = "Pool for any direct qemu containers"
 }
 
-
+/*
 resource "proxmox_virtual_environment_vm" "dat" {
 
   vm_id           = 1020
@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "dat" {
   }
 
   operating_system {
-    type          = "debian"
+    type          = "l26"
   }
 
   pool_id = proxmox_virtual_environment_pool.qemu.pool_id
@@ -64,4 +64,104 @@ resource "proxmox_virtual_environment_download_file" "TrueNAS" {
   datastore_id = "local"
   node_name    = "pvenode00"
   url          = "https://download.sys.truenas.net/TrueNAS-SCALE-Cobia/23.10.1.3/TrueNAS-SCALE-23.10.1.3.iso"
+}
+*/
+resource "proxmox_virtual_environment_vm" "forge" {
+
+    vm_id           = 2030
+    node_name  = "pve01"
+    name       = "forge"
+    description     = "Git Forge and Postgres AIO"
+    tags            = ["qemu", "git"]
+
+    clone {
+        datastore_id = "ceph-stor"
+        node_name = "pve01"
+        retries = 5
+        vm_id = 2000
+        full = true
+    }
+
+    cpu {
+      cores = 2
+      type = "x86-64-v2-AES"
+    }
+
+    memory {
+      dedicated = 4096
+    }
+
+    agent {
+        enabled = true
+    }
+
+    startup {
+        order       = 10
+        up_delay    = "60"
+        down_delay  = "60"
+    }
+
+    disk {
+        size        = 128
+        datastore_id= "ceph-stor"
+        interface   = "scsi0"
+        discard = "on"
+        ssd = true
+    }
+
+    initialization {
+
+      datastore_id = "local-zfs"
+
+      dns {
+        servers = var.dns
+        domain = var.domain
+      }
+
+      ip_config {
+        ipv4 {
+          address = "10.0.2.30/22"
+          gateway = var.gateway
+        }
+      }
+
+      user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+        username = "rancher"
+      }
+    }
+
+    network_device {
+      bridge = "vmbr1"
+    }
+
+    serial_device {}
+
+    pool_id = proxmox_virtual_environment_pool.qemu.pool_id
+
+    /*
+    usb {
+        host        = ""
+    }
+    */
+
+    connection {
+        type     = "ssh"
+        user     = "rancher"
+        password = data.sops_file.pm-password-secret.data["password"]
+        host     = "deb"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+        "ip a"
+        ]
+    }
+
+    /*
+    provisioner "local-exec" {
+        command = ""
+    }
+    */
 }
