@@ -28,7 +28,7 @@ spec:
               repository: shlinkio/shlink
               tag: "3.7.0"
             env:
-              TIMEZONE: America/New York
+              TIMEZONE: America/New_York
               DEFAULT_DOMAIN: &host shlink.${SECRET_DOMAIN}
               DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
               ENABLE_PERIODIC_VISIT_LOCATE: "true"
