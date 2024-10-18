@@ -48,15 +48,9 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
     service:
       main:
+        controller: main
         enabled: true
         ports:
           http:
