@@ -3,7 +3,21 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: shlink
+  namespace: web
 spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+      interval: 15m
+  dependsOn:
+    - name: shlink-mariadb
+      namespace: web
   values:
     controllers:
       main:
@@ -14,15 +28,26 @@ spec:
               repository: shlinkio/shlink
               tag: "3.7.0"
             env:
-              DEFAULT_DOMAIN: shlink.${SECRET_DOMAIN}
+              TIMEZONE: America/New York
+              DEFAULT_DOMAIN: &host shlink.${SECRET_DOMAIN}
+              DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+              ENABLE_PERIODIC_VISIT_LOCATE: "true"
               IS_HTTPS_ENABLED: true
-              #GEOLITE_LICENSE_KEY: ${SECRET_GEOLINK_LICENSE_KEY}
+              PORT: &port 80
+              WEB_WORKER_NUM: 1
+              GEOLITE_LICENSE_KEY: ${SECRET_GEOLINK_LICENSE_KEY}
+              SHELL_VERBOSITY: 3
               DB_DRIVER: maria
               DB_NAME: shlink
               DB_USER: shlink
               DB_PASSWORD: ${SECRET_SHLINK_MARIADB_PASSWORD}
-              DB_HOST: shlink-mariadb
+              DB_HOST: 'shlink-mariadb.web.svc.cluster.local'
               DB_PORT: 3306
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
             probes:
               liveness:
                 enabled: true
@@ -36,18 +61,19 @@ spec:
         ports:
           http:
             enabled: true
-            port: 8080
+            port: *port
     ingress:
       main:
         enabled: true
-        className: "external"
+        className: external
         hosts:
-          - host: &host "shlink.${SECRET_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 pathType: Prefix
                 service:
-                  name: main
+                  identifier: main
+                  port: http
         tls:
           - hosts:
               - *host
