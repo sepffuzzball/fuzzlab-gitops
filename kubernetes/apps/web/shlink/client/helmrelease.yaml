@@ -1,32 +1,73 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: shlink-client
+  name: &app shlink-web
 spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
     controllers:
       main:
-        enabled: true
+        replicas: 1
+        strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: 2
+          surge: 0
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: *app
         containers:
           main:
             image:
-              repository: shlinkio/shlink-web-client
-              tag: "3.10.2"
+              repository: ghcr.io/shlinkio/shlink-web-client
+              tag: 4.2.1@sha256:63157a52bca88126dd86caee36ade0f24d77f0d85ae743b7d422a9ac60395fcf
             env:
-              SHLINK_SERVER_URL: "https://shlink.${SECRET_DOMAIN}"
-              SHLINK_SERVER_API_KEY: "${SECRET_SHLINK_API_KEY}"
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+              SHLINK_SERVER_URL: "https://shlink-api.${SECRET_DOMAIN}"
+              SHLINK_SERVER_API_KEY: ${SECRET_SHLINK_API_KEY}
+            envFrom:
+              - secretRef:
+                  name: shlink-secret
     service:
       main:
-        enabled: true
+        controller: main
         ports:
           http:
-            enabled: true
-            port: 80
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        hosts:
+          - host: "shlink.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http

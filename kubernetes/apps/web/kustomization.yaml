@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
 #  - ./pv-smb.yaml
-  - ./shlink/ks.yaml
+#  - ./shlink/ks.yaml
