@@ -59,6 +59,6 @@ spec:
       kind: HelmRelease
       name: shlink-client
       namespace: web
-  interval: 30m
+  interval: 15m
   retryInterval: 1m
   timeout: 3m
