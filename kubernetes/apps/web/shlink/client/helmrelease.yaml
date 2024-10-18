@@ -47,7 +47,7 @@ spec:
               repository: ghcr.io/shlinkio/shlink-web-client
               tag: 4.2.1@sha256:63157a52bca88126dd86caee36ade0f24d77f0d85ae743b7d422a9ac60395fcf
             env:
-              SHLINK_SERVER_URL: "https://shlink-api.${SECRET_DOMAIN}"
+              SHLINK_SERVER_URL: "https://s.${SECRET_DOMAIN}"
               SHLINK_SERVER_API_KEY: ${SECRET_SHLINK_API_KEY}
     service:
       main:
@@ -58,11 +58,11 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        className: internal
+        #annotations:
+        #  external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
-          - host: "shlink.${SECRET_DOMAIN}"
+          - host: "shlink.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 service:

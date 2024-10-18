@@ -29,7 +29,7 @@ spec:
               tag: "4.2.3"
             env:
               TIMEZONE: America/New_York
-              DEFAULT_DOMAIN: &host shlink-api.${SECRET_DOMAIN}
+              DEFAULT_DOMAIN: &host s.${SECRET_DOMAIN}
               DISABLE_TRACKING_FROM: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
               ENABLE_PERIODIC_VISIT_LOCATE: "true"
               IS_HTTPS_ENABLED: true
