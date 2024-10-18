@@ -165,3 +165,103 @@ resource "proxmox_virtual_environment_vm" "forge" {
     }
     */
 }
+
+resource "proxmox_virtual_environment_vm" "forge-runner" {
+
+    vm_id           = 2031
+    node_name  = "pve03"
+    name       = "forge-runner"
+    description     = "Git Forge and Postgres AIO"
+    tags            = ["qemu", "git"]
+
+    clone {
+        datastore_id = "ceph-stor"
+        node_name = "pve01"
+        retries = 5
+        vm_id = 2000
+        full = true
+    }
+
+    cpu {
+      cores = 2
+      type = "x86-64-v2-AES"
+    }
+
+    memory {
+      dedicated = 4096
+    }
+
+    agent {
+        enabled = true
+    }
+
+    startup {
+        order       = 15
+        up_delay    = "60"
+        down_delay  = "60"
+    }
+
+    disk {
+        size        = 128
+        datastore_id= "ceph-stor"
+        interface   = "scsi0"
+        discard = "on"
+        ssd = true
+    }
+
+    initialization {
+
+      datastore_id = "local-zfs"
+
+      dns {
+        servers = var.dns
+        domain = var.domain
+      }
+
+      ip_config {
+        ipv4 {
+          address = "10.0.2.31/22"
+          gateway = var.gateway
+        }
+      }
+
+      user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+        username = "rancher"
+      }
+    }
+
+    network_device {
+      bridge = "vmbr1"
+    }
+
+    serial_device {}
+
+    pool_id = proxmox_virtual_environment_pool.qemu.pool_id
+
+    /*
+    usb {
+        host        = ""
+    }
+    */
+
+    connection {
+        type     = "ssh"
+        user     = "rancher"
+        password = data.sops_file.pm-password-secret.data["password"]
+        host     = "deb"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+        "ip a"
+        ]
+    }
+
+    /*
+    provisioner "local-exec" {
+        command = ""
+    }
+    */
+}

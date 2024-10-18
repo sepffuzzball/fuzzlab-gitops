@@ -36,8 +36,8 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/sepffuzzball/beginnings.sepffuzzball.com
-              tag: 2024.09.062119
+              repository: forge.fuzzball.enterprises/sepfy/beginnings.sepffuzzball.com
+              tag: 2024.10.172022
             resources:
               requests:
                 cpu: 100m
