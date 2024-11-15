@@ -622,19 +622,19 @@ resource "proxmox_virtual_environment_container" "gitlab-runner" {
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
 
-resource "proxmox_virtual_environment_container" "registry" {
+resource "proxmox_virtual_environment_container" "matrix" {
   operating_system {
-    template_file_id = proxmox_virtual_environment_download_file.deb-pve05.id
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve03.id
     type          = var.os
   }
 
-  vm_id           = 2198
-  node_name       = "pve05"
+  vm_id           = 2175
+  node_name       = "pve03"
 
-  description     = "registry"
+  description     = "matrix"
 
   cpu {
-    cores         = 2
+    cores         = 4
   }
 
   disk {
@@ -643,7 +643,7 @@ resource "proxmox_virtual_environment_container" "registry" {
   }
 
   memory {
-    dedicated     = 4096
+    dedicated     = 8192
   }
 
   features {
@@ -652,7 +652,7 @@ resource "proxmox_virtual_environment_container" "registry" {
   }
 
   initialization {
-    hostname = "registry"
+    hostname = "matrix"
 
     dns {
       domain      = var.domain
@@ -661,7 +661,7 @@ resource "proxmox_virtual_environment_container" "registry" {
 
     ip_config {
       ipv4 {
-        address   = "10.0.2.198/22"
+        address   = "10.0.2.175/22"
         gateway   = var.gateway
       }
     }
@@ -673,8 +673,8 @@ resource "proxmox_virtual_environment_container" "registry" {
   }
 
   mount_point {
-    path          = "/registry"
-    volume        = "/mnt/pve/cephfs/registry/"
+    path          = "/matrix"
+    volume        = "/mnt/pve/cephfs/matrix/"
     shared        = true
   }
 
