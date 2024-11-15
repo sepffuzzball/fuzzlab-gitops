@@ -44,12 +44,12 @@ spec:
 
   backups:
     pgbackrest:
-      restore:
-        enabled: true
-        repoName: repo1
-        options:
-          - --type=time
-          - --target="2024-11-01 12:00:00-00"
+#      restore:
+#        enabled: true
+#        repoName: repo1
+#        options:
+#          - --type=time
+#          - --target="2024-11-01 12:00:00-00"
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.47-2
       repos:
       - name: repo1
