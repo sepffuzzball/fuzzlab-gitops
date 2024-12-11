@@ -68,7 +68,7 @@ resource "proxmox_virtual_environment_download_file" "TrueNAS" {
 */
 resource "proxmox_virtual_environment_vm" "forge" {
 
-    vm_id           = 2030
+    vm_id           = 2035
     node_name  = "pve01"
     name       = "forge"
     description     = "Git Forge and Postgres AIO"
@@ -120,7 +120,7 @@ resource "proxmox_virtual_environment_vm" "forge" {
 
       ip_config {
         ipv4 {
-          address = "10.0.2.30/22"
+          address = "10.0.2.35/22"
           gateway = var.gateway
         }
       }
