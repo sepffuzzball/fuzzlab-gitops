@@ -54,10 +54,6 @@ spec:
             env:
               OLLAMA_BASE_URL: "http://${OLLAMA_ADDR}:11434"
 
-            envFrom:
-              - secretRef:
-                  name: openwebui-secrets
-
     service:
       app:
         controller: openwebui
