@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: git-dd933e4 #5.1
+              tag: git-2299f48 #5.2
               pullPolicy: IfNotPresent
 
             probes:
