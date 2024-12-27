@@ -52,7 +52,7 @@ spec:
                   periodSeconds: 5
 
             env:
-              OLLAMA_BASE_URL: "http://${OLLAMA_ADDR}:11434"
+              #OLLAMA_BASE_URL: "http://${OLLAMA_ADDR}:11434"
               ENABLE_OAUTH_SIGNUP: "true"
               ENABLE_LITELLM: "false"
               OAUTH_MERGE_ACCOUNTS_BY_EMAIL: "true"
