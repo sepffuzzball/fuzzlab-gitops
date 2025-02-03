@@ -46,8 +46,8 @@ spec:
           memory: 100Mi
 
     nextcloud:
-      podSecurityContext:
-        fsGroup: 33
+      #podSecurityContext:
+      #  fsGroup: 33
       #extraInitContainers:
       #  - name: init-db
       #    image: ghcr.io/haraldkoch/postgres-init:16.2@sha256:599c7b0a56cffdccab49fe5a016b0c53c25306551ddbfbeaefa7661d2a3daa68
