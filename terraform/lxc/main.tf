@@ -482,7 +482,7 @@ resource "proxmox_virtual_environment_container" "notes" {
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
 
-resource "proxmox_virtual_environment_container" "gitlab" {
+/* resource "proxmox_virtual_environment_container" "gitlab" {
   operating_system {
     template_file_id = proxmox_virtual_environment_download_file.deb-pve03.id
     type          = var.os
@@ -620,7 +620,7 @@ resource "proxmox_virtual_environment_container" "gitlab-runner" {
   }
 
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
-}
+} */
 
 resource "proxmox_virtual_environment_container" "matrix" {
   operating_system {
@@ -675,6 +675,82 @@ resource "proxmox_virtual_environment_container" "matrix" {
   mount_point {
     path          = "/matrix"
     volume        = "/mnt/pve/cephfs/matrix/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
+resource "proxmox_virtual_environment_container" "dumbdrop" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve02.id
+    type          = var.os
+  }
+
+  vm_id           = 2176
+  node_name       = "pve02"
+
+  description     = "dumbdrop"
+
+  cpu {
+    cores         = 2
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 128
+  }
+
+  memory {
+    dedicated     = 4096
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "dumbdrop"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.176/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/dumbdrop"
+    volume        = "/mnt/pve/cephfs/dumbdrop/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = "/files"
+    volume        = "/mnt/dat/temp/"
     shared        = true
   }
 
