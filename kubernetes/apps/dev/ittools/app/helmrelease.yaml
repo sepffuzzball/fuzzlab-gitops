@@ -29,7 +29,7 @@ spec:
 
   values:
     controllers:
-      semaphore:
+      ittools:
         annotations:
           reloader.stakater.com/auto: 'true'
 
