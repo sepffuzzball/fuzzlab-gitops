@@ -21,7 +21,7 @@ spec:
   storageClassName: csi-cephfs-sc
   claimRef:
     name: mealie-data
-    namespace: media
+    namespace: home
   capacity:
     storage: 20Gi
   volumeMode: Filesystem
