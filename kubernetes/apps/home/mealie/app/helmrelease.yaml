@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app mealie
@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.1.0
+      version: 3.7.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,6 +22,7 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+      strategy: rollback
   uninstall:
     keepHistory: false
   dependsOn:
@@ -29,11 +30,9 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
-        volumes:
-        - name: tmp
-          emptyDir:
-            medium: Memory
+      mealie:
+        annotations:
+          reloader.stakater.com/auto: "true"
 
         pod:
           securityContext:
@@ -44,7 +43,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/mealie-recipes/mealie
               tag: v2.6.0
@@ -73,6 +72,21 @@ spec:
                     key: host
               POSTGRES_PORT: 5432
               POSTGRES_DB: ${DB_NAME}
+              # Auth Settings
+              OIDC_AUTH_ENABLED: true
+              OIDC_PROVIDER_NAME: Authentik
+              OIDC_REMEMBER_ME: true
+              OIDC_SIGNUP_ENABLED: true
+              OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN}/application/o/mealie/.well-known/openid-configuration
+              OIDC_USER_CLAIM: preferred_username
+
+              envFrom:
+                - secretRef:
+                    name: mealie
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 18m
@@ -80,12 +94,14 @@ spec:
               limits:
                 memory: 1000M
     service:
-      main:
+      app:
+        controller: mealie
         ports:
           http:
             port: 9000
+
     ingress:
-      main:
+      app:
         enabled: true
         className: external
         annotations:
@@ -97,6 +113,7 @@ spec:
                 service:
                   name: main
                   path: http
+
     persistence:
       config:
         enabled: true
