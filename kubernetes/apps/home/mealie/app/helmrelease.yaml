@@ -79,10 +79,22 @@ spec:
               OIDC_SIGNUP_ENABLED: true
               OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN}/application/o/mealie/.well-known/openid-configuration
               OIDC_USER_CLAIM: preferred_username
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-secrets
+                    key: OPENAI_API_KEY
+              OIDC_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-secrets
+                    key: OIDC_CLIENT_ID
+              OIDC_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: mealie-secrets
+                    key: OIDC_CLIENT_SECRET
 
-              envFrom:
-                - secretRef:
-                    name: mealie
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
