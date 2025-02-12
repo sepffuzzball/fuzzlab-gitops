@@ -111,9 +111,11 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
-                  path: http
-
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
         existingClaim: mealie-data
