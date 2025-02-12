@@ -1,0 +1,90 @@
+---
+- name: Install sudo
+  hosts: all
+  tasks:
+    - name: Install Sudo
+      ansible.builtin.apt:
+        name: sudo
+        state: present
+        update_cache: yes
+
+- name: Install prerequisites
+  hosts: all
+  tasks:
+    - name: Install prerequisites
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - wget
+          - curl
+          - zipinfo
+          - gtar
+        state: present
+        update_cache: yes
+
+- name: Install postgres common
+  hosts: all
+  tasks:
+    - name: Postgres common
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - postgresql-common
+        state: present
+        update_cache: yes
+
+- name: Update postgres repository
+  hosts: all
+  tasks:
+    - name: Shell repository update
+      become: yes
+      ansible.builtin.shell: /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+
+- name: Install postgres
+  hosts: all
+  tasks:
+    - name: Postgres
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - postgresql
+          - postgresql-contrib
+        state: present
+        update_cache: yes
+
+- name: Stop postgres
+  hosts: all
+  tasks:
+    - name: Stop and disable postgres
+      become: yes
+      ansible.builtin.service:
+        name: postgresql
+        state: stopped
+        enabled: no
+
+- name: Download etcd
+  hosts: all
+  tasks:
+    - name: Download and unzip etcd
+      ansible.builtin.unarchive:
+        src: https://github.com/etcd-io/etcd/releases/download/v3.5.18/etcd-v3.5.18-linux-amd64.tar.gz
+        dest: /usr/local/bin
+        remote_src: yes
+    - name: Rename and move etcd
+      ansible.builtin.copy:
+        src: /usr/local/bin/etcd-v3.5.18-linux-amd64
+        dest: /usr/local/bin/etcd
+    - name: Remove the old file
+      ansible.builtin.file:
+        path: /usr/local/bin/etcd-v3.5.18-linux-amd64
+        state: absent
+
+- name: create folder structure
+  hosts: all
+  tasks:
+    - name: Create etcd directory
+      path: /etc/etcd
+      state: directory
+    - name: Create ssl directory
+      path: /etc/etcd/ssl
+      state: directory
