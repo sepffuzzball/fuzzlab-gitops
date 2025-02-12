@@ -8,5 +8,5 @@ resources:
   - ./km/ks.yaml
   - ./beginnings/ks.yaml
   - ./blog/ks.yaml
-  - ./mealie/ks.yaml
+#  - ./mealie/ks.yaml
   - ./secrets.sops.yaml
