@@ -79,6 +79,8 @@ spec:
               OIDC_SIGNUP_ENABLED: true
               OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN}/application/o/mealie/.well-known/openid-configuration
               OIDC_USER_CLAIM: preferred_username
+              OIDC_GROUPS_CLAIM: groups
+              OIDC_ADMIN_GROUP: "mealie Admins"
               OPENAI_API_KEY:
                 valueFrom:
                   secretKeyRef:
