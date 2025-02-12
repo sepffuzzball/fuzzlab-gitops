@@ -5,12 +5,12 @@ metadata:
   name: &app pga-media
   namespace: media
 spec:
-  users:
-  - username: ${SECRET_OTHER_EMAIL}
-    role: Administrator
-    passwordRef:
-      name: cluster-media-secrets
-      key: PGA_PASSWORD
+  #users:
+  #- username: ${SECRET_OTHER_EMAIL}
+  #  role: Administrator
+  #  passwordRef:
+  #    name: cluster-media-secrets
+  #    key: PGA_PASSWORD
   dataVolumeClaimSpec:
     accessModes:
     - "ReadWriteOnce"
