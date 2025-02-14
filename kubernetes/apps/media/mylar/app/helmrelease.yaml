@@ -79,10 +79,13 @@ spec:
     persistence:
       config:
         existingClaim: mylar-config
-        mountPath: /config
+        globalMounts:
+          - path: /config
       downloads:
         existingClaim: lcl-downloads
-        mountPath: /downloads
+        globalMounts:
+          - path: /downloads
       unprocessed:
         existingClaim: lcl-comics
-        mountPath: /comics
+        globalMounts:
+          - path: /comics
