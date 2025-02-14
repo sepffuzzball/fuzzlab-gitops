@@ -61,6 +61,7 @@ spec:
                 memory: 512Mi
     service:
       app:
+        controller: mylar
         ports:
           http:
             port: 8090
