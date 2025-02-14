@@ -106,6 +106,32 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  name: lcl-comics-pv
+spec:
+  capacity:
+    storage: 1024Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: lcl-comics-sc
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0777
+  csi:
+    driver: smb.csi.k8s.io
+    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: lclcomics
+    volumeAttributes:
+      source: //10.0.2.20/unprocessed/Comics
+    nodeStageSecretRef:
+      name: smb-secrets
+      namespace: storage
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
   name: lcl-videos-pv
 spec:
   capacity:
@@ -189,6 +215,21 @@ spec:
       storage: 1024Gi
   storageClassName: lcl-unprocessed-sc
   volumeName: lcl-unprocessed-pv
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lcl-comics
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1024Gi
+  storageClassName: lcl-comics-sc
+  volumeName: lcl-comics-pv
 
 ---
 apiVersion: v1

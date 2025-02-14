@@ -12,7 +12,7 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
-mountOptions: 
+mountOptions:
   - dir_mode=0750
   - file_mode=0640
   - uid=1100
@@ -33,7 +33,7 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
-mountOptions: 
+mountOptions:
   - dir_mode=0777
   - file_mode=0777
   - uid=1100
@@ -54,7 +54,28 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
-mountOptions: 
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1100
+  - gid=1100
+  - noserverino
+
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: lcl-comics-sc
+provisioner: smb.csi.k8s.io
+parameters:
+  source: //10.0.2.20/unprocessed/Comics
+  csi.storage.k8s.io/provisioner-secret-name: smb-secrets
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
+  csi.storage.k8s.io/node-stage-secret-name: smb-secrets
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
   - dir_mode=0777
   - file_mode=0777
   - uid=1100
@@ -75,7 +96,7 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
-mountOptions: 
+mountOptions:
   - dir_mode=0777
   - file_mode=0777
   - uid=1100
@@ -96,7 +117,7 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
-mountOptions: 
+mountOptions:
   - dir_mode=0777
   - file_mode=0777
   - uid=1100
@@ -117,7 +138,7 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: storage
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
-mountOptions: 
+mountOptions:
   - dir_mode=0777
   - file_mode=0777
   - uid=1100
