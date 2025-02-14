@@ -125,6 +125,7 @@ spec:
           - "frigate.${SECRET_DOMAIN}"
           - "kuma.${SECRET_DOMAIN}"
           - "lidarr.${SECRET_DOMAIN}"
+          - "mylar.${SECRET_DOMAIN}"
           - "prowlarr.${SECRET_DOMAIN}"
           - "radarr.${SECRET_DOMAIN}"
           - "readarr.${SECRET_DOMAIN}"
