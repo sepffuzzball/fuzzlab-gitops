@@ -105,7 +105,7 @@ resource "proxmox_virtual_environment_container" "adguard02" {
   }
 
   network_interface {
-      bridge      = "vmbr0"
+      bridge      = "vmbr1"
       name        = var.ethernet
   }
 
@@ -751,6 +751,76 @@ resource "proxmox_virtual_environment_container" "dumbdrop" {
   mount_point {
     path          = "/files"
     volume        = "/mnt/dat/temp/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
+resource "proxmox_virtual_environment_container" "kms" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve03.id
+    type          = var.os
+  }
+
+  vm_id           = 2177
+  node_name       = "pve03"
+
+  description     = "dumbdrop"
+
+  cpu {
+    cores         = 2
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 64
+  }
+
+  memory {
+    dedicated     = 2048
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "kms"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.177/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/kms"
+    volume        = "/mnt/pve/cephfs/kms/"
     shared        = true
   }
 

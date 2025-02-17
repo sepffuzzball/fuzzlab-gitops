@@ -27,6 +27,6 @@ proxmox_nodes = {
 }
 
 api_url             = "https://10.0.1.31:8006/"
-dns                 = ["10.0.2.50", "10.0.2.10"]
-domain              = "fzbl.xyz"
+dns                 = ["10.0.2.10", "10.0.2.50", "10.0.2.101"]
+domain              = "fuzzball.enterprises"
 gateway             = "10.0.1.1"

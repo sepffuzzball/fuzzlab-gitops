@@ -265,3 +265,111 @@ resource "proxmox_virtual_environment_vm" "forge-runner" {
     }
     */
 }
+
+resource "proxmox_virtual_environment_vm" "eva-01v" {
+
+    vm_id           = 2033
+    node_name  = "pve01"
+    name       = "eva-01v"
+    description     = "Windows 11 for Sepfy"
+    tags            = ["qemu", "windows"]
+    acpi = true
+    bios = "ovmf"
+    scsi_hardware = "virtio-scsi-pci"
+
+    efi_disk {
+      datastore_id = "local-zfs"
+      type = "4m"
+      pre_enrolled_keys = true
+    }
+
+    tpm_state {
+      datastore_id = "local-zfs"
+      version = "v2.0"
+    }
+
+    cpu {
+      cores = 4
+      type = "host"
+    }
+
+    memory {
+      dedicated = 16384
+    }
+
+    agent {
+        enabled = true
+    }
+
+    startup {
+        order       = 20
+        up_delay    = "60"
+        down_delay  = "60"
+    }
+
+    disk {
+        size        = 256
+        datastore_id= "local-zfs"
+        interface   = "scsi0"
+        cache = "none"
+        replicate = true
+        discard = "on"
+        ssd = true
+    }
+
+    initialization {
+
+      datastore_id = "local-zfs"
+
+      dns {
+        servers = var.dns
+        domain = var.domain
+      }
+
+      ip_config {
+        ipv4 {
+          address = "10.0.2.33/22"
+          gateway = var.gateway
+        }
+      }
+
+      user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+        username = "rancher"
+      }
+    }
+
+    network_device {
+      bridge = "vmbr1"
+    }
+
+    serial_device {}
+
+    pool_id = proxmox_virtual_environment_pool.qemu.pool_id
+
+    /*
+    usb {
+        host        = ""
+    }
+    */
+
+    connection {
+        type     = "ssh"
+        user     = "rancher"
+        password = data.sops_file.pm-password-secret.data["password"]
+        host     = "deb"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+        "ip a"
+        ]
+    }
+
+    /*
+    provisioner "local-exec" {
+        command = ""
+    }
+    */
+}
