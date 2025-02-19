@@ -21,7 +21,7 @@ spec:
   storageClassName: csi-cephfs-sc
   claimRef:
     name: rustdesk-config
-    namespace: media
+    namespace: tools
   capacity:
     storage: 2Gi
   volumeMode: Filesystem
