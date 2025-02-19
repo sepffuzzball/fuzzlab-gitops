@@ -837,3 +837,73 @@ resource "proxmox_virtual_environment_container" "kms" {
 
   pool_id = proxmox_virtual_environment_pool.lxc.pool_id
 }
+
+resource "proxmox_virtual_environment_container" "rustdesk" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve00.id
+    type          = var.os
+  }
+
+  vm_id           = 2051
+  node_name       = "pve00"
+
+  description     = "rustdesk"
+
+  cpu {
+    cores         = 2
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 32
+  }
+
+  memory {
+    dedicated     = 4096
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "rustdesk"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.51/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/rustdesk"
+    volume        = "/mnt/pve/cephfs/rustdesk/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
