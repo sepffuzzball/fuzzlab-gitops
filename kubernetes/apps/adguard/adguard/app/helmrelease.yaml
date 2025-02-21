@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: adguard/adguardhome
-              tag: v0.107.48
+              tag: v0.107.57
             env:
               TZ: "${TIMEZONE}"
 
