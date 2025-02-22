@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
 #  - ./pv-smb.yaml
   - ./shlink/ks.yaml
+  - ./searxng/ks.yaml
