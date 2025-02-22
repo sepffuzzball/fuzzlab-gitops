@@ -29,8 +29,8 @@ spec:
               repository: searxng/searxng
               tag: 2025.2.20-28d1240fc
             env:
-              SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
-              SEARXNG_URL: *host
+              SEARXNG_BASE_URL: &hostenv https://search.${SECRET_DOMAIN}
+              SEARXNG_URL: *hostenv
               SEARXNG_PORT: &httpPort 8080
               SEARXNG_REDIS_URL: redis://searxng-redis.web.svc.cluster.local:6379/0
             envFrom:
