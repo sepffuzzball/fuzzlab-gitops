@@ -6,4 +6,4 @@ resources:
   - ./device-plugin-operator/ks.yaml
   - ./gpu-device-plugin/ks.yaml
   - ./node-feature-discovery/ks.yaml
- # - ./searxng/ks.yaml
+  - ./searxng/ks.yaml
