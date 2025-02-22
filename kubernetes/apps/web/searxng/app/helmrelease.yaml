@@ -29,7 +29,7 @@ spec:
               repository: searxng/searxng
               tag: 2025.2.20-28d1240fc
             env:
-              SEARXNG_BASE_URL: &hostenv https://search.${SECRET_DOMAIN}
+              SEARXNG_BASE_URL: &hostenv https://search.${SECRET_DOMAIN_FBE}
               SEARXNG_URL: *hostenv
               SEARXNG_PORT: &httpPort 8080
               SEARXNG_REDIS_URL: redis://searxng-redis.web.svc.cluster.local:6379/0
@@ -99,11 +99,11 @@ spec:
 
     ingress:
       app:
-        className: external
+        className: fbe
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN_FBE}"
         hosts:
-          - host: &host search.${SECRET_DOMAIN}
+          - host: &host search.${SECRET_DOMAIN_FBE}
             paths:
               - path: /
                 service:
