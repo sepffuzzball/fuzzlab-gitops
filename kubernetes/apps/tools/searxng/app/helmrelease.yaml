@@ -55,23 +55,12 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 2Gi
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
-                add:
-                  - CHOWN
-                  - SETGID
-                  - SETUID
-                  - DAC_OVERRIDE
 
       redis:
         pod:
           securityContext:
-            runAsUser: 1100
-            runAsGroup: 1100
+            runAsUser: 65534
+            runAsGroup: 65534
         strategy: RollingUpdate
         containers:
           redis:
