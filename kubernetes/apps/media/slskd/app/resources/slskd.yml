@@ -1,0 +1,22 @@
+---
+directories:
+  downloads: /downloads/complete/slskd
+  incomplete: /downloads/downloading/slskd
+flags:
+  no_version_check: true
+metrics:
+  enabled: true
+  url: /metrics
+  authentication:
+    disabled: true
+permissions:
+  file:
+    mode: 755
+remote_configuration: false
+shares:
+  directories:
+    - '[music]/lcl/music/'
+  filters:
+    - \.ini$
+    - Thumbs.db$
+    - \.DS_Store$
