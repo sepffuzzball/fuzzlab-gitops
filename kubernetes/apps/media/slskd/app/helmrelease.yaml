@@ -120,4 +120,3 @@ spec:
         existingClaim: lcl-downloads
         globalMounts:
           - path: /downloads
-            subPath: downloads
