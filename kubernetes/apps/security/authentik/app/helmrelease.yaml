@@ -132,6 +132,7 @@ spec:
           - "sab.${SECRET_DOMAIN}"
           - "shlink.${SECRET_DOMAIN}"
           - "sillytavern.${SECRET_DOMAIN}"
+          - "slskd.${SECRET_DOMAIN}"
           - "sonarr.${SECRET_DOMAIN}"
         paths: ["/"]
         pathType: Prefix
