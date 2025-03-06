@@ -18,7 +18,9 @@ spec:
   install:
     remediation:
       retries: 3
+    timeout: 30m
   upgrade:
+    timeout: 30m
     cleanupOnFail: true
     remediation:
       strategy: rollback
