@@ -12,6 +12,9 @@ kubeconfig
 *.agekey
 *.pub
 *.key
+*.pem
+*.csr
+*.srl
 # Ansible
 .venv*
 # Taskfile

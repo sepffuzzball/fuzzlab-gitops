@@ -1,0 +1,18 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: wazuh-storage
+  namespace: security
+provisioner: cephfs.csi.ceph.com
+parameters:
+  clusterID: ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3
+  fsName: k8s-cephfs
+  reclaimPolicy: Delete
+  volumeNamePrefix: "wazuh-"
+  csi.storage.k8s.io/provisioner-secret-name: csi-cephfs-secret
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
+  csi.storage.k8s.io/controller-expand-secret-name: csi-cephfs-secret
+  csi.storage.k8s.io/controller-expand-secret-namespace: storage
+  csi.storage.k8s.io/node-stage-secret-name: csi-cephfs-secret
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
