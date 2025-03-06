@@ -13,10 +13,11 @@ permissions:
   file:
     mode: 755
 remote_configuration: false
-#shares:
-#  directories:
-#    - '[music]/lcl/music/'
-#  filters:
-#    - \.ini$
-#    - Thumbs.db$
-#    - \.DS_Store$
+shares:
+  directories:
+    - '[audiobooks]/lcl/audiobooks/'
+    - '[music]/lcl/music/'
+  filters:
+    - \.ini$
+    - Thumbs.db$
+    - \.DS_Store$
