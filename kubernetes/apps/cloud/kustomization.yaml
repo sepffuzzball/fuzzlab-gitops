@@ -10,3 +10,4 @@ resources:
   - ./nextcloud/ks.yaml
   - ./openwebui/ks.yaml
   - ./sillytavern/ks.yaml
+  - ./sillytavern-kip/ks.yaml

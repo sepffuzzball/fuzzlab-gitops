@@ -1,0 +1,140 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kiptavern-config
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: csi-cephfs-sc
+  volumeName: kiptavern-config-pv
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kiptavern-config-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  claimRef:
+    name: kiptavern-config
+    namespace: cloud
+  capacity:
+    storage: 50Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: storage
+    volumeAttributes:
+      # Required options from storageclass parameters need to be added in volumeAttributes
+      "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
+      "fsName": "k8s-cephfs"
+      "staticVolume": "true"
+      "rootPath": /volumes/csi/k8s-cloud/kiptavern/config
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: kiptavern-cfg
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kiptavern-data
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: csi-cephfs-sc
+  volumeName: kiptavern-data-pv
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kiptavern-data-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  claimRef:
+    name: kiptavern-data
+    namespace: cloud
+  capacity:
+    storage: 50Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: storage
+    volumeAttributes:
+      # Required options from storageclass parameters need to be added in volumeAttributes
+      "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
+      "fsName": "k8s-cephfs"
+      "staticVolume": "true"
+      "rootPath": /volumes/csi/k8s-cloud/kiptavern/data
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: kiptavern-dta
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kiptavern-plugins
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: csi-cephfs-sc
+  volumeName: kiptavern-plugins-pv
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kiptavern-plugins-pv
+spec:
+  storageClassName: csi-cephfs-sc
+  claimRef:
+    name: kiptavern-plugins
+    namespace: cloud
+  capacity:
+    storage: 50Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      # node stage secret name
+      name: csi-cephfs-secret
+      # node stage secret namespace where above secret is created
+      namespace: storage
+    volumeAttributes:
+      # Required options from storageclass parameters need to be added in volumeAttributes
+      "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
+      "fsName": "k8s-cephfs"
+      "staticVolume": "true"
+      "rootPath": /volumes/csi/k8s-cloud/kiptavern/plugins
+    # volumeHandle can be anything, need not to be same
+    # as PV name or volume name. keeping same for brevity
+    volumeHandle: kiptavern-plg

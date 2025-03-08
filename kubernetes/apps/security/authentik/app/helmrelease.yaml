@@ -134,6 +134,7 @@ spec:
           - "sillytavern.${SECRET_DOMAIN}"
           - "slskd.${SECRET_DOMAIN}"
           - "sonarr.${SECRET_DOMAIN}"
+          - "kiptavern.${SECRET_DOMAIN}"
         paths: ["/"]
         pathType: Prefix
         tls:
