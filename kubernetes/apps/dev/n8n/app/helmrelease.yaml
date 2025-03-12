@@ -34,29 +34,29 @@ spec:
   values:
     controllers:
       n8n:
-      #  initContainers:
-      #    init-db:
-      #      image:
-      #        repository: ghcr.io/onedr0p/postgres-init
-      #        tag: 16.8
-      #      env:
-      #        INIT_POSTGRES_HOST:
-      #          valueFrom:
-      #            secretKeyRef:
-      #              name: ${APP}-pguser-${DB_USER}
-      #              key: host
-      #        INIT_POSTGRES_DBNAME: "${DB_NAME}"
-      #        INIT_POSTGRES_USER:
-      #           valueFrom:
-      #            secretKeyRef:
-      #              name: ${APP}-pguser-${DB_USER}
-      #              key: user
-      #        INIT_POSTGRES_PASS:
-      #          valueFrom:
-      #            secretKeyRef:
-      #              name: ${APP}-pguser-${DB_USER}
-      #              key: password
-      #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.8
+            env:
+              INIT_POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: host
+              INIT_POSTGRES_DBNAME: "${DB_NAME}"
+              INIT_POSTGRES_USER:
+                 valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: user
+              INIT_POSTGRES_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${APP}-pguser-${DB_USER}
+                    key: password
+              INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           app:
             image:
