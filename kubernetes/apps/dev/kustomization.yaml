@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./ittools/ks.yaml
-  - ./n8n/ks.yaml
+  #- ./n8n/ks.yaml
   - ./semaphore/ks.yaml
