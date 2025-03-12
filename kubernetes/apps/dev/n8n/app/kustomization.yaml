@@ -5,3 +5,4 @@ resources:
   - ./pv-ceph.yaml
   - ./helmrelease.yaml
   - ./postgresCluster.yaml
+  - ./secrets.sops.yaml
