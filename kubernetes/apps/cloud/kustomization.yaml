@@ -7,7 +7,7 @@ resources:
   - ./foundry/ks.yaml
   - ./foundrydc20/ks.yaml
   - ./immich/ks.yaml
-  - ./nextcloud/ks.yaml
+  #- ./nextcloud/ks.yaml
   - ./openwebui/ks.yaml
   - ./sillytavern/ks.yaml
   - ./sillytavern-kip/ks.yaml
