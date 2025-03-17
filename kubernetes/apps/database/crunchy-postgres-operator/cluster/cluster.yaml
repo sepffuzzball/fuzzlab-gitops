@@ -31,7 +31,6 @@ spec:
           app.kubernetes.io/name: crunchy-postgres
       replicas: &replica 2
       dataVolumeClaimSpec:
-        #volumeName: postgres-db-pv
         storageClassName: csi-cephfs-sc
         accessModes:
           - ReadWriteMany

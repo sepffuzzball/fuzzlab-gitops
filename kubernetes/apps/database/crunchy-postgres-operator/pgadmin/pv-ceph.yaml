@@ -1,22 +1,10 @@
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pgadmin-db-pvc
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 25Gi
-  storageClassName: csi-cephfs-sc
-  volumeName: pgadmin-db-pv
-
----
-apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pgadmin-db-pv
+  name: pgaadmin-pv
+  labels:
+    vol: pga
 spec:
   storageClassName: csi-cephfs-sc
   capacity:
@@ -37,7 +25,7 @@ spec:
       "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-database/pgadmin/config
+      "rootPath": /volumes/csi/k8s-database/pga/
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
-    volumeHandle: pgadmindb
+    volumeHandle: pgadmin
