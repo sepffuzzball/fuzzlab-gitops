@@ -11,12 +11,10 @@ spec:
       name: pgadmin-secrets
       key: PGADMIN_PASSWORD
   dataVolumeClaimSpec:
+    volumeName: pgaadmin-pv
     storageClassName: csi-cephfs-sc
     accessModes:
       - ReadWriteMany
-    selector:
-      matchLabels:
-        vol: pga
     resources:
       requests:
         storage: 5Gi
