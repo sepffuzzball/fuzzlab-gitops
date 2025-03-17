@@ -37,7 +37,7 @@ spec:
           - ReadWriteMany
         selector:
           matchLabels:
-            app.kubernetes.io/name: crunchy-postgres-operator-cluster
+            vol: pgdb
         resources:
           requests:
             storage: 50Gi
