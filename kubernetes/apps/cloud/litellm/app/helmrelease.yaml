@@ -43,17 +43,20 @@ spec:
               INIT_POSTGRES_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
+                    name: postgres-pguser-${DB_USER}
+                    namespace: database
                     key: host
               INIT_POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
+                    name: postgres-pguser-${DB_USER}
+                    namespace: database
                     key: host
               INIT_POSTGRES_PASS:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
+                    name: postgres-pguser-${DB_USER}
+                    namespace: database
                     key: password
               INIT_POSTGRES_SUPER_PASS: ${SECRET_PG_PASSWORD}
         replicas: 1
