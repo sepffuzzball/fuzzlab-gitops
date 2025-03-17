@@ -22,7 +22,7 @@ spec:
     volumeHandle: nextclouddata
     volumeAttributes:
       server: 10.0.2.20
-      share: /mnt/lcl/nextcloud
+      share: /mnt/lcl/nextcloud/data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
