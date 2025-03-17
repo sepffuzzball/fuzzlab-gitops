@@ -50,9 +50,11 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
-            args:
-              - "--config"
-              - "/app/config.yaml"
+            #args:
+            #  - --port
+            #  - "4000"
+            #  - "--config"
+            #  - "/app/config.yaml"
         pod:
           nodeSelector:
             kubernetes.io/arch: amd64
