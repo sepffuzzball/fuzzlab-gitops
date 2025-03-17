@@ -31,13 +31,16 @@ spec:
           app.kubernetes.io/name: crunchy-postgres
       replicas: &replica 2
       dataVolumeClaimSpec:
-        volumeName: postgres-db-pv
+        #volumeName: postgres-db-pv
         storageClassName: csi-cephfs-sc
         accessModes:
           - ReadWriteMany
+        selector:
+          matchLabels:
+            vol: pgdb
         resources:
           requests:
-            storage: 25Gi
+            storage: 50Gi
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
