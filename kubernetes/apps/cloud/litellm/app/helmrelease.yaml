@@ -40,7 +40,7 @@ spec:
               tag: 16
             envFrom:
               - secretRef:
-                  name: litellm-db
+                  name: litellm-db-secret
         replicas: 1
         containers:
           app:
