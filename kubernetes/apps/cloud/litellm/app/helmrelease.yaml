@@ -54,8 +54,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/berriai/litellm
-              tag: main-v1.63.11-stable
+              repository: ghcr.io/berriai/litellm-non_root
+              tag: main-dev@sha256:4a630fb6582466c24ab4e14434829978f52cafa7aeb2c62ef7ba8a33789a35be
             envFrom:
               - secretRef:
                   name: *secret
@@ -81,7 +81,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health/liveliness
-                    port: 4000
+                    port: &port 4000
                   initialDelaySeconds: 30
                   periodSeconds: 60
                   timeoutSeconds: 10
@@ -92,7 +92,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health/readiness
-                    port: 4000
+                    port: *port
                   initialDelaySeconds: 5
                   periodSeconds: 5
                   timeoutSeconds: 3
@@ -102,7 +102,7 @@ spec:
         controller: litellm
         ports:
           http:
-            port: 4000
+            port: *port
 
     ingress:
       app:
@@ -115,7 +115,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: 4000
+                  port: *port
         tls:
           - hosts:
               - *host
