@@ -1,0 +1,24 @@
+---
+# trunk-ignore(checkov/CKV_K8S_21)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin
+spec:
+  ingressClassName: external
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+  tls:
+    - hosts:
+        - &host pgadmin.${SECRET_DOMAIN}
+  rules:
+    - host: *host
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pgadmin
+                port:
+                  number: 5050

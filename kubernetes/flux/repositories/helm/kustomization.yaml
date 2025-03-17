@@ -9,6 +9,7 @@ resources:
   - ./ceph-csi.yaml
   - ./csi-driver-smb.yaml
   - ./coredns.yaml
+  - ./crunchy-userinit.yaml
   - ./crunchydata.yaml
   - ./csi-driver-nfs.yaml
   - ./democratic-csi.yaml

@@ -1,0 +1,120 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgres-operator.crunchydata.com/postgrescluster_v1beta1.json
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: &name postgres
+spec:
+  postgresVersion: 16
+
+  metadata:
+    labels:
+      crunchy-userinit.ramblurr.github.com/enabled: "true"
+      crunchy-userinit.ramblurr.github.com/superuser: postgres
+
+  patroni: # turn on sync writes to at least 1 other replica
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        max_wal_size: 5GB
+        synchronous_commit: "on"
+        pg_hba:
+          - hostnossl all all 10.96.0.0/16 md5
+          - hostnossl all all 10.0.0.0/16 md5
+          - hostssl all all all md5
+        parameters:
+          max_connections: 500
+  instances:
+    - name: postgres
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres
+      replicas: &replica 2
+      dataVolumeClaimSpec:
+        volumeName: postgres-db-pv
+        storageClassName: csi-cephfs-sc
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 50Gi
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
+              postgres-operator.crunchydata.com/data: postgres
+
+  users:
+    # Superuser
+    - name: postgres
+      databases:
+        - postgres
+      options: SUPERUSER
+      password: &password
+        type: AlphaNumeric
+    # Applications
+    - name: litellm
+      databases:
+        - litellm
+      password: *password
+    - name: readarr
+      databases:
+        - readarr_main
+        - readarr_log
+      password: *password
+  backups:
+    pgbackrest:
+#      restore:
+#        enabled: true
+#        repoName: repo1
+#        options:
+#          - --type=time
+#          - --target="2024-11-01 12:00:00-00"
+      repos:
+      - name: repo1
+        volume:
+          volumeClaimSpec:
+            volumeName: postgres-dbbak-pv
+            storageClassName: csi-cephfs-sc
+            accessModes:
+              - ReadWriteMany
+            resources:
+              requests:
+                storage: 100Gi
+
+  monitoring:
+    pgmonitor:
+      exporter:
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64M
+          limits:
+            memory: 512M
+
+  proxy:
+    pgBouncer:
+      port: 5432
+      service:
+        type: LoadBalancer
+      replicas: *replica
+      metadata:
+        labels:
+          app.kubernetes.io/name: crunchy-postgres-pgbouncer
+      config:
+        global:
+          pool_mode: session # Grafana requires session https://github.com/grafana/grafana/issues/74260#issuecomment-1702795311. Everything else is happy with transaction
+          client_tls_sslmode: prefer
+          default_pool_size: "100"
+          max_client_conn: "500"
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              postgres-operator.crunchydata.com/cluster: *name
+              postgres-operator.crunchydata.com/role: pgbouncer

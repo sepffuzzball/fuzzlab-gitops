@@ -1,0 +1,24 @@
+---
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PGAdmin
+metadata:
+  name: pgadmin
+spec:
+  users:
+  - username: ${SECRET_PGADMIN_EMAIL}
+    role: Administrator
+    passwordRef:
+      name: pgadmin-secrets
+      key: PGADMIN_PASSWORD
+  dataVolumeClaimSpec:
+    volumeName: pgadmin-db-pv
+    storageClassName: csi-cephfs-sc
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: 5Gi
+  serverGroups:
+    - name: supply
+      postgresClusterSelector: {}
+  serviceName: pgadmin
