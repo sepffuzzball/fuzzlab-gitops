@@ -17,4 +17,5 @@ litellm_settings:
     ttl: 600 # ttl for caching
 
 general_settings:
-  store_prompts_in_spend_logs: True
+  store_prompts_in_spend_logs: true
+  store_model_in_db: true
