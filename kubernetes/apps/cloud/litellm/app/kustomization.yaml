@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  #- ./pv-ceph.yaml
   - ./secrets.sops.yaml
 configMapGenerator:
   - name: litellm-configmap

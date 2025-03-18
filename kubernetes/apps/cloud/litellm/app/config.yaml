@@ -1,9 +1,20 @@
 model_list:
-  - model_name: qwq-abliterated
-    litellm_params:
-      model: huihui_ai/qwq-abliterated:latest
-      api_base: "http://10.0.3.205:11434"
-  - model_name: deepseek-r1-abliterated
-    litellm_params:
-      model: huihui_ai/deepseek-r1-abliterated:70b
-      api_base: "http://10.0.3.205:11434"
+ - model_name: gpt-4o
+   litellm_params:
+     model: openai/gpt-4o
+     api_key: os.environ/OPENAI_API_KEY
+
+litellm_settings:
+  cache: true
+  cache_params:        # set cache params for redis
+    type: redis        # type of cache to initialize
+
+    # Optional - Redis Settings
+    namespace: "litellm.caching.caching" # namespace for redis cache
+    supported_call_types: ["acompletion", "atext_completion", "aembedding", "atranscription"]
+                          # /chat/completions, /completions, /embeddings, /audio/transcriptions
+    mode: default_off # if default_off, you need to opt in to caching on a per call basis
+    ttl: 600 # ttl for caching
+
+general_settings:
+  store_prompts_in_spend_logs: True
