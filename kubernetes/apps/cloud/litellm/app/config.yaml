@@ -23,10 +23,6 @@ model_list:
     litellm_params:
       model: openai/o3-mini
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: o3-mini-high
-    litellm_params:
-      model: openai/o3-mini-high
-      api_key: os.environ/OPENAI_API_KEY
 
 litellm_settings:
   cache: true
