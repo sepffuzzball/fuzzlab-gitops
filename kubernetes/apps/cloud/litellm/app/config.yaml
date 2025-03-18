@@ -1,8 +1,32 @@
-# model_list:
-#  - model_name: gpt-4o
-#    litellm_params:
-#      model: openai/gpt-4o
-#      api_key: os.environ/OPENAI_API_KEY
+model_list:
+  - model_name: gpt-4o
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: gpt-4o-mini
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: gpt-4.5-preview
+    litellm_params:
+      model: openai/gpt-4.5-preview
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: o1
+    litellm_params:
+      model: openai/o1
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: o1-mini
+    litellm_params:
+      model: openai/o1-mini
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: o3-mini
+    litellm_params:
+      model: openai/o3-mini
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: o3-mini-high
+    litellm_params:
+      model: openai/o3-mini-high
+      api_key: os.environ/OPENAI_API_KEY
 
 litellm_settings:
   cache: true
