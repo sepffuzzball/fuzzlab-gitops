@@ -60,7 +60,7 @@ spec:
         controller: litellm
         ports:
           http:
-            port: *port
+            port: &port 4000
 
     ingress:
       app:
