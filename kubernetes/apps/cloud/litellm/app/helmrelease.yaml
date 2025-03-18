@@ -28,15 +28,7 @@ spec:
     - name: csi-driver-cephfs
       namespace: storage
   values:
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
+
     controllers:
       litellm:
         annotations:
@@ -54,49 +46,15 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/berriai/litellm-non_root
-              tag: main-dev@sha256:4a630fb6582466c24ab4e14434829978f52cafa7aeb2c62ef7ba8a33789a35be
+              repository: ghcr.io/berriai/litellm
+              tag: main-v1.61.3
             envFrom:
               - secretRef:
                   name: *secret
             args:
-              - --port
-              - "4000"
               - "--config"
               - "/app/config.yaml"
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-                memory: 200Mi
-              limits:
-                memory: 600Mi
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health/liveliness
-                    port: &port 4000
-                  initialDelaySeconds: 30
-                  periodSeconds: 60
-                  timeoutSeconds: 10
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health/readiness
-                    port: *port
-                  initialDelaySeconds: 5
-                  periodSeconds: 5
-                  timeoutSeconds: 3
-                  failureThreshold: 3
+
     service:
       app:
         controller: litellm
@@ -121,8 +79,10 @@ spec:
               - *host
 
     persistence:
-      config:
-        enabled: true
-        existingClaim: litellm-data
+      config-file:
+        type: configMap
+        name: litellm-configmap
         globalMounts:
-          - path: /app
+          - path: /app/config.yaml
+            subPath: config.yaml
+            readOnly: true

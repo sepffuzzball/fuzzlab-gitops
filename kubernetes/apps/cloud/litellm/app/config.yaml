@@ -1,0 +1,9 @@
+model_list:
+  - model_name: qwq-abliterated
+    litellm_params:
+      model: huihui_ai/qwq-abliterated:latest
+      api_base: "http://10.0.3.205:11434"
+  - model_name: deepseek-r1-abliterated
+    litellm_params:
+      model: huihui_ai/deepseek-r1-abliterated:70b
+      api_base: "http://10.0.3.205:11434"

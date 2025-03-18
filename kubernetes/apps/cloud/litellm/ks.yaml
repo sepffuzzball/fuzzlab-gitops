@@ -20,6 +20,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: csi-driver-cephfs
+    - name: crunchy-postgres-operator-cluster
   postBuild:
     substitute:
       APP: *app
