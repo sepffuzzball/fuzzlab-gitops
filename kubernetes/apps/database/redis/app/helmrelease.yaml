@@ -32,7 +32,7 @@ spec:
       existingSecret:
         redis-secrets
       existingSecretKey:
-        REDIS_PASSWORD
+        redis-password
       sentinel: false
     master:
       persistence:
