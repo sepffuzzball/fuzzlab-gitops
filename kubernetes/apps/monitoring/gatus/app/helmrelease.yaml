@@ -29,7 +29,7 @@ spec:
       gatus:
         annotations:
           reloader.stakater.com/auto: "true"
-          security.alpha.kubernetes.io/sysctls: net.ipv4.ping_group_range=0 2147483647
+          #security.alpha.kubernetes.io/sysctls: net.ipv4.ping_group_range=0 2147483647
         initContainers:
           init-db:
             image:
@@ -85,26 +85,26 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            #securityContext:
+            #  allowPrivilegeEscalation: false
+            #  readOnlyRootFilesystem: true
+            #  capabilities: { drop: ["ALL"] }
             resources:
               requests:
                 cpu: 50m
                 memory: 64Mi
               limits:
                 memory: 128Mi
-        pod:
-          dnsConfig:
-            options:
-              - { name: ndots, value: "1" }
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 1100
-            runAsGroup: 1100
-            fsGroup: 1100
-            fsGroupChangePolicy: OnRootMismatch
+        # pod:
+        #   dnsConfig:
+        #     options:
+        #       - { name: ndots, value: "1" }
+        #   securityContext:
+        #     runAsNonRoot: true
+        #     runAsUser: 1100
+        #     runAsGroup: 1100
+        #     fsGroup: 1100
+        #     fsGroupChangePolicy: OnRootMismatch
             # sysctls:
             #   - name: net.ipv4.ping_group_range
             #     value: "0 2147483647"
