@@ -29,6 +29,7 @@ spec:
       gatus:
         annotations:
           reloader.stakater.com/auto: "true"
+          security.alpha.kubernetes.io/sysctls: net.ipv4.ping_group_range=0 2147483647
         initContainers:
           init-db:
             image:
@@ -100,13 +101,13 @@ spec:
               - { name: ndots, value: "1" }
           securityContext:
             runAsNonRoot: true
-            runAsUser: 1022
-            runAsGroup: 1022
-            fsGroup: 1022
+            runAsUser: 1100
+            runAsGroup: 1100
+            fsGroup: 1100
             fsGroupChangePolicy: OnRootMismatch
-            sysctls:
-              - name: net.ipv4.ping_group_range
-                value: "0 2147483647"
+            # sysctls:
+            #   - name: net.ipv4.ping_group_range
+            #     value: "0 2147483647"
     service:
       app:
         controller: gatus
