@@ -39,7 +39,7 @@ endpoints:
       - type: telegram
   - name: ${SECRET_DOMAIN_FBE}
     group: external-dns
-    url: https://echo-server-external.${SECRET_DOMAIN_FBE}
+    url: https://echo-server.${SECRET_DOMAIN_FBE}
     interval: 5m
     conditions:
       - "[STATUS] == 200"
@@ -47,7 +47,7 @@ endpoints:
       - type: telegram
   - name: ${SECRET_DOMAIN_SEPF}
     group: external-dns
-    url: https://${SECRET_DOMAIN_SEPF}
+    url: https://echo-server.${SECRET_DOMAIN_SEPF}
     interval: 5m
     conditions:
       - "[STATUS] == 200"
@@ -55,7 +55,7 @@ endpoints:
       - type: telegram
   - name: ${SECRET_DOMAIN_KMC}
     group: external-dns
-    url: https://${SECRET_DOMAIN_KMC}
+    url: https://echo-server.${SECRET_DOMAIN_KMC}
     interval: 5m
     conditions:
       - "[STATUS] == 200"
