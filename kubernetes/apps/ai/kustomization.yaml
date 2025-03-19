@@ -5,5 +5,5 @@ resources:
   - ./namespace.yaml
   - ./litellm/ks.yaml
   - ./openwebui/ks.yaml
-#  - ./sillytavern/ks.yaml
-#  - ./sillytavern-kip/ks.yaml
+  - ./sillytavern/ks.yaml
+  - ./sillytavern-kip/ks.yaml
