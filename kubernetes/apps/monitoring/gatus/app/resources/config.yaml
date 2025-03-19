@@ -4,7 +4,7 @@ web:
   port: 80
 storage:
   type: postgres
-  path: postgres://$${POSTGRES_USER}:$${POSTGRES_PASS}@$${POSTGRES_HOST}:5432/$${POSTGRES_DB}?sslmode=disable
+  path: postgres://$${INIT_POSTGRES_USER}:$${POSTGRES_PASS}@$${POSTGRES_HOST}:5432/$${POSTGRES_DB}?sslmode=disable
   caching: true
 metrics: true
 debug: false
@@ -14,8 +14,8 @@ ui:
 
 alerting:
   telegram:
-    token: ${TELEGRAM_TOKEN}
-    id: ${TELEGRAM_ID}
+    token: $${TELEGRAM_TOKEN}
+    id: $${TELEGRAM_ID}
     default-alert:
       description: health-check failed
       send-on-resolved: true
@@ -26,25 +26,328 @@ connectivity:
   checker:
     target: 1.1.1.1:53
     interval: 1m
+
 endpoints:
-  - name: status
-    group: guarded
+  # External DNS
+  - name: ${SECRET_DOMAIN}
+    group: external-dns
     url: 1.1.1.1
-    interval: 1m
+    interval: 5m
     dns:
-      query-name: "status.${SECRET_DOMAIN}"
+      query-name: auth.${SECRET_DOMAIN}
       query-type: A
     conditions:
       - "len([BODY]) == 0"
-    #alerts:
-    #  - type: pushover
-  - name: flux-webhook
-    group: external
-    url: https://flux-receiver.${SECRET_DOMAIN}
-    interval: 1m
-    client:
-      dns-resolver: tcp://1.1.1.1:53
+    alerts:
+      - type: telegram
+  - name: ${SECRET_DOMAIN_FBE}
+    group: external-dns
+    url: 1.1.1.1
+    interval: 5m
+    dns:
+      query-name: ${SECRET_DOMAIN_FBE}
+      query-type: A
     conditions:
-      - "[STATUS] == 404"
-    #alerts:
-    #  - type: pushover
+      - "len([BODY]) == 0"
+    alerts:
+      - type: telegram
+  - name: ${SECRET_DOMAIN_SEPF}
+    group: external-dns
+    url: 1.1.1.1
+    interval: 5m
+    dns:
+      query-name: ${SECRET_DOMAIN_SEPF}
+      query-type: A
+    conditions:
+      - "len([BODY]) == 0"
+    alerts:
+      - type: telegram
+  - name: ${SECRET_DOMAIN_KMC}
+    group: external-dns
+    url: 1.1.1.1
+    interval: 5m
+    dns:
+      query-name: ${SECRET_DOMAIN_KMC}
+      query-type: A
+    conditions:
+      - "len([BODY]) == 0"
+    alerts:
+      - type: telegram
+  # Internal DNS
+  - name: Adguard 01
+    group: internal-dns
+    url: icmp://${AD01_ADDR}
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: Adguard 02
+    group: internal-dns
+    url: icmp://${AD02_ADDR}
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: Adguard 03
+    group: internal-dns
+    url: icmp://${AD03_ADDR}
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  # Proxmox Hosts
+  - name: ${PVE_ADDR}
+    group: Proxmox Hosts
+    url: ssh://${PVE_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: ${PVE01_ADDR}
+    group: Proxmox Hosts
+    url: ssh://${PVE_ADDR01}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: ${PVE02_ADDR}
+    group: Proxmox Hosts
+    url: ssh://${PVE_ADDR02}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: ${PVE03_ADDR}
+    group: Proxmox Hosts
+    url: ssh://${PVE_ADDR03}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: ${PVE04_ADDR}
+    group: Proxmox Hosts
+    url: ssh://${PVE_ADDR04}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: ${PVE05_ADDR}
+    group: Proxmox Hosts
+    url: ssh://${PVE_ADDR05}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+
+  # Network
+  - name: UDM-Pro
+    group: Network
+    url: icmp://10.0.1.1
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Pro-Aggregation
+    group: Network
+    url: icmp://10.0.1.3
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Ent-Bottom
+    group: Network
+    url: icmp://10.0.1.2
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Ent-Top
+    group: Network
+    url: icmp://10.0.1.4
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-8-Lighting
+    group: Network
+    url: icmp://10.0.1.5
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Agg-Upstairs
+    group: Network
+    url: icmp://10.0.1.7
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Pro-24
+    group: Network
+    url: icmp://10.0.1.8
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Flex-Mini-Outside
+    group: Network
+    url: icmp://10.0.1.9
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Flex-Mini-Attic
+    group: Network
+    url: icmp://10.0.1.10
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Agg-Fuzz-Suite
+    group: Network
+    url: icmp://10.0.1.12
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-24-Fuzz-Suite
+    group: Network
+    url: icmp://10.0.1.13
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: USW-Flex-2.5G-Foxbox
+    group: Network
+    url: icmp://10.0.1.14
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: U6-Ent-Lounge
+    group: Network-AP
+    url: icmp://10.0.1.20
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: U6-Ent-LivingRoom
+    group: Network-AP
+    url: icmp://10.0.1.21
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: U6-Ent-Garage
+    group: Network-AP
+    url: icmp://10.0.1.22
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: U6-Ent-Upstairs
+    group: Network-AP
+    url: icmp://10.0.1.23
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: U6-Ent-Foxbox
+    group: Network-AP
+    url: icmp://10.0.1.24
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+
+  # Internal Services
+  - name: Postgres
+    group: Internal-Services
+    url: tcp://postgres-ha.database.svc.cluster.local:5432
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: Redis
+    group: Internal-Services
+    url: tcp://redis.database.svc.cluster.local:6379
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
