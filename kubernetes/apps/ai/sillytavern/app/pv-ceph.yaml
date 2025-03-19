@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: kiptavern-config
+  name: sillytavern-config
 spec:
   accessModes:
     - ReadWriteMany
@@ -10,18 +10,18 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: csi-cephfs-sc
-  volumeName: kiptavern-config-pv
+  volumeName: sillytavern-config-pv
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: kiptavern-config-pv
+  name: sillytavern-config-pv
 spec:
   storageClassName: csi-cephfs-sc
   claimRef:
-    name: kiptavern-config
-    namespace: cloud
+    name: sillytavern-config
+    namespace: ai
   capacity:
     storage: 50Gi
   volumeMode: Filesystem
@@ -40,16 +40,16 @@ spec:
       "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-cloud/kiptavern/config
+      "rootPath": /volumes/csi/k8s-ai/sillytavern/config
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
-    volumeHandle: kiptavern-cfg
+    volumeHandle: sillytavern-cfg
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: kiptavern-data
+  name: sillytavern-data
 spec:
   accessModes:
     - ReadWriteMany
@@ -57,18 +57,18 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: csi-cephfs-sc
-  volumeName: kiptavern-data-pv
+  volumeName: sillytavern-data-pv
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: kiptavern-data-pv
+  name: sillytavern-data-pv
 spec:
   storageClassName: csi-cephfs-sc
   claimRef:
-    name: kiptavern-data
-    namespace: cloud
+    name: sillytavern-data
+    namespace: ai
   capacity:
     storage: 50Gi
   volumeMode: Filesystem
@@ -87,16 +87,16 @@ spec:
       "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-cloud/kiptavern/data
+      "rootPath": /volumes/csi/k8s-ai/sillytavern/data
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
-    volumeHandle: kiptavern-dta
+    volumeHandle: sillytavern-dta
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: kiptavern-plugins
+  name: sillytavern-plugins
 spec:
   accessModes:
     - ReadWriteMany
@@ -104,18 +104,18 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: csi-cephfs-sc
-  volumeName: kiptavern-plugins-pv
+  volumeName: sillytavern-plugins-pv
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: kiptavern-plugins-pv
+  name: sillytavern-plugins-pv
 spec:
   storageClassName: csi-cephfs-sc
   claimRef:
-    name: kiptavern-plugins
-    namespace: cloud
+    name: sillytavern-plugins
+    namespace: ai
   capacity:
     storage: 50Gi
   volumeMode: Filesystem
@@ -134,7 +134,7 @@ spec:
       "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-cloud/kiptavern/plugins
+      "rootPath": /volumes/csi/k8s-ai/sillytavern/plugins
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
-    volumeHandle: kiptavern-plg
+    volumeHandle: sillytavern-plg

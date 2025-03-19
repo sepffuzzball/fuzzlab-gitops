@@ -2,14 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sillytavern
+  name: &app kiptavern
   namespace: flux-system
 spec:
-  targetNamespace: cloud
+  targetNamespace: ai
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/cloud/sillytavern/app
+  path: ./kubernetes/apps/ai/sillytavern-kip/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -3,10 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
-  - ./owncloud/ks.yaml
   - ./foundry/ks.yaml
   - ./foundrydc20/ks.yaml
   - ./immich/ks.yaml
   - ./nextcloud/ks.yaml
-  - ./sillytavern/ks.yaml
-  - ./sillytavern-kip/ks.yaml
+  - ./owncloud/ks.yaml

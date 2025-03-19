@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app kiptavern
-  namespace: cloud
+  name: &app sillytavern
+  namespace: ai
 spec:
   interval: 30m
   chart:
@@ -29,7 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      kiptavern:
+      sillytavern:
         annotations:
           reloader.stakater.com/auto: 'true'
 
@@ -54,7 +54,7 @@ spec:
 
     service:
       app:
-        controller: kiptavern
+        controller: sillytavern
         ports:
           http:
             port: 8000
@@ -64,7 +64,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host 'kiptavern.${SECRET_DOMAIN_LOCAL}'
+          - host: &host 'sillytavern.${SECRET_DOMAIN_LOCAL}'
             paths:
               - path: /
                 service:
@@ -77,16 +77,16 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: kiptavern-config
+        existingClaim: sillytavern-config
         globalMounts:
           - path: /home/node/app/config
       data:
         enabled: true
-        existingClaim: kiptavern-data
+        existingClaim: sillytavern-data
         globalMounts:
           - path: /home/node/app/data
       plugins:
         enabled: true
-        existingClaim: kiptavern-plugins
+        existingClaim: sillytavern-plugins
         globalMounts:
           - path: /home/node/app/plugins
