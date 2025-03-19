@@ -62,7 +62,10 @@ spec:
       databases:
         - litellm
       password: *password
-
+    - name: shlink
+      databases:
+        - shlink
+      password: *password
 
     # Apps to migrate
     - name: authentik
@@ -121,10 +124,6 @@ spec:
       databases:
         - semaphore
         - semaphore-log
-      password: *password
-    - name: shlink
-      databases:
-        - shlink
       password: *password
     - name: sonarr
       databases:

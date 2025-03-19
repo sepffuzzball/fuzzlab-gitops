@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: shlink
+  name: &ap shlink
   namespace: web
 spec:
   interval: 15m
@@ -27,6 +27,9 @@ spec:
             image:
               repository: shlinkio/shlink
               tag: "4.2.3"
+            envFrom:
+              - secretRef:
+                  name: litellm-db-secret
             env:
               TIMEZONE: America/New_York
               DEFAULT_DOMAIN: &host s.${SECRET_DOMAIN}
@@ -38,12 +41,7 @@ spec:
               GEOLITE_LICENSE_KEY: ${SECRET_GEOLINK_LICENSE_KEY}
               INITIAL_API_KEY: ${SECRET_SHLINK_API_KEY}
               SHELL_VERBOSITY: 3
-              DB_DRIVER: maria
-              DB_NAME: shlink
-              DB_USER: shlink
-              DB_PASSWORD: ${SECRET_SHLINK_MARIADB_PASSWORD}
-              DB_HOST: 'shlink-mariadb.web.svc.cluster.local'
-              DB_PORT: 3306
+              DB_DRIVER: postgres
             resources:
               requests:
                 cpu: 10m
