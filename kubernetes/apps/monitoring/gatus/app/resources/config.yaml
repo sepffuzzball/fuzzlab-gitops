@@ -14,8 +14,8 @@ ui:
 
 alerting:
   telegram:
-    token: 6500733526:AAH8LYUGpatqrMXHHS5HHF_rPoATf_CJ7Ss
-    id: -1001412306064
+    token: ${TELEGRAM_TOKEN}
+    id: ${TELEGRAM_ID}
     default-alert:
       description: health-check failed
       send-on-resolved: true
