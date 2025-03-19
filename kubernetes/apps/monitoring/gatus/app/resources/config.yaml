@@ -4,7 +4,7 @@ web:
   port: 80
 storage:
   type: postgres
-  path: postgres://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@$${POSTGRES_HOST}:5432/$${POSTGRES_DB}?sslmode=disable
+  path: postgres://$${POSTGRES_USER}:$${POSTGRES_PASS}@$${POSTGRES_HOST}:5432/$${POSTGRES_DB}?sslmode=disable
   caching: true
 metrics: true
 debug: false
