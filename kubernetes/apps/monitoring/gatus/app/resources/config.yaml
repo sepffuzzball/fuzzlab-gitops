@@ -64,7 +64,7 @@ endpoints:
   # Internal DNS
   - name: Adguard 01
     group: internal-dns
-    url: tcp://adguard.adguard.svc.cluster.local:30450
+    url: tcp://${AD01_ADDR}:53
     interval: 5m
     conditions:
       - "[CONNECTED] == true"
