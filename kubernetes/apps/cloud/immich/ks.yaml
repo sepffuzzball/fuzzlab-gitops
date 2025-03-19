@@ -21,4 +21,4 @@ spec:
   dependsOn:
     - name: csi-driver-cephfs
     - name: csi-driver-nfs
-    - name: crunchy-postgres-operator
+    - name: crunchy-postgres-operator-cluster
