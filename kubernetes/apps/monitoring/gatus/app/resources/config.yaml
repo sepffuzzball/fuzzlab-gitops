@@ -31,7 +31,7 @@ endpoints:
   # External DNS
   - name: ${SECRET_DOMAIN}
     group: external-dns
-    url: https://echo-server-external.${SECRET_DOMAIN}
+    url: https://echo-server.${SECRET_DOMAIN}
     interval: 5m
     conditions:
       - "[STATUS] == 200"
