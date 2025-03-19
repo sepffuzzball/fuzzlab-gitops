@@ -34,7 +34,7 @@ spec:
             image:
               repository: ghcr.io/haraldkoch/postgres-init
               tag: 17.4@sha256:0bf77003ceaf4afa50c6f7a5b770c3086a893145fe48b2c47b7acfa48a54a96a
-            envFrom:
+            envFrom: &secret
               - secretRef:
                   name: gatus-db-secret
           init-config:
@@ -55,7 +55,7 @@ spec:
                 cpu: 50m
                 memory: 128Mi
               limits:
-                memory: 192Mi
+                memory: 256Mi
         containers:
           app:
             image:
@@ -69,6 +69,8 @@ spec:
             envFrom:
               - secretRef:
                   name: gatus-secrets
+              - secretRef:
+                  name: gatus-db-secret
             probes:
               liveness: &probes
                 enabled: true
