@@ -15,9 +15,6 @@ spec:
         name: bjw-s
         namespace: flux-system
       interval: 15m
-  dependsOn:
-    - name: shlink-mariadb
-      namespace: web
   values:
     controllers:
       main:
