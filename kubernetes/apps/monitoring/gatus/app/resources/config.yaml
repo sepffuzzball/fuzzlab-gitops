@@ -99,7 +99,7 @@ endpoints:
     alerts:
       - type: telegram
   # Proxmox Hosts
-  - name: ${PVE_ADDR}
+  - name: PVE00
     group: Proxmox Hosts
     url: ssh://${PVE_ADDR}:22
     ssh:
@@ -115,7 +115,7 @@ endpoints:
       - "[STATUS] == 0"
     alerts:
       - type: telegram
-  - name: ${PVE01_ADDR}
+  - name: PVE01
     group: Proxmox Hosts
     url: ssh://${PVE_ADDR01}:22
     ssh:
@@ -131,7 +131,7 @@ endpoints:
       - "[STATUS] == 0"
     alerts:
       - type: telegram
-  - name: ${PVE02_ADDR}
+  - name: PVE02
     group: Proxmox Hosts
     url: ssh://${PVE_ADDR02}:22
     ssh:
@@ -147,7 +147,7 @@ endpoints:
       - "[STATUS] == 0"
     alerts:
       - type: telegram
-  - name: ${PVE03_ADDR}
+  - name: PVE03
     group: Proxmox Hosts
     url: ssh://${PVE_ADDR03}:22
     ssh:
@@ -163,7 +163,7 @@ endpoints:
       - "[STATUS] == 0"
     alerts:
       - type: telegram
-  - name: ${PVE04_ADDR}
+  - name: PVE04
     group: Proxmox Hosts
     url: ssh://${PVE_ADDR04}:22
     ssh:
@@ -179,7 +179,7 @@ endpoints:
       - "[STATUS] == 0"
     alerts:
       - type: telegram
-  - name: ${PVE05_ADDR}
+  - name: PVE05
     group: Proxmox Hosts
     url: ssh://${PVE_ADDR05}:22
     ssh:
