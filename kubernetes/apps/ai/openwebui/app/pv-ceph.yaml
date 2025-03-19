@@ -21,7 +21,7 @@ spec:
   storageClassName: csi-cephfs-sc
   claimRef:
     name: openwebui-data
-    namespace: cloud
+    namespace: ai
   capacity:
     storage: 100Gi
   volumeMode: Filesystem
@@ -40,7 +40,7 @@ spec:
       "clusterID": "ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3"
       "fsName": "k8s-cephfs"
       "staticVolume": "true"
-      "rootPath": /volumes/csi/k8s-cloud/openwebui/data
+      "rootPath": /volumes/csi/k8s-ai/openwebui/data
     # volumeHandle can be anything, need not to be same
     # as PV name or volume name. keeping same for brevity
     volumeHandle: openwebui

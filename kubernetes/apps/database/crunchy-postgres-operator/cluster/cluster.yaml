@@ -29,7 +29,7 @@ spec:
       metadata:
         labels:
           app.kubernetes.io/name: crunchy-postgres
-      replicas: &replica 2
+      replicas: &replica 3
       dataVolumeClaimSpec:
         storageClassName: csi-cephfs-sc
         accessModes:
@@ -61,6 +61,10 @@ spec:
     - name: litellm
       databases:
         - litellm
+      password: *password
+    - name: openwebui
+      databases:
+        - openwebui
       password: *password
     - name: readarr
       databases:

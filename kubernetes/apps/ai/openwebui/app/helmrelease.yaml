@@ -2,14 +2,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app litellm
-  namespace: cloud
+  name: &app openwebui
+  namespace: ai
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 3.6.1
+      version: 3.1.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -28,61 +28,63 @@ spec:
     - name: csi-driver-cephfs
       namespace: storage
   values:
-
     controllers:
-      litellm:
+      openwebui:
         annotations:
-          reloader.stakater.com/auto: "true"
-          secret.reloader.stakater.com/reload: &secret litellm-secrets
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom:
-              - secretRef:
-                  name: litellm-db-secret
-        replicas: 1
+          reloader.stakater.com/auto: 'true'
+
         containers:
           app:
             image:
-              repository: ghcr.io/berriai/litellm
-              tag: main-v1.61.3
+              repository: ghcr.io/open-webui/open-webui
+              tag: 0.5.20
+              pullPolicy: IfNotPresent
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            env:
+              ENABLE_OAUTH_SIGNUP: "true"
+              ENABLE_LITELLM: "false"
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: "true"
             envFrom:
               - secretRef:
-                  name: *secret
-            args:
-              - "--config"
-              - "/app/config.yaml"
+                  name: openwebui-secrets
 
     service:
       app:
-        controller: litellm
+        controller: openwebui
         ports:
           http:
-            port: &port 4000
+            port: 8080
 
     ingress:
       app:
+        className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        className: external
         hosts:
-          - host: &host litellm.${SECRET_DOMAIN}
+          - host: &host 'ai.${SECRET_DOMAIN}'
             paths:
               - path: /
                 service:
                   identifier: app
-                  port: *port
+                  port: http
         tls:
           - hosts:
               - *host
 
     persistence:
-      config-file:
-        type: configMap
-        name: litellm-configmap
+      config:
+        enabled: true
+        existingClaim: openwebui-data
         globalMounts:
-          - path: /app/config.yaml
-            subPath: config.yaml
-            readOnly: true
+          - path: /app/backend/data
