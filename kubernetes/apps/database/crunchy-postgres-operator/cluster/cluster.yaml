@@ -58,6 +58,10 @@ spec:
       password: &password
         type: AlphaNumeric
     # Applications
+    - name: gatus
+      databases:
+        - gatus
+      password: *password
     - name: litellm
       databases:
         - litellm
