@@ -26,7 +26,7 @@ spec:
               tag: "4.2.3"
             envFrom:
               - secretRef:
-                  name: litellm-db-secret
+                  name: shlink-db-secret
             env:
               TIMEZONE: America/New_York
               DEFAULT_DOMAIN: &host s.${SECRET_DOMAIN}
