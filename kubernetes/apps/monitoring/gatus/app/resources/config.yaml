@@ -31,52 +31,40 @@ endpoints:
   # External DNS
   - name: ${SECRET_DOMAIN}
     group: external-dns
-    url: 1.1.1.1
+    url: https://echo-server-external.${SECRET_DOMAIN}
     interval: 5m
-    dns:
-      query-name: auth.${SECRET_DOMAIN}
-      query-type: A
     conditions:
-      - "len([BODY]) == 0"
+      - "[STATUS] == 200"
     alerts:
       - type: telegram
   - name: ${SECRET_DOMAIN_FBE}
     group: external-dns
-    url: 1.1.1.1
+    url: https://echo-server-external.${SECRET_DOMAIN_FBE}
     interval: 5m
-    dns:
-      query-name: ${SECRET_DOMAIN_FBE}
-      query-type: A
     conditions:
-      - "len([BODY]) == 0"
+      - "[STATUS] == 200"
     alerts:
       - type: telegram
   - name: ${SECRET_DOMAIN_SEPF}
     group: external-dns
-    url: 1.1.1.1
+    url: https://${SECRET_DOMAIN_SEPF}
     interval: 5m
-    dns:
-      query-name: ${SECRET_DOMAIN_SEPF}
-      query-type: A
     conditions:
-      - "len([BODY]) == 0"
+      - "[STATUS] == 200"
     alerts:
       - type: telegram
   - name: ${SECRET_DOMAIN_KMC}
     group: external-dns
-    url: 1.1.1.1
+    url: https://${SECRET_DOMAIN_KMC}
     interval: 5m
-    dns:
-      query-name: ${SECRET_DOMAIN_KMC}
-      query-type: A
     conditions:
-      - "len([BODY]) == 0"
+      - "[STATUS] == 200"
     alerts:
       - type: telegram
   # Internal DNS
   - name: Adguard 01
     group: internal-dns
-    url: icmp://${AD01_ADDR}
+    url: icmp://adguard.adguard.svc.cluster.local
     interval: 5m
     conditions:
       - "[CONNECTED] == true"
@@ -117,7 +105,7 @@ endpoints:
       - type: telegram
   - name: PVE01
     group: Proxmox Hosts
-    url: ssh://${PVE_ADDR01}:22
+    url: ssh://${PVE01_ADDR}:22
     ssh:
       username: ${SECRET_SSH_USER}
       password: ${SECRET_SSH_PASSWORD}
@@ -133,7 +121,7 @@ endpoints:
       - type: telegram
   - name: PVE02
     group: Proxmox Hosts
-    url: ssh://${PVE_ADDR02}:22
+    url: ssh://${PVE02_ADDR}:22
     ssh:
       username: ${SECRET_SSH_USER}
       password: ${SECRET_SSH_PASSWORD}
@@ -149,7 +137,7 @@ endpoints:
       - type: telegram
   - name: PVE03
     group: Proxmox Hosts
-    url: ssh://${PVE_ADDR03}:22
+    url: ssh://${PVE03_ADDR}:22
     ssh:
       username: ${SECRET_SSH_USER}
       password: ${SECRET_SSH_PASSWORD}
@@ -165,7 +153,7 @@ endpoints:
       - type: telegram
   - name: PVE04
     group: Proxmox Hosts
-    url: ssh://${PVE_ADDR04}:22
+    url: ssh://${PVE04_ADDR}:22
     ssh:
       username: ${SECRET_SSH_USER}
       password: ${SECRET_SSH_PASSWORD}
@@ -181,7 +169,7 @@ endpoints:
       - type: telegram
   - name: PVE05
     group: Proxmox Hosts
-    url: ssh://${PVE_ADDR05}:22
+    url: ssh://${PVE05_ADDR}:22
     ssh:
       username: ${SECRET_SSH_USER}
       password: ${SECRET_SSH_PASSWORD}
