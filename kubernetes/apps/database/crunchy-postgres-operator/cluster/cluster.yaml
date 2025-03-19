@@ -62,14 +62,74 @@ spec:
       databases:
         - litellm
       password: *password
+
+
+    # Apps to migrate
+    - name: authentik
+      databases:
+        - authentik
+      password: *password
+    - name: immich
+      databases:
+        - immich
+      password: *password
+    - name: lidarr
+      databases:
+        - lidarr
+        - lidarr-log
+      password: *password
+    - name: mealie
+      databases:
+        - mealie
+        - mealie-log
+      password: *password
+    - name: n8n
+      databases:
+        - n8n
+        - n8n-log
+      password: *password
+    - name: nextcloud
+      databases:
+        - nextcloud
+        - nextcloud-log
+      password: *password
     - name: openwebui
       databases:
         - openwebui
       password: *password
+    - name: prowlarr
+      databases:
+        - prowlarr
+        - prowlarr-log
+      password: *password
+    - name: radarr
+      databases:
+        - radarr
+        - radarr-log
+      password: *password
     - name: readarr
       databases:
-        - readarr_main
-        - readarr_log
+        - readarr
+        - readarr-log
+      password: *password
+    - name: readarr-audio
+      databases:
+        - readarr-audio
+        - readarr-audio-log
+      password: *password
+    - name: semaphore
+      databases:
+        - semaphore
+        - semaphore-log
+      password: *password
+    - name: shlink
+      databases:
+        - shlink
+      password: *password
+    - name: sonarr
+      databases:
+        - sonarr
+        - sonarr-log
       password: *password
   backups:
     pgbackrest:
