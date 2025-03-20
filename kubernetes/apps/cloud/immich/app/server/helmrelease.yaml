@@ -36,13 +36,13 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.108.0
+              tag: v1.129.0
             resources:
               requests:
                 cpu: 100m
                 memory: 250Mi
               limits:
-                memory: 1000Mi
+                memory: 2048Mi
             probes:
               startup:
                 enabled: true

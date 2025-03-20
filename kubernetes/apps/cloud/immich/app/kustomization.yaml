@@ -8,11 +8,8 @@ labels:
       app.kubernetes.io/part-of: immich
 resources:
   - ./configmap.yaml
-  - ./sc-cephfs.yaml
   - ./pv-nfs.yaml
   - ./secret.sops.yaml
-  - ./database
-  - ./redis
   - ./server
   - ./microservices
   - ./machine-learning

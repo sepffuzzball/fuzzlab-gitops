@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./init-sql.yaml
   - ./postgresCluster.yaml
+  - ./pv-ceph.yaml
