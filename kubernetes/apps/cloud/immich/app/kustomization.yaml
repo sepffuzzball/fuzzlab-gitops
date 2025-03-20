@@ -10,6 +10,6 @@ resources:
   - ./configmap.yaml
   - ./pv-nfs.yaml
   - ./secret.sops.yaml
-  - ./server
-  - ./microservices
+  - ./database
   - ./machine-learning
+  - ./server
