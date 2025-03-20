@@ -57,11 +57,27 @@ spec:
               - configMapRef:
                   name: immich-config
             env:
-              DB_URL:
+              DB_HOSTNAME: immich-database-ha.cloud.svc.cluster.local
+              DB_PORT:
                 valueFrom:
                   secretKeyRef:
                     name: immich-database-pguser-immich
-                    key: uri
+                    key: port
+              DB_USERNAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-database-pguser-immich
+                    key: user
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-database-pguser-immich
+                    key: password
+              DB_DATABASE_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-database-pguser-immich
+                    key: dbname
     service:
       main:
         controller: immich-machine-learning
