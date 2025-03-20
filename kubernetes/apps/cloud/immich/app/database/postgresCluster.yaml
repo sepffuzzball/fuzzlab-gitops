@@ -6,7 +6,14 @@ metadata:
   name: &name immich-database
 spec:
   postgresVersion: 16
+
+  metadata:
+    labels:
+      crunchy-userinit.ramblurr.github.com/enabled: "true"
+      crunchy-userinit.ramblurr.github.com/superuser: postgres
+
   image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:81732e18125371bbbf965caa5cb367b45f43f6f8c60102675a821981987007b7
+
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
@@ -24,7 +31,10 @@ spec:
     name: immich-database-init-sql
     key: init.sql
   instances:
-    - name: instance
+    - name: postgres
+      metadata:
+        labels:
+          app.kubernetes.io/name: pgo-immich
       replicas: &replica 3
       dataVolumeClaimSpec:
         storageClassName: csi-cephfs-sc
@@ -55,18 +65,12 @@ spec:
               postgres-operator.crunchydata.com/cluster: *name
               postgres-operator.crunchydata.com/data: postgres
   users:
-    # Superuser
-    - name: postgres
-      databases:
-        - postgres
-      options: SUPERUSER
-      password: &password
-        type: AlphaNumeric
-    # Applications
     - name: immich
       databases:
         - immich
-      password: *password
+      options: SUPERUSER
+      password:
+        type: AlphaNumeric
 
   backups:
     pgbackrest:
