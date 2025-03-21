@@ -72,12 +72,12 @@ spec:
       databases:
         - openwebui
       password: *password
-    # - name: readarr
-    #   databases:
-    #     - readarr
-    #     - readarr-cache
-    #     - readarr-log
-    #   password: *password
+    - name: readarr
+      databases:
+        - readarr
+        - readarr-cache
+        - readarr-log
+      password: *password
     # - name: readarr-audio
     #   databases:
     #     - readarr-audio
