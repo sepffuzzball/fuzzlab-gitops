@@ -120,6 +120,7 @@ spec:
     - name: readarr-audio
       databases:
         - readarr-audio
+        - readarr-audio-cache
         - readarr-audio-log
       password: *password
     - name: semaphore
