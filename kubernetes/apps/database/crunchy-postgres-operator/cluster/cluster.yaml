@@ -114,6 +114,7 @@ spec:
     - name: readarr
       databases:
         - readarr
+        - readarr-cache
         - readarr-log
       password: *password
     - name: readarr-audio
