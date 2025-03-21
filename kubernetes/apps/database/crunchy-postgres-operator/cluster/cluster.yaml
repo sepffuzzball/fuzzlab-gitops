@@ -68,6 +68,10 @@ spec:
       databases:
         - litellm
       password: *password
+    - name: openwebui
+      databases:
+        - openwebui
+      password: *password
     # - name: readarr
     #   databases:
     #     - readarr
@@ -109,10 +113,6 @@ spec:
     #   databases:
     #     - nextcloud
     #     - nextcloud-log
-    #   password: *password
-    # - name: openwebui
-    #   databases:
-    #     - openwebui
     #   password: *password
     # - name: prowlarr
     #   databases:
