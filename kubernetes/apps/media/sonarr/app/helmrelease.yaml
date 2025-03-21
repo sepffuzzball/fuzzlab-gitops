@@ -43,30 +43,6 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
-        #initContainers:
-        #  01-init-db:
-        #      image:
-        #        repository: ghcr.io/onedr0p/postgres-init
-        #        tag: 16.1
-        #      imagePullPolicy: IfNotPresent
-        #      env:
-        #        INIT_POSTGRES_DBNAME: sonarr sonarr-log
-        #        INIT_POSTGRES_HOST:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: ${APP}-pguser-${DB_USER}
-        #              key: host
-        #        INIT_POSTGRES_USER:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: ${APP}-pguser-${DB_USER}
-        #              key: user
-        #        INIT_POSTGRES_PASS:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: ${APP}-pguser-${DB_USER}
-        #              key: password
-        #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
             volumeMounts:
@@ -74,7 +50,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.11.2680
+              tag: 4.0.14.2938
             env:
               TZ: ${TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
@@ -86,20 +62,20 @@ spec:
               SONARR__POSTGRES_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: host
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_HOST
               SONARR__POSTGRES_MAIN_DB: "${DB_NAME}"
               SONARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               SONARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: password
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_PASS
               SONARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: user
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_USER
               SONARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
@@ -110,7 +86,7 @@ spec:
                 cpu: 100m
                 memory: 128Mi
               limits:
-                memory: 2048Mi
+                memory: 4096Mi
     service:
       main:
         ports:
@@ -121,7 +97,6 @@ spec:
         enabled: true
         className: internal
         annotations:
-          #External-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           hajimari.io/icon: television
         hosts:
           - host: &host "sonarr.${SECRET_DOMAIN_LOCAL}"
