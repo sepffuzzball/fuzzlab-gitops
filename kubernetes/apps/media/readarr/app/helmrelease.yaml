@@ -43,6 +43,35 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
+        initContainers:
+         01-init-db:
+             image:
+               repository: ghcr.io/onedr0p/postgres-init
+               tag: 16
+             imagePullPolicy: IfNotPresent
+             env:
+               INIT_POSTGRES_DBNAME: ${APP} ${APP}-log
+               INIT_POSTGRES_HOST:
+                 valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_HOST
+               INIT_POSTGRES_USER:
+                 valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_USER
+               INIT_POSTGRES_PASS:
+                 valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_PASS
+               INIT_POSTGRES_SUPER_PASS:
+                valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_SUPER_PASS
+
         containers:
           main:
             volumeMounts:
@@ -59,23 +88,23 @@ spec:
               READARR__ANALYTICS_ENABLED: "False"
               READARR__AUTHENTICATION_METHOD: External
               READARR__THEME: dark
-              #READARR__POSTGRES_HOST:
-              #  valueFrom:
-              #    secretKeyRef:
-              #      name: ${APP}-pguser-${DB_USER}
-              #      key: host
-              #READARR__POSTGRES_MAIN_DB: "${DB_NAME}"
-              #READARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
-              #READARR__POSTGRES_PASSWORD:
-              #  valueFrom:
-              #    secretKeyRef:
-              #      name: ${APP}-pguser-${DB_USER}
-              #      key: password
-              #READARR__POSTGRES_USER:
-              #  valueFrom:
-              #    secretKeyRef:
-              #      name: ${APP}-pguser-${DB_USER}
-              #      key: user
+              READARR__POSTGRES_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${DB_USER}-db-secret
+                    key: INIT_POSTGRES_HOST
+              READARR__POSTGRES_MAIN_DB: "${DB_NAME}"
+              READARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
+              READARR__POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${DB_USER}-db-secret
+                    key: INIT_POSTGRES_PASS
+              READARR__POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: ${DB_USER}-db-secret
+                    key: INIT_POSTGRES_USER
               READARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
