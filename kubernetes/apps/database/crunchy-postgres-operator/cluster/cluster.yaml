@@ -77,6 +77,16 @@ spec:
       databases:
         - openwebui
       password: *password
+    - name: prowlarr
+      databases:
+        - prowlarr
+        - prowlarr-log
+      password: *password
+    - name: radarr
+      databases:
+        - radarr
+        - radarr-log
+      password: *password
     - name: readarr
       databases:
         - readarr
