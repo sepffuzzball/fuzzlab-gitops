@@ -43,34 +43,14 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
-        #initContainers:
-        #  01-init-db:
-        #      image:
-        #        repository: ghcr.io/onedr0p/postgres-init
-        #        tag: 16.1
-        #      imagePullPolicy: IfNotPresent
-        #      env:
-        #        INIT_POSTGRES_DBNAME: radarr radarr-log
-        #        INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
-        #        INIT_POSTGRES_USER:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: cluster-media-secrets
-        #              key: "RADARR_0_POSTGRES_USER"
-        #        INIT_POSTGRES_PASS:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: cluster-media-secrets
-        #              key: "RADARR_0_POSTGRES_PASSWORD"
-        #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
             volumeMounts:
             - name: tmp
               mountPath: /tmp
             image:
-              repository: ghcr.io/onedr0p/radarr
-              tag: 5.18.4.9674
+              repository: ghcr.io/home-operations/radarr
+              tag: 5.20.2.9777
             env:
               TZ: ${TIMEZONE}
               RADARR__INSTANCE_NAME: radarr
@@ -82,20 +62,20 @@ spec:
               RADARR__POSTGRES_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: host
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_HOST
               RADARR__POSTGRES_MAIN_DB: "${DB_NAME}"
               RADARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               RADARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: password
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_PASS
               RADARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: user
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_USER
               RADARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
