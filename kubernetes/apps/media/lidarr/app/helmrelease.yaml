@@ -49,7 +49,7 @@ spec:
             - name: tmp
               mountPath: /tmp
             image:
-              repository: ghcr.io/onedr0p/lidarr
+              repository: ghcr.io/home-operations/lidarr
               tag: 2.10.1.4589
             env:
               TZ: ${TIMEZONE}
