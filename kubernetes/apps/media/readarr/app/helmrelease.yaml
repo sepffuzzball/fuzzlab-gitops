@@ -43,35 +43,6 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
-        initContainers:
-         01-init-db:
-             image:
-               repository: ghcr.io/onedr0p/postgres-init
-               tag: 16
-             imagePullPolicy: IfNotPresent
-             env:
-               INIT_POSTGRES_DBNAME: ${APP} ${APP}-log
-               INIT_POSTGRES_HOST:
-                 valueFrom:
-                   secretKeyRef:
-                     name: ${DB_USER}-db-secret
-                     key: INIT_POSTGRES_HOST
-               INIT_POSTGRES_USER:
-                 valueFrom:
-                   secretKeyRef:
-                     name: ${DB_USER}-db-secret
-                     key: INIT_POSTGRES_USER
-               INIT_POSTGRES_PASS:
-                 valueFrom:
-                   secretKeyRef:
-                     name: ${DB_USER}-db-secret
-                     key: INIT_POSTGRES_PASS
-               INIT_POSTGRES_SUPER_PASS:
-                valueFrom:
-                   secretKeyRef:
-                     name: ${DB_USER}-db-secret
-                     key: INIT_POSTGRES_SUPER_PASS
-
         containers:
           main:
             volumeMounts:
@@ -82,7 +53,10 @@ spec:
               tag: 0.4.12.2753@sha256:bac135a3360f34b30d8afecafdd104bbd5cef90dbb34dc265298272a83a087e1
             env:
               TZ: ${TIMEZONE}
-              READARR__APP__INSTANCE_NAME: readarr
+              READARR__POSTGRES__PORT: "5432"
+              READARR__SERVER__PORT: &port 80
+              READARR__UPDATE__BRANCH: develop
+              READARR__APP__INSTANCENAME: *app
               READARR__PORT: &port 80
               READARR__LOG__LEVEL: info
               READARR__AUTH__METHOD: External

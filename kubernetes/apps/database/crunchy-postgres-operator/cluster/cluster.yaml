@@ -67,6 +67,18 @@ spec:
       databases:
         - litellm
       password: *password
+    - name: readarr
+      databases:
+        - readarr
+        - readarr-cache
+        - readarr-log
+      password: *password
+    - name: readarr-audio
+      databases:
+        - readarr-audio
+        - readarr-audio-cache
+        - readarr-audio-log
+      password: *password
     - name: shlink
       databases:
         - shlink
@@ -111,18 +123,7 @@ spec:
         - radarr
         - radarr-log
       password: *password
-    - name: readarr
-      databases:
-        - readarr
-        - readarr-cache
-        - readarr-log
-      password: *password
-    - name: readarr-audio
-      databases:
-        - readarr-audio
-        - readarr-audio-cache
-        - readarr-audio-log
-      password: *password
+
     - name: semaphore
       databases:
         - semaphore
