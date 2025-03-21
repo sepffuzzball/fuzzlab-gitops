@@ -43,6 +43,35 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
+          initContainers:
+            01-init-db:
+             image:
+               repository: ghcr.io/onedr0p/postgres-init
+               tag: 16
+             imagePullPolicy: IfNotPresent
+             env:
+               INIT_POSTGRES_DBNAME: ${APP} ${APP}-log
+               INIT_POSTGRES_HOST:
+                 valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_HOST
+               INIT_POSTGRES_USER:
+                 valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_USER
+               INIT_POSTGRES_PASS:
+                 valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_PASS
+               INIT_POSTGRES_SUPER_PASS:
+                valueFrom:
+                   secretKeyRef:
+                     name: ${DB_USER}-db-secret
+                     key: INIT_POSTGRES_SUPER_PASS
+
         containers:
           main:
             volumeMounts:
