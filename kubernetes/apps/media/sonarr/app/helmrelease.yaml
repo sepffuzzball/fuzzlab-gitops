@@ -74,7 +74,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sonarr
-              tag: 4.0.14.2939
+              tag: 4.0.14.2938
             env:
               TZ: ${TIMEZONE}
               SONARR__INSTANCE_NAME: Sonarr
