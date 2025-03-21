@@ -88,6 +88,11 @@ spec:
       databases:
         - shlink
       password: *password
+    - name: sonarr
+      databases:
+        - sonarr
+        - sonarr-log
+      password: *password
 
     # Apps to migrate
     # - name: authentik
@@ -130,11 +135,7 @@ spec:
     #     - semaphore
     #     - semaphore-log
     #   password: *password
-    # - name: sonarr
-    #   databases:
-    #     - sonarr
-    #     - sonarr-log
-    #   password: *password
+
   backups:
     pgbackrest:
 #      restore:
