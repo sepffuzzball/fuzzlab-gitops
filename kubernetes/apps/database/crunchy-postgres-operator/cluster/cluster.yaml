@@ -64,6 +64,11 @@ spec:
       databases:
         - gatus
       password: *password
+    - name: lidarr
+      databases:
+        - lidarr
+        - lidarr-log
+      password: *password
     - name: litellm
       databases:
         - litellm
@@ -98,11 +103,6 @@ spec:
     # - name: authentik
     #   databases:
     #     - authentik
-    #   password: *password
-    # - name: lidarr
-    #   databases:
-    #     - lidarr
-    #     - lidarr-log
     #   password: *password
     # - name: mealie
     #   databases:
