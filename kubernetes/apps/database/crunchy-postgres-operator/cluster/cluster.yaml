@@ -78,12 +78,12 @@ spec:
         - readarr-cache
         - readarr-log
       password: *password
-    # - name: readarr-audio
-    #   databases:
-    #     - readarr-audio
-    #     - readarr-audio-cache
-    #     - readarr-audio-log
-    #   password: *password
+    - name: readarr-audio
+      databases:
+        - readarr-audio
+        - readarr-audio-cache
+        - readarr-audio-log
+      password: *password
     - name: shlink
       databases:
         - shlink

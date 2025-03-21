@@ -58,6 +58,8 @@ spec:
             envFrom:
               - secretRef:
                   name: openwebui-secrets
+              - secretRef:
+                  name: ${APP}-db-secret
 
     service:
       app:
