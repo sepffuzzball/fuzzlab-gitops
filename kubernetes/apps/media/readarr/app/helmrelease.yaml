@@ -105,7 +105,7 @@ spec:
                   secretKeyRef:
                     name: ${DB_USER}-db-secret
                     key: INIT_POSTGRES_USER
-              READARR__API__KEY:
+              READARR__API_KEY:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
