@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app litellm
-  namespace: ai
+  namespace: cloud
 spec:
   interval: 30m
   chart:
@@ -34,14 +34,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
           secret.reloader.stakater.com/reload: &secret litellm-secrets
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-            envFrom:
-              - secretRef:
-                  name: litellm-db-secret
+
         replicas: 1
         containers:
           app:
@@ -51,6 +44,8 @@ spec:
             envFrom:
               - secretRef:
                   name: *secret
+              - secretRef:
+                  name: ${APP}-db-secret
             args:
               - "--config"
               - "/app/config.yaml"
