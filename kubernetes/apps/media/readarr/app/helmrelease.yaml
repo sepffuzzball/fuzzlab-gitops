@@ -65,7 +65,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: ${DB_USER}-db-secret
-                    key: INIT_POSTGRES_HOST
+                    key: POSTGRES_HOST
               READARR__POSTGRES__MAINDB: "${DB_NAME}"
               READARR__POSTGRES__LOGDB: "${DB_NAME}-log"
               READARR__POSTGRES__CACHEDB: "${DB_NAME}-cache"
@@ -73,13 +73,13 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: ${DB_USER}-db-secret
-                    key: INIT_POSTGRES_PASS
+                    key: POSTGRES_PASS
               READARR__POSTGRES__USER:
                 valueFrom:
                   secretKeyRef:
                     name: ${DB_USER}-db-secret
-                    key: INIT_POSTGRES_USER
-              READARR__API_KEY:
+                    key: POSTGRES_USER
+              READARR__API__KEY:
                 valueFrom:
                   secretKeyRef:
                     name: cluster-media-secrets
