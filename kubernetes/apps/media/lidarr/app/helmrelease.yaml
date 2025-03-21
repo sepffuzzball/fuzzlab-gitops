@@ -43,26 +43,6 @@ spec:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
 
-        #initContainers:
-        #  01-init-db:
-        #      image:
-        #        repository: ghcr.io/onedr0p/postgres-init
-        #        tag: 16.2@sha256:20e2e34f2bc5b761b2ca735cae2c20e662c2d47e50516db2338d1415ec7ca33c
-        #      imagePullPolicy: IfNotPresent
-        #      env:
-        #        INIT_POSTGRES_DBNAME: lidarr lidarr-log
-        #        INIT_POSTGRES_HOST: &postgres postgresql.database.svc.cluster.local
-        #        INIT_POSTGRES_USER:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: cluster-media-secrets
-        #              key: "LIDARR_0_POSTGRES_USER"
-        #        INIT_POSTGRES_PASS:
-        #          valueFrom:
-        #            secretKeyRef:
-        #              name: cluster-media-secrets
-        #              key: "LIDARR_0_POSTGRES_PASSWORD"
-        #        INIT_POSTGRES_SUPER_PASS: "${SECRET_POSTGRES_PASSWORD}"
         containers:
           main:
             volumeMounts:
@@ -70,7 +50,7 @@ spec:
               mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/lidarr
-              tag: 2.4.3.4248
+              tag: 2.10.1.4589
             env:
               TZ: ${TIMEZONE}
               LIDARR__INSTANCE_NAME: Lidarr
@@ -82,20 +62,20 @@ spec:
               LIDARR__POSTGRES_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: host
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_HOST
               LIDARR__POSTGRES_MAIN_DB: "${DB_NAME}"
               LIDARR__POSTGRES_LOG_DB: "${DB_NAME}-log"
               LIDARR__POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: password
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_PASS
               LIDARR__POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: user
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_USER
               LIDARR__API_KEY:
                 valueFrom:
                   secretKeyRef:

@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./pv-ceph.yaml
   - ./helmrelease.yaml
-  - ./postgresCluster.yaml
+  - ./externalsecret.yaml
