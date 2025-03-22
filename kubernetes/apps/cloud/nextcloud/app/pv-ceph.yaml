@@ -8,7 +8,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 2Gi
+      storage: 10Gi
   storageClassName: csi-cephfs-sc
   volumeName: nextcloud-config-pv
 
@@ -23,7 +23,7 @@ spec:
     name: nextcloud-config
     namespace: cloud
   capacity:
-    storage: 2Gi
+    storage: 10Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
