@@ -17,8 +17,6 @@ spec:
   volumeMode: Filesystem
   csi:
     driver: nfs.csi.k8s.io
-    # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
-    # make sure this value is unique for every share in the cluster
     volumeHandle: immichdata
     volumeAttributes:
       server: 10.0.2.20

@@ -21,5 +21,4 @@ parameters:
   archiveOnDelete: "false"
 reclaimPolicy: Retain
 mountOptions:
-  - hard
   - nfsvers=4.1
