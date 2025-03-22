@@ -36,3 +36,40 @@ spec:
   storageClassName: nfs-sc
   volumeName: nextcloud-data-pv
 
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nextcloud-config-pv
+spec:
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-sc
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+  volumeMode: Filesystem
+  csi:
+    driver: nfs.csi.k8s.io
+    volumeHandle: nextcloudconfig
+    volumeAttributes:
+      server: 10.0.2.20
+      share: /mnt/lcl/nextcloud/config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-config
+  namespace: cloud
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
+  storageClassName: nfs-sc
+  volumeName: nextcloud-config-pv

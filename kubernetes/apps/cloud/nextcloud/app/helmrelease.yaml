@@ -83,20 +83,8 @@ spec:
       image:
         repository: nginx
         tag: 1.27-alpine
-      # securityContext:
-      #   runAsUser: 82
-      #   runAsGroup: 33
-      #   runAsNonRoot: false
 
     nextcloud:
-      # podSecurityContext:
-      #   runAsUser: 33
-      #   runAsGroup: 33
-      #   runAsNonRoot: false
-      # securityContext:
-      #   runAsUser: 33
-      #   runAsGroup: 33
-      #   runAsNonRoot: false
       datadir: /var/www/data
       existingSecret:
         enabled: true
@@ -136,17 +124,6 @@ spec:
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
           );
-        # redis.config.php: |-
-        #   <?php
-        #     $CONFIG = array (
-        #       'memcache.distributed' => '\OC\Memcache\Redis',
-        #       'memcache.locking' => '\OC\Memcache\Redis',
-        #       'redis' => array(
-        #         'host' => getenv('REDIS_HOST'),
-        #         'port' => getenv('REDIS_HOST_PORT') ?: 6379,
-        #         'password' => getenv('REDIS_HOST_PASSWORD')
-        #       )
-        #     );
         sso.config.php: |-
           <?php
           $CONFIG = array (
