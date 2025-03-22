@@ -102,7 +102,6 @@ spec:
     - name: semaphore
       databases:
         - semaphore
-        - semaphore-log
       password: *password
     - name: shlink
       databases:
