@@ -131,7 +131,7 @@ spec:
             array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
-            'default_locale' => 'en_US'
+            'default_locale' => 'en_US',
             'default_phone_region' => 'US',
             'trashbin_retention_obligation' => 'auto, 30',
             'auth.bruteforce.protection.enabled' => true,
