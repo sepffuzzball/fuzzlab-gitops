@@ -73,6 +73,10 @@ spec:
       databases:
         - litellm
       password: *password
+    - name: n8n
+      databases:
+        - n8n
+      password: *password
     - name: openwebui
       databases:
         - openwebui
@@ -123,11 +127,7 @@ spec:
     #     - mealie
     #     - mealie-log
     #   password: *password
-    # - name: n8n
-    #   databases:
-    #     - n8n
-    #     - n8n-log
-    #   password: *password
+
     # - name: nextcloud
     #   databases:
     #     - nextcloud
