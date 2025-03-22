@@ -83,8 +83,21 @@ spec:
       image:
         repository: nginx
         tag: 1.27-alpine
+      securityContext:
+        runAsUser: 82
+        runAsGroup: 33
+        runAsNonRoot: true
+        readOnlyRootFileSystem: true
 
     nextcloud:
+      podSecurityContext:
+        runAsUser: 33
+        runAsGroup: 33
+        runAsNonRoot: true
+      securityContext:
+        runAsUser: 33
+        runAsGroup: 33
+        runAsNonRoot: true
       datadir: /var/www/data
       existingSecret:
         enabled: true
@@ -118,6 +131,44 @@ spec:
           pm.max_spare_servers = 40
           pm.max_requests = 500
           pm.process_idle_timeout = 10s
+      extraEnv:
+        - name: REDIS_HOST
+          value: redis.database.svc.cluster.local
+        - name: REDIS_HOST_PORT
+          value: "6379"
+        - name: REDIS_HOST_PASSWORD
+          value: ${SECRET_REDIS_PASSWORD}
+      extraInitContainers:
+        - name: wait-database
+          image: alpine:3.21.3
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $MYSQL_HOST:3306 || nc -w 1 -v $POSTGRES_HOST:5432;
+              do echo "Waiting for database";
+              done
+          env:
+            - name: POSTGRES_HOST
+              value: postgres-pgbouncer.database.svc
+        - name: wait-redis
+          image: alpine:3.21.3
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+          args:
+            - -c
+            - >-
+              until nc -w 1 -v $REDIS_HOST:$REDIS_HOST_PORT;
+              do echo "Waiting for Redis";
+              done
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_HOST_PORT
+              value: "6379"
     internalDatabase:
       enabled: false
     externalDatabase:
@@ -130,20 +181,18 @@ spec:
         passwordKey: POSTGRES_PASS
         hostKey: POSTGRES_HOST
         databaseKey: POSTGRES_DBNAME
-    redis:
-      enabled: true
-      auth:
-        enabled: true
-        password: ${SECRET_REDIS_PASSWORD}
-      master:
-        persistence:
-          existingClaim: redis-master
-      replica:
-        persistence:
-          existingClaim: redis-replica
-    #service:
-    #  type: LoadBalancer
-    #  loadBalancerIP: ${NEXTCLOUD_ADDR}
+    # redis:
+    #   enabled: true
+    #   auth:
+    #     enabled: true
+    #     password: ${SECRET_REDIS_PASSWORD}
+    #   master:
+    #     persistence:
+    #       existingClaim: redis-master
+    #   replica:
+    #     persistence:
+    #       existingClaim: redis-replica
+
 
 
 
