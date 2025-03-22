@@ -101,6 +101,12 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
+        usernameKey: nextcloud-username
+        passwordKey: nextcloud-password
+        smtpHostKey: smtp-host
+        smtpUsernameKey: smtp-username
+        smtpPasswordKey: smtp-password
+
       host: *host
       mail:
         enabled: false
@@ -112,6 +118,62 @@ spec:
           authtype: NONE
           name: ""
           password: ""
+      configs:
+        local.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' =>
+            array (
+              0 => '127.0.0.1',
+              1 => '10.0.0.0/9',
+            ),
+            'forwarded_for_headers' =>
+            array (
+              0 => 'HTTP_X_FORWARDED_FOR',
+            ),
+            'default_locale' => 'en_US'
+            'default_phone_region' => 'US',
+            'trashbin_retention_obligation' => 'auto, 30',
+            'auth.bruteforce.protection.enabled' => true,
+          );
+        redis.config.php: |-
+          <?php
+            $CONFIG = array (
+              'memcache.distributed' => '\OC\Memcache\Redis',
+              'memcache.locking' => '\OC\Memcache\Redis',
+              'redis' => array(
+                'host' => getenv('REDIS_HOST'),
+                'port' => getenv('REDIS_HOST_PORT') ?: 6379,
+                'password' => getenv('REDIS_HOST_PASSWORD')
+              )
+            );
+        sso.config.php: |-
+          <?php
+          $CONFIG = array (
+            'allow_user_to_change_display_name' => false,
+            'lost_password_link' => 'disabled',
+            'oidc_login_client_id' => getenv('OIDC_CLIENT_ID'),
+            'oidc_login_client_secret' => getenv('OIDC_CLIENT_PASSWORD'),
+            'oidc_login_provider_url' => 'https://${AUTH_HOSTNAME}/application/o/nextcloud/',
+            'oidc_login_end_session_redirect' => true,
+            'oidc_login_logout_url' => 'https://${AUTH_HOSTNAME}/application/o/nextcloud/end-session/',
+            'oidc_login_default_quota' => '1000000000',
+            'oidc_login_hide_password_form' => true,
+            'oidc_login_disable_registration' => false,
+            'oidc_login_webdav_enabled' => true,
+            'oidc_login_attributes' => array (
+                  'id' => 'sub',
+                  'name' => 'name',
+                  'mail' => 'email',
+                  'quota' => 'nextcloudQuota',
+                  'is_admin' => 'nextcloudAdmin',
+              ),
+            'oidc_login_scope' => 'openid profile email nextcloud',
+            'oidc_login_default_group' => 'cloud',
+            'oidc_create_groups' => true,
+            'oidc_login_code_challenge_method' => 'S256',
+            'oidc_login_auto_redirect' => true, //login?noredir=1
+          );
       phpConfigs:
         uploadLimit.ini: |
           upload_max_filesize = 16G
@@ -137,6 +199,21 @@ spec:
           value: "6379"
         - name: REDIS_HOST_PASSWORD
           value: ${SECRET_REDIS_PASSWORD}
+        - name: AUTH_HOSTNAME
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: AUTH_HOSTNAME
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_ID
+        - name: OIDC_CLIENT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secrets
+              key: OIDC_CLIENT_PASSWORD
       extraInitContainers:
         - name: wait-database
           image: alpine:3.21.3
