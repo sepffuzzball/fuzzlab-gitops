@@ -60,6 +60,10 @@ spec:
       password: &password
         type: AlphaNumeric
     # Applications
+    - name: authentik
+      databases:
+        - authentik
+      password: *password
     - name: gatus
       databases:
         - gatus
@@ -72,6 +76,10 @@ spec:
     - name: litellm
       databases:
         - litellm
+      password: *password
+    - name: mealie
+      databases:
+        - mealie
       password: *password
     - name: n8n
       databases:
@@ -117,16 +125,6 @@ spec:
         - sonarr-log
       password: *password
 
-    # Apps to migrate
-    # - name: authentik
-    #   databases:
-    #     - authentik
-    #   password: *password
-    # - name: mealie
-    #   databases:
-    #     - mealie
-    #     - mealie-log
-    #   password: *password
 
     # - name: nextcloud
     #   databases:
