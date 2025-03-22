@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 4.6.8
+      version: 6.6.9
       sourceRef:
         kind: HelmRepository
         name: nextcloud
@@ -27,99 +27,9 @@ spec:
       retries: 3
 
   values:
+    fullnameOverride: *app
     image:
-      flavor: fpm
-
-    nginx:
-      ## You need to set an fpm version of the image for nextcloud if you want to use nginx!
-      enabled: true
-      image:
-        repository: nginx
-        tag: "1.25.4"
-      config:
-        default: true
-      resources:
-        requests:
-          cpu: 50m
-          memory: 20Mi
-        limits:
-          memory: 100Mi
-
-    nextcloud:
-      #podSecurityContext:
-      #  fsGroup: 33
-      #extraInitContainers:
-      #  - name: init-db
-      #    image: ghcr.io/haraldkoch/postgres-init:16.2@sha256:599c7b0a56cffdccab49fe5a016b0c53c25306551ddbfbeaefa7661d2a3daa68
-      #    envFrom:
-      #      - secretRef:
-      #          name: nextcloud-secret
-      datadir: /var/www/data
-      existingSecret:
-        enabled: true
-        secretName: nextcloud-secrets
-      host: &host nextcloud.${SECRET_DOMAIN_FBE}
-      mail:
-        enabled: false
-        fromAddress: admin
-        domain: ${SECRET_DOMAIN_FBE}
-        smtp:
-          host: smtp.${SECRET_DOMAIN_FBE}
-          port: 25
-          authtype: NONE
-          name: ""
-          password: ""
-      # configs:
-      #   proxy.config.php: |-
-      #     <?php
-      #     $CONFIG = array (
-      #       'trusted_proxies' => array(
-      #         0 => '127.0.0.1',
-      #         1 => '10.0.0.0/8',
-      #       ),
-      #       'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-      #     );
-      phpConfigs:
-        uploadLimit.ini: |
-          upload_max_filesize = 16G
-          post_max_size = 16G
-          max_input_time = 3600
-          max_execution_time = 3600
-        www.conf: |
-          [www]
-          user = www-data
-          group = www-data
-          listen = 127.0.0.1:9000
-          pm = dynamic
-          pm.max_children = 100
-          pm.start_servers = 10
-          pm.min_spare_servers = 10
-          pm.max_spare_servers = 40
-          pm.max_requests = 500
-          pm.process_idle_timeout = 10s
-    internalDatabase:
-      enabled: false
-    externalDatabase:
-      enabled: true
-      type: postgresql
-      existingSecret:
-        enabled: true
-        secretName: ${APP}-pguser-${DB_USER}
-        usernameKey: user
-        passwordKey: password
-        hostKey: host
-        databaseKey: dbname
-    redis:
-      enabled: true
-      master:
-        persistence:
-          existingClaim: redis-master
-      replica:
-        persistence:
-          existingClaim: redis-replica
-    #service:
-    #  type: LoadBalancer
-    #  loadBalancerIP: ${NEXTCLOUD_ADDR}
+      flavor: fpm-alpine
 
     ingress:
       enabled: true
@@ -167,6 +77,75 @@ spec:
       tls:
         - hosts:
             - *host
+
+    nginx:
+      enabled: true
+      image:
+        repository: nginx
+        tag: 1.27-alpine
+
+    nextcloud:
+      datadir: /var/www/data
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secrets
+      host: &host nextcloud.${SECRET_DOMAIN_FBE}
+      mail:
+        enabled: false
+        fromAddress: admin
+        domain: ${SECRET_DOMAIN_FBE}
+        smtp:
+          host: smtp.${SECRET_DOMAIN_FBE}
+          port: 25
+          authtype: NONE
+          name: ""
+          password: ""
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 16G
+          post_max_size = 16G
+          max_input_time = 3600
+          max_execution_time = 3600
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 100
+          pm.start_servers = 10
+          pm.min_spare_servers = 10
+          pm.max_spare_servers = 40
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      existingSecret:
+        enabled: true
+        secretName: ${DB_USER}-db-secret
+        usernameKey: POSTGRES_USER
+        passwordKey: POSTGRES_PASS
+        hostKey: POSTGRES_HOST
+        databaseKey: POSTGRES_DBNAME
+    redis:
+      enabled: true
+      auth:
+        enabled: true
+        password: ${SECRET_REDIS_PASSWORD}
+      master:
+        persistence:
+          existingClaim: redis-master
+      replica:
+        persistence:
+          existingClaim: redis-replica
+    #service:
+    #  type: LoadBalancer
+    #  loadBalancerIP: ${NEXTCLOUD_ADDR}
+
+
 
     persistence:
       enabled: true
