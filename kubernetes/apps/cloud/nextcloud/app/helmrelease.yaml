@@ -68,7 +68,7 @@ spec:
       path: /
       pathType: Prefix
       hosts:
-        - host: *host
+        - host: &host nextcloud.${SECRET_DOMAIN_FBE}
           paths:
             - path: /
               service:
@@ -89,7 +89,7 @@ spec:
       existingSecret:
         enabled: true
         secretName: nextcloud-secrets
-      host: &host nextcloud.${SECRET_DOMAIN_FBE}
+      host: *host
       mail:
         enabled: false
         fromAddress: admin
