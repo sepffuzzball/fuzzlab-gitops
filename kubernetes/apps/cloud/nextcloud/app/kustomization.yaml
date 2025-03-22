@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./pv-ceph.yaml
   - ./pv-nfs.yaml
-  #- ./helmrelease.yaml
+  - ./helmrelease.yaml
   - ./secrets.sops.yaml
-  - ./postgresCluster.yaml
+  #- ./postgresCluster.yaml
   - ./externalsecret.yaml

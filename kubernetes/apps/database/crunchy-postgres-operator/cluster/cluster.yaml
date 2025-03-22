@@ -85,6 +85,10 @@ spec:
       databases:
         - n8n
       password: *password
+    - name: nextcloud
+      databases:
+        - nextcloud
+      password: *password
     - name: openwebui
       databases:
         - openwebui
@@ -124,15 +128,6 @@ spec:
         - sonarr
         - sonarr-log
       password: *password
-
-
-    # - name: nextcloud
-    #   databases:
-    #     - nextcloud
-    #     - nextcloud-log
-    #   password: *password
-
-
 
   backups:
     pgbackrest:
