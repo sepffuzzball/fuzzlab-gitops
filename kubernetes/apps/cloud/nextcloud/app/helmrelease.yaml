@@ -86,18 +86,17 @@ spec:
       securityContext:
         runAsUser: 82
         runAsGroup: 33
-        runAsNonRoot: true
-        readOnlyRootFileSystem: true
+        runAsNonRoot: false
 
     nextcloud:
       podSecurityContext:
         runAsUser: 33
         runAsGroup: 33
-        runAsNonRoot: true
+        runAsNonRoot: false
       securityContext:
         runAsUser: 33
         runAsGroup: 33
-        runAsNonRoot: true
+        runAsNonRoot: false
       datadir: /var/www/data
       existingSecret:
         enabled: true
