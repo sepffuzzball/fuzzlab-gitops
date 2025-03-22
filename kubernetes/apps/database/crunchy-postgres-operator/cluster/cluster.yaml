@@ -99,6 +99,11 @@ spec:
         - readarr-audio-cache
         - readarr-audio-log
       password: *password
+    - name: semaphore
+      databases:
+        - semaphore
+        - semaphore-log
+      password: *password
     - name: shlink
       databases:
         - shlink
@@ -129,22 +134,8 @@ spec:
     #     - nextcloud
     #     - nextcloud-log
     #   password: *password
-    # - name: prowlarr
-    #   databases:
-    #     - prowlarr
-    #     - prowlarr-log
-    #   password: *password
-    # - name: radarr
-    #   databases:
-    #     - radarr
-    #     - radarr-log
-    #   password: *password
 
-    # - name: semaphore
-    #   databases:
-    #     - semaphore
-    #     - semaphore-log
-    #   password: *password
+
 
   backups:
     pgbackrest:

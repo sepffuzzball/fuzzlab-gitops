@@ -53,23 +53,23 @@ spec:
               SEMAPHORE_DB_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: user
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_USER
               SEMAPHORE_DB_PASS:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: password
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_PASS
               SEMAPHORE_DB_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: host
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_HOST
               SEMAPHORE_DB:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: dbname
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_DBNAME
 
             resources:
               requests:
