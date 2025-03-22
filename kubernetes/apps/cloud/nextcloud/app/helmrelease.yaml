@@ -83,20 +83,20 @@ spec:
       image:
         repository: nginx
         tag: 1.27-alpine
-      securityContext:
-        runAsUser: 82
-        runAsGroup: 33
-        runAsNonRoot: false
+      # securityContext:
+      #   runAsUser: 82
+      #   runAsGroup: 33
+      #   runAsNonRoot: false
 
     nextcloud:
-      podSecurityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        runAsNonRoot: false
-      securityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        runAsNonRoot: false
+      # podSecurityContext:
+      #   runAsUser: 33
+      #   runAsGroup: 33
+      #   runAsNonRoot: false
+      # securityContext:
+      #   runAsUser: 33
+      #   runAsGroup: 33
+      #   runAsNonRoot: false
       datadir: /var/www/data
       existingSecret:
         enabled: true
