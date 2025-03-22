@@ -58,18 +58,18 @@ spec:
               POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: user
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_USER
               POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: password
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_PASS
               POSTGRES_SERVER:
                 valueFrom:
                   secretKeyRef:
-                    name: ${APP}-pguser-${DB_USER}
-                    key: host
+                    name: ${DB_USER}-db-secret
+                    key: POSTGRES_HOST
               POSTGRES_PORT: 5432
               POSTGRES_DB: ${DB_NAME}
               # Auth Settings
