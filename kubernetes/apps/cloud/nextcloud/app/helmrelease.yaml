@@ -85,6 +85,11 @@ spec:
         tag: 1.27-alpine
 
     nextcloud:
+      podSecurityContext:
+        #runAsUser: 33
+        #runAsGroup: 33
+        fsGroup: 33
+        #runAsNonRoot: true
       datadir: /var/www/data
       existingSecret:
         enabled: true
