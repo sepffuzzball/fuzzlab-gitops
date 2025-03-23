@@ -25,7 +25,7 @@ spec:
       storage: 1Gi
   nfs:
     server: ${DAT_ADDR}
-    path: /mnt/lcl/test
+    path: /mnt/lcl/cluster/test
   mountOptions:
     - nfsvers=4.2
     - nconnect=8
