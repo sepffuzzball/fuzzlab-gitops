@@ -6,4 +6,4 @@ resources:
   - ./csi-driver-nfs/ks.yaml
   - ./csi-driver-smb/ks.yaml
   - ./csi-driver-cephfs/ks.yaml
-  - ./freenas-api-nfs/ks.yaml
+#  - ./freenas-api-nfs/ks.yaml
