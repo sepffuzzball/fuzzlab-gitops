@@ -94,7 +94,7 @@ spec:
         smtpHostKey: smtp-host
         smtpUsernameKey: smtp-username
         smtpPasswordKey: smtp-password
-      podSecurityContext:
+      securityContext:
         runAsUser: 82 # nginx
         runAsGroup: 33 # www-data
         runAsNonRoot: true
@@ -155,24 +155,24 @@ spec:
       #       'oidc_login_code_challenge_method' => 'S256',
       #       'oidc_login_auto_redirect' => true, //login?noredir=1
       #     );
-      # phpConfigs:
-      #   uploadLimit.ini: |
-      #     upload_max_filesize = 16G
-      #     post_max_size = 16G
-      #     max_input_time = 3600
-      #     max_execution_time = 3600
-      #   www.conf: |
-      #     [www]
-      #     user = www-data
-      #     group = www-data
-      #     listen = 127.0.0.1:9000
-      #     pm = dynamic
-      #     pm.max_children = 100
-      #     pm.start_servers = 10
-      #     pm.min_spare_servers = 10
-      #     pm.max_spare_servers = 40
-      #     pm.max_requests = 500
-      #     pm.process_idle_timeout = 10s
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 64G
+          post_max_size = 64G
+          max_input_time = 7200
+          max_execution_time = 7200
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 100
+          pm.start_servers = 10
+          pm.min_spare_servers = 10
+          pm.max_spare_servers = 40
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
       extraEnv:
         - name: REDIS_HOST
           value: redis.database.svc.cluster.local
