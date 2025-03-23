@@ -1,0 +1,68 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nextcloud-config
+  namespace: cloud
+spec:
+  storageClassName: freenas-api-nfs-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeName: nextcloud-config
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: nextcloud-config
+spec:
+  storageClassName: freenas-api-nfs-retain
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+      storage: 10Gi
+  nfs:
+    server: ${DAT_ADDR}
+    path: /mnt/lcl/cluster/nextcloud/config
+  mountOptions:
+    - nfsvers=4.2
+    - nconnect=8
+    - hard
+  volumeHandle: nextcloud-config
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: nextcloud-data
+  namespace: cloud
+spec:
+  storageClassName: freenas-api-nfs-retain
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: nextcloud-data
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: nextcloud-data
+spec:
+  storageClassName: freenas-api-nfs-retain
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+      storage: 1Gi
+  nfs:
+    server: ${DAT_ADDR}
+    path: /mnt/lcl/cluster/nextcloud/data
+  mountOptions:
+    - nfsvers=4.2
+    - nconnect=8
+    - hard
+  volumeHandle: nextcloud-data
