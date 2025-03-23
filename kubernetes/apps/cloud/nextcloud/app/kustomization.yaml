@@ -5,6 +5,6 @@ resources:
   #- ./pv-ceph.yaml
   #- ./pv-nfs.yaml
   - ./pv-truenas-nfs.yaml
-  - ./helmrelease.yaml
+  #- ./helmrelease.yaml
   - ./secrets.sops.yaml
   - ./externalsecret.yaml
