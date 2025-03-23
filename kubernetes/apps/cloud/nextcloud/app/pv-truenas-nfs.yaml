@@ -28,9 +28,9 @@ spec:
     server: ${DAT_ADDR}
     path: /mnt/lcl/cluster/nextcloud/config
   mountOptions:
+    - async
     - nfsvers=4.2
-    - nconnect=8
-    - hard
+    - noatime
   volumeHandle: nextcloud-config
 ---
 kind: PersistentVolumeClaim
@@ -62,7 +62,7 @@ spec:
     server: ${DAT_ADDR}
     path: /mnt/lcl/cluster/nextcloud/data
   mountOptions:
+    - async
     - nfsvers=4.2
-    - nconnect=8
-    - hard
+    - noatime
   volumeHandle: nextcloud-data
