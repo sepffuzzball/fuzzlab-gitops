@@ -36,6 +36,7 @@ spec:
             medium: Memory
 
         pod:
+          name: *app
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -45,7 +46,6 @@ spec:
 
         containers:
           main:
-            name: *app
             volumeMounts:
             - name: tmp
               mountPath: /tmp
