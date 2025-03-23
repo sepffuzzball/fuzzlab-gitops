@@ -94,11 +94,11 @@ spec:
         smtpHostKey: smtp-host
         smtpUsernameKey: smtp-username
         smtpPasswordKey: smtp-password
-      securityContext:
-        runAsUser: 82 # nginx
-        runAsGroup: 33 # www-data
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
+      # securityContext:
+      #   runAsUser: 82 # nginx
+      #   runAsGroup: 33 # www-data
+      #   runAsNonRoot: true
+      #   readOnlyRootFilesystem: false
       host: *host
       mail:
         enabled: false
