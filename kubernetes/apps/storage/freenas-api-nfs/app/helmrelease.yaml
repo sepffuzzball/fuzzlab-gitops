@@ -99,7 +99,7 @@ spec:
           detachedVolumesFromSnapshots: "false"
         mountOptions:
           - noatime
-          - nfsvers=3
+          - nfsvers=4.2
         secrets:
           provisioner-secret:
           controller-publish-secret:
@@ -116,7 +116,7 @@ spec:
           detachedVolumesFromSnapshots: "false"
         mountOptions:
           - noatime
-          - nfsvers=3
+          - nfsvers=4.2
         secrets:
           provisioner-secret:
           controller-publish-secret:
@@ -133,8 +133,8 @@ spec:
           port: 80
           allowInsecure: true
         zfs:
-          datasetParentName: test/v
-          detachedSnapshotsDatasetParentName: test/s
+          datasetParentName: lcl/cluster
+          detachedSnapshotsDatasetParentName: lcl/snaps
           datasetEnableQuotas: true
           datasetEnableReservation: false
           datasetPermissionsMode: "0777"
