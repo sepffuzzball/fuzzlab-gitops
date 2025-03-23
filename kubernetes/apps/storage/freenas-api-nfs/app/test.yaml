@@ -30,3 +30,34 @@ spec:
     - nfsvers=4.2
     - nconnect=8
     - hard
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+  namespace: storage
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: test-claim-nfs
+  containers:
+    - name: task-pv-container
+      image: busybox
+      command:
+        - sh
+        - '-c'
+        - 'echo "Hello World" > /test/hiya.txt'
+        - 'chmod 777 /test/hiya.txt'
+      resources:
+        requests:
+          cpu: 50m
+          memory: 128Mi
+        limits:
+          cpu: 100m
+          memory: 256Mi
+      volumeMounts:
+        - mountPath: /test
+          name: task-pv-storage
+
+
