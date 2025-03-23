@@ -3,10 +3,30 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: test-claim-nfs
+  namespace: storage
 spec:
   storageClassName: freenas-api-nfs
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: test-claim-nfs
+spec:
+  storageClassName: freenas-api-nfs
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  capacity:
+      storage: 1Gi
+  nfs:
+    server: ${DAT_ADDR}
+    path: /mnt/lcl/test
+  mountOptions:
+    - nfsvers=4.2
+    - nconnect=8
+    - hard
