@@ -86,10 +86,10 @@ spec:
 
     nextcloud:
       podSecurityContext:
-        #runAsUser: 33
-        #runAsGroup: 33
+        runAsUser: 33
+        runAsGroup: 33
         fsGroup: 33
-        #runAsNonRoot: true
+        runAsNonRoot: true
       datadir: /var/www/data
       existingSecret:
         enabled: true
