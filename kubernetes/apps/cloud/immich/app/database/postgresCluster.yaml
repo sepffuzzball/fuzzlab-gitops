@@ -1,19 +1,11 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgres-operator.crunchydata.com/postgrescluster_v1beta1.json
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: &name immich-database
 spec:
   postgresVersion: 16
-
-  metadata:
-    labels:
-      crunchy-userinit.ramblurr.github.com/enabled: "true"
-      crunchy-userinit.ramblurr.github.com/superuser: postgres
-
   image: ghcr.io/budimanjojo/cdpgvecto.rs:16@sha256:81732e18125371bbbf965caa5cb367b45f43f6f8c60102675a821981987007b7
-
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
@@ -23,19 +15,14 @@ spec:
           shared_preload_libraries: "vectors.so"
           search_path: '"$user", public, vectors"'
         pg_hba:
-          - hostnossl all all 10.96.0.0/16 md5
-          - hostnossl all all 10.69.0.0/16 md5
-          - hostnossl all all 10.0.0.0/16 md5
+          - hostnossl all all 10.0.0.0/9 md5
           - hostssl all all all md5
   databaseInitSQL:
     name: immich-database-init-sql
     key: init.sql
   instances:
-    - name: postgres
-      metadata:
-        labels:
-          app.kubernetes.io/name: pgo-immich
-      replicas: &replica 3
+    - name: instance
+      replicas: &replica 1
       dataVolumeClaimSpec:
         storageClassName: csi-cephfs-sc
         accessModes:
@@ -63,7 +50,6 @@ spec:
           labelSelector:
             matchLabels:
               postgres-operator.crunchydata.com/cluster: *name
-              postgres-operator.crunchydata.com/data: postgres
   users:
     - name: immich
       databases:
