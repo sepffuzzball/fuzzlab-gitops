@@ -55,6 +55,7 @@ spec:
               DEMO_USERS: 'false'
               PROXY_TLS: 'false'
               OCIS_INSECURE: 'true'
+              OCIS_URL: 'https://cloud.${SECRET_DOMAIN_FBE}'
               PROXY_HTTP_ADDR: '0.0.0.0:9200'
               PROXY_AUTOPROVISION_ACCOUNTS: 'true'
               OCIS_LOG_LEVEL: 'info'
