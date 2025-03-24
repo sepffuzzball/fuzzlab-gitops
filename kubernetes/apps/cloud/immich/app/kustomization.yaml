@@ -10,7 +10,7 @@ resources:
   - ./configmap.yaml
 #  - ./pv-truenas-nfs.yaml
   - ./secret.sops.yaml
-#  - ./database
+  - ./database
 #  - ./machine-learning
 #  - ./server
 
