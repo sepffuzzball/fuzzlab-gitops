@@ -22,7 +22,7 @@ spec:
     key: init.sql
   instances:
     - name: instance
-      replicas: &replica 1
+      replicas: &replica 3
       dataVolumeClaimSpec:
         storageClassName: csi-cephfs-sc
         accessModes:
