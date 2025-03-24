@@ -112,6 +112,53 @@ spec:
           name: ""
           password: ""
       configs:
+        config.php: |
+          <?php
+          $CONFIG = array (
+            'memcache.local' => '\\OC\\Memcache\\APCu',
+            'apps_paths' =>
+            array (
+              0 =>
+              array (
+                'path' => '/var/www/html/apps',
+                'url' => '/apps',
+                'writable' => false,
+              ),
+              1 =>
+              array (
+                'path' => '/var/www/html/custom_apps',
+                'url' => '/custom_apps',
+                'writable' => true,
+              ),
+            ),
+            'memcache.distributed' => '\\OC\\Memcache\\Redis',
+            'memcache.locking' => '\\OC\\Memcache\\Redis',
+            'redis' =>
+            array (
+              'host' => getenv('REDIS_HOST'),
+              'password' => getenv('REDIS_PASSWORD'),
+              'port' => 6379,
+            ),
+            'upgrade.disable-web' => true,
+            'passwordsalt' => getenv('passwordsalt'),
+            'secret' => getenv('secret'),
+            'trusted_domains' =>
+            array (
+              0 => 'localhost',
+              1 => '10.0.0.0/9',
+            ),
+            'datadirectory' => '/var/www/data',
+            'dbtype' => 'pgsql',
+            'version' => '30.0.6.2',
+            'overwrite.cli.url' => 'http://localhost',
+            'dbname' => 'nextcloud',
+            'dbhost' => getenv('POSTGRES_HOST'),
+            'dbport' => '',
+            'dbtableprefix' => 'oc_',
+            'dbuser' => 'nextcloud',
+            'dbpassword' => getenv('POSTGRES_PASSWORD'),
+            'instanceid' => 'ocpnytsxfl3g',
+          );
         custom.config.php: |
           <?php
           $CONFIG = array (
