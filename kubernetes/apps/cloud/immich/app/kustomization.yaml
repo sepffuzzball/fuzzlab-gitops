@@ -8,10 +8,10 @@ labels:
       app.kubernetes.io/part-of: immich
 resources:
   - ./configmap.yaml
-  - ./pv-truenas-nfs.yaml
+#  - ./pv-truenas-nfs.yaml
   - ./secret.sops.yaml
-  - ./database
-  - ./machine-learning
-  - ./server
+#  - ./database
+#  - ./machine-learning
+#  - ./server
 
 # Note - for some reason pgo isn't keeping the immich user/database up to date, if you recreate the db cluster you'll need to do an ALTER USER immich WITH PASSWORD '';
