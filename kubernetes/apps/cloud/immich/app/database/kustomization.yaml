@@ -6,3 +6,4 @@ resources:
   - ./init-sql.yaml
   - ./postgresCluster.yaml
   - ./pv-ceph.yaml
+  - ./valkey.yaml
