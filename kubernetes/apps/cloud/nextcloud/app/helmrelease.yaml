@@ -111,7 +111,14 @@ spec:
           authtype: NONE
           name: ""
           password: ""
-      # configs:
+      configs:
+        custom.config.php: |
+          <?php
+          $CONFIG = array (
+            'overwriteprotocol' => 'https',
+            'filelocking.enabled' => 'true',
+            'enable_previews' => true,
+          );
       #   local.config.php: |-
       #     <?php
       #     $CONFIG = array (
