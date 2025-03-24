@@ -11,5 +11,5 @@ resources:
   - ./pv-truenas-nfs.yaml
   - ./secret.sops.yaml
   - ./database
-#  - ./machine-learning
-#  - ./server
+  - ./machine-learning
+  - ./server
