@@ -6,6 +6,7 @@ resources:
   - ./externalsecret.yaml
   - ./secrets.sops.yaml
   - ./helmrelease.yaml
+  - ./pv-ceph.yaml
 #   - ./servicemonitor.yaml
 #   - ./rules
 # configMapGenerator:
