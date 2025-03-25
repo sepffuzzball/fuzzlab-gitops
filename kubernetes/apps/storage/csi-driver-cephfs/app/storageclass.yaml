@@ -1,0 +1,24 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-cephfs-sc-dynamic
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: cephfs.csi.ceph.com
+parameters:
+  clusterID: ace7b6a4-115a-42f7-ba4f-32ceeb11e3c3
+  fsName: k8s-cephfs
+
+  csi.storage.k8s.io/provisioner-secret-name: csi-cephfs-secret
+  csi.storage.k8s.io/provisioner-secret-namespace: storage
+  csi.storage.k8s.io/controller-expand-secret-name: csi-cephfs-secret
+  csi.storage.k8s.io/controller-expand-secret-namespace: storage
+  csi.storage.k8s.io/node-stage-secret-name: csi-cephfs-secret
+  csi.storage.k8s.io/node-stage-secret-namespace: storage
+  volumeNamePrefix: "k8s-dynamic-"
+
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+# mountOptions:
+#   - context="system_u:object_r:container_file_t:s0:c0,c1"

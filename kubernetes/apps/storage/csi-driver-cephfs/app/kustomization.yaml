@@ -5,4 +5,4 @@ resources:
   - ./helmrelease.yaml
   - ./secret.sops.yaml
  # - ./pvc.yaml
-#  - ./storageclass.yaml
+  - ./storageclass.yaml
