@@ -12,7 +12,7 @@ spec:
   path: ./kubernetes/apps/dev/coder/app
   prune: true
   components:
-    - ../../../components/gatus/guarded
+    - ../../../../components/gatus/external
   sourceRef:
     kind: GitRepository
     name: fuzzlab-gitops
