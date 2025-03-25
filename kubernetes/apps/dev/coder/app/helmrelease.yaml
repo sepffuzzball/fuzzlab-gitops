@@ -87,6 +87,6 @@ spec:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        host: coder.${DOMAIN_NAME}
+        host: coder.${SECRET_DOMAIN}
       service:
         type: ClusterIP
