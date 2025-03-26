@@ -37,6 +37,8 @@ spec:
             envFrom:
               - secretRef:
                   name: telegram-oauth-secrets
+            args:
+              - /usr/app/bin/telegram-oauth
             probes:
               liveness: &probes
                 enabled: true
