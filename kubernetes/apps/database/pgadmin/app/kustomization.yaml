@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - pv-ceph.yaml
+configMapGenerator:
+  - name: pgadmin-local-config-configmap
+    files:
+      - resources/config_local.py
+generatorOptions:
+  disableNameSuffixHash: true
