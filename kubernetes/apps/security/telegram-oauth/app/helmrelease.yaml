@@ -39,19 +39,6 @@ spec:
                   name: telegram-oauth-secrets
             args:
               - /usr/app/bin/telegram-oauth
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /health
-                    port: &port 8080
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
             resources:
               requests:
                 cpu: 50m
@@ -79,7 +66,7 @@ spec:
       app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
           - host: &host telegram-oauth.${SECRET_DOMAIN}
             paths:
