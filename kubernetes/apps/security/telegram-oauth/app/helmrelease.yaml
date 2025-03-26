@@ -53,11 +53,11 @@ spec:
             port: &port 8080
     ingress:
       app:
-        className: external
+        className: fbe
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN_FBE}"
         hosts:
-          - host: &host telegram-oauth.${SECRET_DOMAIN}
+          - host: &host telegram-oauth.${SECRET_DOMAIN_FBE}
             paths:
               - path: /
                 service:
