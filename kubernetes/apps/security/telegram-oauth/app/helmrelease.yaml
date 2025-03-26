@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: docker pull ghcr.io/drschlaubi/telegram-oauth
-              tag: sha256-997650f2d517391158d79f080e0fdcb953aad6f908fa9bef701ae6a16117b246.sig
+              tag: sha256-997650f2d517391158d79f080e0fdcb953aad6f908fa9bef701ae6a16117b246
             envFrom:
               - secretRef:
                   name: telegram-oauth-secrets
