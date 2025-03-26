@@ -50,7 +50,7 @@ spec:
         controller: telegram-oauth
         ports:
           http:
-            port: *port
+            port: &port 8080
     serviceMonitor:
       app:
         serviceName: telegram-oauth
