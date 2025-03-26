@@ -37,8 +37,8 @@ spec:
             envFrom:
               - secretRef:
                   name: telegram-oauth-secrets
-            args:
-              - /usr/app/bin/telegram-oauth
+            # args:
+            #   - /usr/app/bin/telegram-oauth
             resources:
               requests:
                 cpu: 50m
@@ -51,17 +51,6 @@ spec:
         ports:
           http:
             port: &port 8080
-    serviceMonitor:
-      app:
-        serviceName: telegram-oauth
-        endpoints:
-          - port: http
-            metricRelabelings:
-              - action: labeldrop
-                regex: (pod)
-              - action: replace
-                sourceLabels: ["service"]
-                targetLabel: instance
     ingress:
       app:
         className: external
