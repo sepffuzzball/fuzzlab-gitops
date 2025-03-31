@@ -43,7 +43,7 @@ spec:
             env:
               TZ: ${TZ}
               DISABLE_MQTT: "false"
-              DATABASE_HOST: "postgres-pgbouncer.database.svc.cluster.local"
+              DATABASE_HOST: "postgres-primary.database.svc.cluster.local"
             envFrom: 
             - secretRef:
                 name: ${APP}-secrets
