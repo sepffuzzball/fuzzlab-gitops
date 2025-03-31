@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app teslamate
+  namespace: flux-system
+spec:
+  targetNamespace: &ns home
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/home/teslamate/app
+  prune: true
+  components:
+    - ../../../../components/gatus/external
+  sourceRef:
+    kind: GitRepository
+    name: fuzzlab-gitops
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  dependsOn:
+    - name: csi-driver-cephfs
+    - name: crunchy-postgres-operator-cluster
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_SUBDOMAIN: *app
