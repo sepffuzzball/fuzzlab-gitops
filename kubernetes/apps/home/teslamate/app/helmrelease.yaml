@@ -43,12 +43,11 @@ spec:
             env:
               TZ: ${TZ}
               DISABLE_MQTT: "false"
-              #MQTT_HOST: "emqx-listeners.db.svc.cluster.local"
             envFrom: 
             - secretRef:
                 name: ${APP}-secrets
-            #- secretRef:
-            #    name: ${APP}-db-secret
+            - secretRef:
+                name: ${APP}-db-secret
             resources:
               requests:
                 memory: 250Mi

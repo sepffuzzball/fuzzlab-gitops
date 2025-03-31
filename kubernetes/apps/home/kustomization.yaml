@@ -10,3 +10,4 @@ resources:
   - ./blog/ks.yaml
   - ./mealie/ks.yaml
   - ./secrets.sops.yaml
+  - ./teslamate/ks.yaml
