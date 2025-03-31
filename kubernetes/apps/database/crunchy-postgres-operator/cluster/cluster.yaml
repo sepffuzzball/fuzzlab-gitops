@@ -132,10 +132,10 @@ spec:
         - sonarr
         - sonarr-log
       password: *password
-    - name: teslamate
-      databases:
-        - teslamate
-      password: *password
+#    - name: teslamate
+#      databases:
+#        - teslamate
+#      password: *password
 
   backups:
     pgbackrest:
