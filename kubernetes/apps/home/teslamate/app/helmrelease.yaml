@@ -39,10 +39,11 @@ spec:
           main:
             image:
               repository: teslamate/teslamate
-              tag: 1.28.5
+              tag: 1.33.0
             env:
               TZ: ${TZ}
               DISABLE_MQTT: "false"
+              DATABASE_HOST: "postgres-pgbouncer.database.svc.cluster.local"
             envFrom: 
             - secretRef:
                 name: ${APP}-secrets
