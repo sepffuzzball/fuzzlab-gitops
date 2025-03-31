@@ -137,6 +137,7 @@ spec:
           - "sonarr.${SECRET_DOMAIN}"
           - "status.${SECRET_DOMAIN}"
           - "kiptavern.${SECRET_DOMAIN}"
+          - "teslamate.${SECRET_DOMAIN}"
         paths: ["/"]
         pathType: Prefix
         tls:
