@@ -28,6 +28,6 @@ spec:
       APP: *app
       NS: *ns
       GATUS_SUBDOMAIN: *app
-      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_DOMAIN: ${SECRET_DOMAIN_FBE}
       GATUS_PATH: "/"
       GATUS_STATUS: "200"

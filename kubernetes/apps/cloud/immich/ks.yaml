@@ -28,7 +28,7 @@ spec:
     substitute:
       APP: *app
       NS: *ns
-      GATUS_SUBDOMAIN: *app
+      GATUS_SUBDOMAIN: "photos"
       GATUS_DOMAIN: ${SECRET_DOMAIN}
       GATUS_PATH: "/"
       GATUS_STATUS: "200"

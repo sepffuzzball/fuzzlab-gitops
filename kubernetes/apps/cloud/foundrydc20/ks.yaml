@@ -26,7 +26,7 @@ spec:
     substitute:
       APP: *app
       NS: *ns
-      GATUS_SUBDOMAIN: *app
+      GATUS_SUBDOMAIN: "dc20"
       GATUS_DOMAIN: ${SECRET_DOMAIN}
       GATUS_PATH: "/"
       GATUS_STATUS: "200"
