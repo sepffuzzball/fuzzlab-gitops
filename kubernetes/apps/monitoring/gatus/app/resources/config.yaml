@@ -71,104 +71,6 @@ endpoints:
       - "[CONNECTED] == true"
     alerts:
       - type: telegram
-  # Proxmox Hosts
-  - name: PVE00
-    group: Proxmox Hosts
-    url: ssh://${PVE_ADDR}:22
-    ssh:
-      username: ${SECRET_SSH_USER}
-      password: ${SECRET_SSH_PASSWORD}
-    body: |
-      {
-        "command": "uptime"
-      }
-    interval: 5m
-    conditions:
-      - "[CONNECTED] == true"
-      - "[STATUS] == 0"
-    alerts:
-      - type: telegram
-  - name: PVE01
-    group: Proxmox Hosts
-    url: ssh://${PVE01_ADDR}:22
-    ssh:
-      username: ${SECRET_SSH_USER}
-      password: ${SECRET_SSH_PASSWORD}
-    body: |
-      {
-        "command": "uptime"
-      }
-    interval: 5m
-    conditions:
-      - "[CONNECTED] == true"
-      - "[STATUS] == 0"
-    alerts:
-      - type: telegram
-  - name: PVE02
-    group: Proxmox Hosts
-    url: ssh://${PVE02_ADDR}:22
-    ssh:
-      username: ${SECRET_SSH_USER}
-      password: ${SECRET_SSH_PASSWORD}
-    body: |
-      {
-        "command": "uptime"
-      }
-    interval: 5m
-    conditions:
-      - "[CONNECTED] == true"
-      - "[STATUS] == 0"
-    alerts:
-      - type: telegram
-  - name: PVE03
-    group: Proxmox Hosts
-    url: ssh://${PVE03_ADDR}:22
-    ssh:
-      username: ${SECRET_SSH_USER}
-      password: ${SECRET_SSH_PASSWORD}
-    body: |
-      {
-        "command": "uptime"
-      }
-    interval: 5m
-    conditions:
-      - "[CONNECTED] == true"
-      - "[STATUS] == 0"
-    alerts:
-      - type: telegram
-  - name: PVE04
-    group: Proxmox Hosts
-    url: ssh://${PVE04_ADDR}:22
-    ssh:
-      username: ${SECRET_SSH_USER}
-      password: ${SECRET_SSH_PASSWORD}
-    body: |
-      {
-        "command": "uptime"
-      }
-    interval: 5m
-    conditions:
-      - "[CONNECTED] == true"
-      - "[STATUS] == 0"
-    alerts:
-      - type: telegram
-  - name: PVE05
-    group: Proxmox Hosts
-    url: ssh://${PVE05_ADDR}:22
-    ssh:
-      username: ${SECRET_SSH_USER}
-      password: ${SECRET_SSH_PASSWORD}
-    body: |
-      {
-        "command": "uptime"
-      }
-    interval: 5m
-    conditions:
-      - "[CONNECTED] == true"
-      - "[STATUS] == 0"
-    alerts:
-      - type: telegram
-
   # Network
   - name: UDM-Pro
     group: Network
@@ -320,6 +222,259 @@ endpoints:
     group: Internal-Services
     url: tcp://redis.database.svc.cluster.local:6379
     interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+
+  # Virtual Servers
+  - name: Forge
+    group: server-virtual
+    url: icmp://10.0.2.35
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: Forge-Runner
+    group: server-virtual
+    url: icmp://10.0.2.31
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: Deluge
+    group: server-virtual
+    url: icmp://10.0.2.105
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: Notes
+    group: server-virtual
+    url: icmp://10.0.2.114
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: KMS
+    group: server-virtual
+    url: icmp://10.0.2.177
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s201
+    group: server-virtual
+    url: icmp://10.0.2.201
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s202
+    group: server-virtual
+    url: icmp://10.0.2.202
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s203
+    group: server-virtual
+    url: icmp://10.0.2.203
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s204
+    group: server-virtual
+    url: icmp://10.0.2.204
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s205
+    group: server-virtual
+    url: icmp://10.0.2.205
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s206
+    group: server-virtual
+    url: icmp://10.0.2.206
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s207
+    group: server-virtual
+    url: icmp://10.0.2.207
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s208
+    group: server-virtual
+    url: icmp://10.0.2.208
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s209
+    group: server-virtual
+    url: icmp://10.0.2.209
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: k3s210
+    group: server-virtual
+    url: icmp://10.0.2.210
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+
+  # server-hardware
+  - name: PVE00
+    group: server-hardware
+    url: ssh://${PVE_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: PVE01
+    group: server-hardware
+    url: ssh://${PVE01_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: PVE02
+    group: server-hardware
+    url: ssh://${PVE02_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: PVE03
+    group: server-hardware
+    url: ssh://${PVE03_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: PVE04
+    group: server-hardware
+    url: ssh://${PVE04_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: PVE05
+    group: server-hardware
+    url: ssh://${PVE05_ADDR}:22
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+      - "[STATUS] == 0"
+    alerts:
+      - type: telegram
+  - name: Home-Assistant
+    group: server-hardware
+    url: icmp://10.0.2.10
+    ssh:
+      username: ${SECRET_SSH_USER}
+      password: ${SECRET_SSH_PASSWORD}
+    body: |
+      {
+        "command": "uptime"
+      }
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+  - name: PINODE00
+    group: server-hardware
+    url: icmp://10.0.1.60
+    interval: 5m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: telegram
+
+# Lighting controller
+  - name: FPPMAIN
+    group: lit
+    url: icmp://10.0.7.10
+    interval: 5m
     conditions:
       - "[CONNECTED] == true"
     alerts:
