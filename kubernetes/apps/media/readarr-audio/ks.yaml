@@ -5,7 +5,7 @@ metadata:
   name: &app readarr-audio
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: &ns media
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -22,8 +22,17 @@ spec:
     - name: csi-driver-cephfs
     - name: csi-driver-smb
     - name: crunchy-postgres-operator
+  components:
+  - ../../../../components/gatus/internal
   postBuild:
     substitute:
       APP: *app
+      NS: *ns
       DB_NAME: *app
       DB_USER: *app
+      GATUS_DOMAIN: ${SECRET_DOMAIN_LOCAL}
+      GATUS_SUBDOMAIN: *app
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
+      GATUS_GROUP: internal-media
+      GATUS_PROTOCOL: http

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.4.0
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -32,17 +32,7 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-        #volumes:
-        #- name: tmp
-        #  emptyDir:
-        #    medium: Memory
-
         pod:
-          #labels:
-          #  egress.home.arpa/internet: allow
-          #  egress.home.arpa/kubedns: allow # FIXME: Remove when clusterNetworkPolicy is in place
-          #  ingress.home.arpa/nginx-internal: allow
-          #  ingress.home.arpa/internal: allow
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -52,9 +42,6 @@ spec:
 
         containers:
           main:
-            volumeMounts:
-            - name: tmp
-              mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sabnzbd
               tag: 4.4.1
@@ -106,6 +93,7 @@ spec:
                 memory: 2048Mi
     service:
       main:
+        controller: main
         ports:
           http:
             port: *port
@@ -130,11 +118,21 @@ spec:
       config:
         enabled: true
         existingClaim: sabnzbd-config
+        globalMounts:
+          - path: /config
+      tmp:
+        type: emptyDir
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       lcl:
         enabled: true
         existingClaim: lcl
-
+        globalMounts:
+          - path: /lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads
-        mountPath: /downloads
+        globalMounts:
+          - path: /downloads

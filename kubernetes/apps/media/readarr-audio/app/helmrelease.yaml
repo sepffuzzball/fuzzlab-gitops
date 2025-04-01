@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.4.0
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -29,12 +29,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
-        volumes:
-        - name: tmp
-          emptyDir:
-            medium: Memory
-
+      arr:
         pod:
           securityContext:
             runAsUser: ${PUID}
@@ -45,9 +40,6 @@ spec:
 
         containers:
           main:
-            volumeMounts:
-            - name: tmp
-              mountPath: /tmp
             image:
               repository: ghcr.io/joryirving/readarr
               tag: 0.4.12.2753@sha256:bac135a3360f34b30d8afecafdd104bbd5cef90dbb34dc265298272a83a087e1
@@ -92,6 +84,7 @@ spec:
                 memory: 512Mi
     service:
       main:
+        controller: arr
         ports:
           http:
             port: *port
@@ -113,10 +106,21 @@ spec:
       config:
         enabled: true
         existingClaim: readarr-audio-config
+        globalMounts:
+          - path: /config
+      tmp:
+        type: emptyDir
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       lcl:
         enabled: true
         existingClaim: lcl
+        globalMounts:
+          - path: /lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads
-        mountPath: /downloads
+        globalMounts:
+          - path: /downloads

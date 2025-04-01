@@ -5,14 +5,14 @@ resources:
   - ./namespace.yaml
   - ./pv-smb.yaml
   - ./secrets.sops.yaml
-  - ./jellyfin/ks.yaml
-  - ./plex/ks.yaml
-  - ./prowlarr/ks.yaml
+ # - ./jellyfin/ks.yaml
+ # - ./plex/ks.yaml
+ # - ./prowlarr/ks.yaml
   - ./lidarr/ks.yaml
-  - ./mylar/ks.yaml
-  - ./sonarr/ks.yaml
-  - ./radarr/ks.yaml
-  - ./readarr/ks.yaml
-  - ./readarr-audio/ks.yaml
-  - ./sabnzbd/ks.yaml
-  - ./slskd/ks.yaml
+#  - ./mylar/ks.yaml
+#  - ./sonarr/ks.yaml
+#  - ./radarr/ks.yaml
+#  - ./readarr/ks.yaml
+#  - ./readarr-audio/ks.yaml
+#  - ./sabnzbd/ks.yaml
+#  - ./slskd/ks.yaml
