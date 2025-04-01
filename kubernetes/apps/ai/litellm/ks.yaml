@@ -29,5 +29,6 @@ spec:
       NS: *ns
       DB_NAME: *app
       DB_USER: *app
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
       GATUS_SUBDOMAIN: *app
       GATUS_PATH: /

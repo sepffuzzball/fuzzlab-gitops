@@ -28,4 +28,6 @@ spec:
     substitute:
       APP: *app
       NS: *ns
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
       GATUS_SUBDOMAIN: *app
+      GATUS_PATH: /

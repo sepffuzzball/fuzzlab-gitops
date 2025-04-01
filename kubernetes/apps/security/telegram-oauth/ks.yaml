@@ -19,7 +19,7 @@ spec:
     name: fuzzlab-gitops
   targetNamespace: &ns security
   components:
-  - ../../../../components/gatus/external-fbe
+  - ../../../../components/gatus/external
   timeout: 5m
   wait: false
   postBuild:
@@ -27,4 +27,5 @@ spec:
       APP: *app
       NS: *ns
       GATUS_SUBDOMAIN: *app
+      GATUS_DOMAIN: ${SECRET_DOMAIN_FBE}
       GATUS_PATH: /oauth/authorize
