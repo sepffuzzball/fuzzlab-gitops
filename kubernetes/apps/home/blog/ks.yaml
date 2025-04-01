@@ -5,7 +5,7 @@ metadata:
   name: &app blog-sepffuzzball
   namespace: flux-system
 spec:
-  targetNamespace: home
+  targetNamespace: &ns home
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -18,3 +18,14 @@ spec:
   interval: 10m
   retryInterval: 1m
   timeout: 5m
+  components:
+  - ../../../../components/gatus/external
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_DOMAIN: ${SECRET_DOMAIN_SEPF}
+      GATUS_SUBDOMAIN: "blog"
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
+      GATUS_GROUP: "website"
