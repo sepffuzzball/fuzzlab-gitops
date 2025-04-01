@@ -19,13 +19,12 @@ spec:
   retryInterval: 1m
   timeout: 5m
   components:
-  - ../../../../components/gatus/external
+  - ../../../../components/gatus/external-base
   postBuild:
     substitute:
       APP: *app
       NS: *ns
       GATUS_DOMAIN: ${SECRET_DOMAIN_KMC}
-      GATUS_SUBDOMAIN: ""
       GATUS_PATH: /
       GATUS_STATUS: "200"
       GATUS_GROUP: "website"
