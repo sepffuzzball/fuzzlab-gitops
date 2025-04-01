@@ -1,0 +1,13 @@
+---
+endpoints:
+  - name: "${APP}"
+    group: ${GATUS_GROUP:=internal-apps}
+    url: "${GATUS_PROTOCOL:=http}://${GATUS_SUBDOMAIN:=${APP}}.${GATUS_DOMAIN:=${SECRET_DOMAIN}}${GATUS_PATH:=/}"
+    interval: 1m
+    client:
+      insecure: true
+      #dns-resolver: tcp://1.1.1.1:53
+    conditions:
+      - "[STATUS] == ${GATUS_STATUS:=200}"
+    alerts:
+      - type: pushover

@@ -23,7 +23,7 @@ spec:
     - name: csi-driver-smb
     - name: crunchy-postgres-operator
   components:
-  - ../../../../components/gatus/external
+  - ../../../../components/gatus/internal
   postBuild:
     substitute:
       APP: *app
@@ -35,3 +35,4 @@ spec:
       GATUS_PATH: /
       GATUS_STATUS: "200"
       GATUS_GROUP: internal-media
+      GATUS_PROTOCOL: http
