@@ -5,7 +5,7 @@ metadata:
   name: &app openwebui
   namespace: flux-system
 spec:
-  targetNamespace: ai
+  targetNamespace: &ns ai
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -21,8 +21,15 @@ spec:
   dependsOn:
     - name: csi-driver-cephfs
     - name: crunchy-postgres-operator-cluster
+  components:
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
       APP: *app
+      NS: *ns
       DB_NAME: *app
       DB_USER: *app
+      GATUS_SUBDOMAIN: *app
+      GATUS_DOMAIN: ${SECRET_DOMAIN_FBE}
+      GATUS_PATH: "/oauth/authorize"
+      GATUS_STATUS: "400"
