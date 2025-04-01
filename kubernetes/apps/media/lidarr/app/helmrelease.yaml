@@ -102,31 +102,35 @@ spec:
         enabled: true
         existingClaim: lidarr-config
         globalMounts:
-          - /config
+          - path: /config
       tmp:
         type: emptyDir
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       lcl:
         enabled: true
         existingClaim: lcl
         globalMounts:
-          - /lcl
+          - path: /lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads
         globalMounts:
-          - /downloads
+          - path: /downloads
       unprocessed:
         enabled: true
         existingClaim: lcl-unprocessed
         globalMounts:
-          - /media/unprocessed
+          - path: /media/unprocessed
       music:
         enabled: true
         existingClaim: lcl-music
         globalMounts:
-          - /media/music
+          - path:  /media/music
       videos:
         enabled: true
         existingClaim: lcl-videos
         globalMounts:
-          - /media/video
+          - path: /media/video
