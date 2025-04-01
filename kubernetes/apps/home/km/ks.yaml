@@ -25,7 +25,7 @@ spec:
       APP: *app
       NS: *ns
       GATUS_DOMAIN: ${SECRET_DOMAIN_KMC}
-      GATUS_SUBDOMAIN: *app
+      GATUS_SUBDOMAIN: ""
       GATUS_PATH: /
       GATUS_STATUS: "200"
       GATUS_GROUP: "website"
