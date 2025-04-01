@@ -5,7 +5,7 @@ metadata:
   name: &app immich
   namespace: flux-system
 spec:
-  targetNamespace: cloud
+  targetNamespace: &ns cloud
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -22,3 +22,13 @@ spec:
     - name: csi-driver-cephfs
     - name: csi-driver-nfs
     - name: crunchy-postgres-operator
+  components:
+  - ../../../../components/gatus/external
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_SUBDOMAIN: *app
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_PATH: "/"
+      GATUS_STATUS: "200"

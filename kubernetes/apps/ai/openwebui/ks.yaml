@@ -29,7 +29,7 @@ spec:
       NS: *ns
       DB_NAME: *app
       DB_USER: *app
-      GATUS_SUBDOMAIN: *app
+      GATUS_SUBDOMAIN: "ai"
       GATUS_DOMAIN: ${SECRET_DOMAIN}
       GATUS_PATH: "/"
       GATUS_STATUS: "200"
