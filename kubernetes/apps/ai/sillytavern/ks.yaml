@@ -5,7 +5,7 @@ metadata:
   name: &app sillytavern
   namespace: flux-system
 spec:
-  targetNamespace: ai
+  targetNamespace: &ns ai
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -20,3 +20,13 @@ spec:
   timeout: 5m
   dependsOn:
     - name: csi-driver-cephfs
+  components:
+  - ../../../../components/gatus/external
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_SUBDOMAIN: *app
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_PATH: "/"
+      GATUS_STATUS: "200"
