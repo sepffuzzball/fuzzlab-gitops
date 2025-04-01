@@ -5,7 +5,7 @@ metadata:
   name: &appname authentik
   namespace: flux-system
 spec:
-  targetNamespace: security
+  targetNamespace: &ns security
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
@@ -21,13 +21,20 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  components:
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
-      APP: *appname
+      APP: *app
+      NS: *ns
+      DB_NAME: *app
+      DB_USER: *app
       HOSTNAME: auth.fzbl.xyz
-      DB_NAME: authentik
-      DB_USER: authentik
-
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_SUBDOMAIN: auth
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
+      
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

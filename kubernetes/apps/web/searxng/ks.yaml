@@ -5,7 +5,7 @@ metadata:
   name: &appname searxng
   namespace: flux-system
 spec:
-  targetNamespace: &namespace web
+  targetNamespace: &ns web
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
@@ -17,6 +17,13 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  components:
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
-      APP: *appname
+      APP: *app
+      NS: *ns
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_SUBDOMAIN: shlink
+      GATUS_PATH: /
+      GATUS_STATUS: "200"

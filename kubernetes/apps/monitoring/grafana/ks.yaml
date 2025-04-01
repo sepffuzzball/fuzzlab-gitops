@@ -5,7 +5,7 @@ metadata:
   name: &app grafana
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
+  targetNamespace: &ns monitoring
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -18,3 +18,14 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
+  components:
+  - ../../../../components/gatus/external
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_DOMAIN: ${SECRET_DOMAIN_LOCAL}
+      GATUS_SUBDOMAIN: *app
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
+      GATUS_GROUP: "local"

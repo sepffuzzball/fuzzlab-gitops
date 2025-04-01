@@ -21,12 +21,19 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 3m
+  targetNamespace: &ns web
+  components:
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
       APP: *app
+      NS: *ns
       DB_NAME: *app
       DB_USER: *app
-
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_SUBDOMAIN: "s"
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -49,3 +56,14 @@ spec:
   interval: 15m
   retryInterval: 1m
   timeout: 3m
+  targetNamespace: &ns web
+  components:
+  - ../../../../components/gatus/external
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_SUBDOMAIN: shlink
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
