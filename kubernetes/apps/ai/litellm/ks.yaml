@@ -5,11 +5,11 @@ metadata:
   name: &app litellm
   namespace: flux-system
 spec:
-  targetNamespace: ai
+  targetNamespace: &ns ai
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/ai/litellm/app
+  path: ./kubernetes/apps/${ns}/${app}/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,8 +21,13 @@ spec:
   dependsOn:
     - name: csi-driver-cephfs
     - name: crunchy-postgres-operator-cluster
+  components:
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
       APP: *app
+      NS: *ns
       DB_NAME: *app
       DB_USER: *app
+      GATUS_SUBDOMAIN: *app
+      GATUS_PATH: /
