@@ -18,10 +18,10 @@ spec:
     kind: GitRepository
     name: fuzzlab-gitops
   targetNamespace: &ns security
-  components:
-  - ../../../../components/gatus/external
   timeout: 5m
   wait: false
+  components:
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
       APP: *app
