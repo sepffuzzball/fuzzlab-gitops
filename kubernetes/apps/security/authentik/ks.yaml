@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname authentik
+  name: &app authentik
   namespace: flux-system
 spec:
   targetNamespace: &ns security
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
+      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/security/authentik/app
   prune: true
   sourceRef:
@@ -39,13 +39,13 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname authentik-redis
+  name: &app authentik-redis
   namespace: flux-system
 spec:
   targetNamespace: security
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
+      app.kubernetes.io/name: *app
   interval: 10m
   path: "./kubernetes/apps/security/authentik/redis"
   prune: true
