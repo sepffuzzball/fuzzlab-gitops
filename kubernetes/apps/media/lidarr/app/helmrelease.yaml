@@ -37,7 +37,6 @@ spec:
             medium: Memory
 
         pod:
-          name: *app
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -115,6 +114,8 @@ spec:
       lcl:
         enabled: true
         existingClaim: lcl
+        globalMounts:
+          - /lcl
       downloads:
         enabled: true
         existingClaim: lcl-downloads
