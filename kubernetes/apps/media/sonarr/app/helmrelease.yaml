@@ -40,9 +40,6 @@ spec:
 
         containers:
           main:
-            volumeMounts:
-            - name: tmp
-              mountPath: /tmp
             image:
               repository: ghcr.io/onedr0p/sonarr
               tag: 4.0.14.2938

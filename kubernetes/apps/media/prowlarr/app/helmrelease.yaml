@@ -40,9 +40,6 @@ spec:
 
         containers:
           main:
-            volumeMounts:
-            - name: tmp
-              mountPath: /tmp
             image:
               repository: ghcr.io/home-operations/prowlarr
               tag: 1.32.2.4987
