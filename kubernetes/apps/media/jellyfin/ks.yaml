@@ -27,7 +27,7 @@ spec:
     substitute:
       APP: *app
       NS: *ns
-      GATUS_DOMAIN: ${SECRET_DOMAIN}
-      GATUS_SUBDOMAIN: shlink
+      GATUS_DOMAIN: ${SECRET_DOMAIN_FBE}
+      GATUS_SUBDOMAIN: *app
       GATUS_PATH: /
       GATUS_STATUS: "200"
