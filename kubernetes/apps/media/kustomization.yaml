@@ -8,7 +8,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
-  #- ./lidarr/ks.yaml
+  - ./lidarr/ks.yaml
   - ./mylar/ks.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml
