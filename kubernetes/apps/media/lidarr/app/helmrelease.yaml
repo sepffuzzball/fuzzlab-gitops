@@ -31,11 +31,6 @@ spec:
   values:
     controllers:
       arr:
-        volumes:
-        - name: tmp
-          emptyDir:
-            medium: Memory
-
         pod:
           securityContext:
             runAsUser: ${PUID}
