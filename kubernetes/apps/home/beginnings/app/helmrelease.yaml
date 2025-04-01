@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      beginnings:
         pod:
           automountServiceAccountToken: false
           enableServiceLinks: false
@@ -41,6 +41,7 @@ spec:
                 memory: 128Mi
     service:
       main:
+        controller: beginnings
         ports:
           http:
             port: 80
