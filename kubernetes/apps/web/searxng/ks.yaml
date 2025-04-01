@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appname searxng
+  name: &app searxng
   namespace: flux-system
 spec:
   targetNamespace: &ns web
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appname
+      app.kubernetes.io/name: *app
   path: ./kubernetes/apps/web/searxng/app
   prune: true
   sourceRef:
