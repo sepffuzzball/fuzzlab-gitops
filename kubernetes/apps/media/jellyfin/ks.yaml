@@ -5,7 +5,7 @@ metadata:
   name: &app jellyfin
   namespace: flux-system
 spec:
-  targetNamespace: media
+  targetNamespace: &ns media
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -21,3 +21,13 @@ spec:
   dependsOn:
     - name: csi-driver-cephfs
     - name: csi-driver-smb
+  components:
+  - ../../../../components/gatus/external
+  postBuild:
+    substitute:
+      APP: *app
+      NS: *ns
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_SUBDOMAIN: shlink
+      GATUS_PATH: /
+      GATUS_STATUS: "200"
