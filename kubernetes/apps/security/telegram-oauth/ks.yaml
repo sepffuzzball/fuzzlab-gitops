@@ -28,4 +28,5 @@ spec:
       NS: *ns
       GATUS_SUBDOMAIN: *app
       GATUS_DOMAIN: ${SECRET_DOMAIN_FBE}
-      GATUS_PATH: /oauth/authorize
+      GATUS_PATH: "/oauth/authorize"
+      GATUS_STATUS: "400"
