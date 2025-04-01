@@ -45,22 +45,7 @@ endpoints:
       - "[STATUS] == 200"
     alerts:
       - type: telegram
-  - name: ${SECRET_DOMAIN_SEPF}
-    group: external-dns
-    url: https://blog.${SECRET_DOMAIN_SEPF}
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: telegram
-  - name: ${SECRET_DOMAIN_KMC}
-    group: external-dns
-    url: https://${SECRET_DOMAIN_KMC}
-    interval: 5m
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: telegram
+
   # Internal DNS
   - name: Adguard 01
     group: internal-dns
