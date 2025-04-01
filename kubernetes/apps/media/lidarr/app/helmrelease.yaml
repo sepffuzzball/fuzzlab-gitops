@@ -110,7 +110,8 @@ spec:
       config:
         enabled: true
         existingClaim: lidarr-config
-        mountPath: /config
+        globalMounts:
+          - /config
       lcl:
         enabled: true
         existingClaim: lcl
