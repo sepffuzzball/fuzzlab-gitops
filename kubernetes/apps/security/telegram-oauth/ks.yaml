@@ -27,3 +27,4 @@ spec:
       APP: *app
       NS: *ns
       GATUS_SUBDOMAIN: *app
+      GATUS_PATH: /oauth/authorize
