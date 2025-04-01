@@ -30,7 +30,7 @@ spec:
       namespace: storage
   values:
     controllers:
-      main:
+      arr:
         volumes:
         - name: tmp
           emptyDir:
@@ -46,9 +46,6 @@ spec:
 
         containers:
           main:
-            volumeMounts:
-            - name: tmp
-              mountPath: /tmp
             image:
               repository: ghcr.io/home-operations/lidarr
               tag: 2.10.3.4602
@@ -90,7 +87,7 @@ spec:
                 memory: 2048Mi
     service:
       main:
-        controller: main
+        controller: arr
         ports:
           http:
             port: *port
@@ -104,13 +101,19 @@ spec:
               - path: /
                 service:
                   identifier: main
-                  path: http
+                  port: http
     persistence:
       config:
         enabled: true
         existingClaim: lidarr-config
         globalMounts:
           - /config
+      tmp:
+        type: emptyDir
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       lcl:
         enabled: true
         existingClaim: lcl
