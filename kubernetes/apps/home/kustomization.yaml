@@ -5,9 +5,9 @@ resources:
   - ./namespace.yaml
  # - ./firefly/ks.yaml
  # - ./actual/ks.yaml
-  #- ./km/ks.yaml
-  #- ./beginnings/ks.yaml
-  #- ./blog/ks.yaml
+  - ./km/ks.yaml
+  - ./beginnings/ks.yaml
+  - ./blog/ks.yaml
   - ./mealie/ks.yaml
   - ./secrets.sops.yaml
   - ./teslamate/ks.yaml
