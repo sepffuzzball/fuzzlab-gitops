@@ -22,7 +22,7 @@ spec:
     - name: csi-driver-cephfs
     - name: csi-driver-smb
   components:
-  - ../../../../components/gatus/internal
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
       APP: *app
@@ -32,5 +32,5 @@ spec:
       GATUS_DOMAIN: ${SECRET_DOMAIN_FBE}
       GATUS_SUBDOMAIN: *app
       GATUS_PATH: /
-      GATUS_STATUS: "200"
+      GATUS_STATUS: "401"
       
