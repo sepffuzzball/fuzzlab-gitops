@@ -42,6 +42,9 @@ spec:
               tag: 0.15.0
             env:
               TZ: ${TZ}
+            envFrom:
+              - secretRef:
+                  name: frigate-secrets
             securityContext:
               privileged: true
             resources:
@@ -70,7 +73,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 5000
+            port: *port
           rtsp:
             enabled: true
             port: &restream-port 8554
