@@ -30,7 +30,7 @@ spec:
       DB_NAME: *app
       DB_USER: *app
       GATUS_DOMAIN: ${SECRET_DOMAIN_LOCAL}
-      GATUS_SUBDOMAIN: *app
+      GATUS_SUBDOMAIN: sab
       GATUS_PATH: /
       GATUS_STATUS: "200"
       GATUS_GROUP: internal-media
