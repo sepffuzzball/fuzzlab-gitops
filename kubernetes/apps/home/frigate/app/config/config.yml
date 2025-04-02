@@ -2,8 +2,8 @@ mqtt:
   enabled: true
   host: 10.0.2.10
   port: 1883
-  user: {FRIGATE_MQTT_USERNAME}
-  password: {FRIGATE_MQTT_PASSWORD}
+  user: "{FRIGATE_MQTT_USERNAME}"
+  password: "{FRIGATE_MQTT_PASSWORD}"
 
 ffmpeg:
   hwaccel_args: preset-intel-qsv-h264
