@@ -30,6 +30,7 @@ spec:
       frigate:
         strategy: Recreate
         annotations:
+          secret.reloader.stakater.com/reload: frigate-secrets
           configmap.reloader.stakater.com/reload: &config frigate-config
         pod:
           nodeSelector:
