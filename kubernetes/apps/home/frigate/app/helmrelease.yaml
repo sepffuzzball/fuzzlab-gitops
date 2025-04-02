@@ -34,8 +34,8 @@ spec:
           configmap.reloader.stakater.com/reload: &config frigate-config
         pod:
           nodeSelector:
-            feature.node.kubernetes.io/pci-0300_8086.present: "true"
-            feature.node.kubernetes.io/usb-fe_1a6e_089a.present: "true"
+            google.feature.node.kubernetes.io/coral: "true"
+            intel.feature.node.kubernetes.io/gpu: "true"
         containers:
           app:
             image:
