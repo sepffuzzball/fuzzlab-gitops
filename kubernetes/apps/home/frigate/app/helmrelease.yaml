@@ -1,88 +1,120 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: frigate
-  namespace: home
-  labels:
-    app.kubernetes.io/name: frigate
+  name: &app frigate
+  namespace: ${NS}
 spec:
-  interval: 10m
+  interval: 5m
   chart:
     spec:
-      chart: frigate
-      version: 7.3.0
+      chart: app-template
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
-        name: blakeblackshear
+        name: bjw-s
         namespace: flux-system
+      interval: 5m
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
   values:
-    image:
-      # -- Docker registry/repository to pull the image from
-      repository: ghcr.io/blakeblackshear/frigate
-      # -- Overrides the default tag (appVersion) used in Chart.yaml ([Docker Hub](https://hub.docker.com/r/blakeblackshear/frigate/tags?page=1))
-      tag: 0.14.1
-      # -- Docker image pull policy
-      pullPolicy: IfNotPresent
-
-    coral:
-      enabled: false
-      hostpath: "/dev/bus/usb"
-
+    controllers:
+      frigate:
+        strategy: Recreate
+        annotations:
+          configmap.reloader.stakater.com/reload: &config frigate-config
+        pod:
+          nodeSelector:
+            feature.node.kubernetes.io/pci-0300_8086.present: "true"
+            feature.node.kubernetes.io/usb-fe_1a6e_089a.present: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/blakeblackshear/frigate
+              tag: 0.15.0
+            env:
+              TZ: ${TZ}
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+              limits:
+                memory: 10Gi
+            probes:
+              liveness: &probes
+                enabled: false
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api/version
+                    port: &port 5000
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: &port 5000
+          rtsp:
+            enabled: true
+            port: &restream-port 8554
     ingress:
-      enabled: true
-      ingressClassName: external
-      annotations:
-        kubernetes.io/ingress.class: external
-        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hajimari.io/icon: video-input-antenna
-      hosts:
-        - host: &host "frigate.${SECRET_DOMAIN}"
-          paths:
-            - /
-      tls:
-        - hosts:
-            - *host
-
-
-    config: |
-      mqtt:
-        host: 10.0.2.10
-        port: 1883
-        user: mqtt
-        password: ${SECRET_ACME_PASSWORD}
-      ffmpeg:
-        hwaccel_args: preset-vaapi
-      detectors:
-        coral:
-          type: edgetpu
-          device: usb
-      cameras:
-        doorbell:
-          detect:
-            width: 1920
-            height: 1080
-            fps: 5
-          ffmpeg:
-            inputs:
-              - path: rtsp://admin:${SECRET_ACME_PASSWORD}@10.0.5.101:554/cam/realmonitor?channel=1&subtype=0
-                roles:
-                  - detect
-      motion:
-        mask:
-        - 0,461,3,0,1919,0,1920,699,1571,668,671,699,323,699,386,1080,0,1080
-      objects:
-        track:
-          - person
-        filters:
-          person:
-            min_area: 50000
-      record:
-        enabled: True
-        retain:
-          days: 3
-          mode: motion
-        events:
-          retain:
-            default: 30
-            mode: motion
+      app:
+        className: internal
+        hosts:
+          - host: &host "frigate.${SECRET_DOMAIN_LOCAL}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: frigate-data
+        advancedMounts:
+          frigate:
+            app:
+              - path: /data
+      config-file:
+        type: configMap
+        name: frigate-configmap
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yml
+            readOnly: true
+      cache:
+        type: emptyDir
+        advancedMounts:
+          frigate:
+            app:
+              - path: /dev/shm
+      dev-bus-usb:
+        type: hostPath
+        hostPath: /dev/bus/usb
+        hostPathType: Directory
+      sys-bus-usb:
+        type: hostPath
+        hostPath: /sys/bus/usb
+        hostPathType: Directory
+      media:
+        existingClaim: frigate-media
+        advancedMounts:
+          frigate:
+            app:
+              - path: /media

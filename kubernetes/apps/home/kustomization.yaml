@@ -8,6 +8,7 @@ resources:
   - ./km/ks.yaml
   - ./beginnings/ks.yaml
   - ./blog/ks.yaml
+  - ./frigate/ks.yaml
   - ./mealie/ks.yaml
   - ./secrets.sops.yaml
   - ./teslamate/ks.yaml

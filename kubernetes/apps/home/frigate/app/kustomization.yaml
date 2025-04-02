@@ -3,5 +3,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - helmrelease.yaml
-  - loadbalancer.yaml
-  #- pv-ceph.yaml
+  - secrets.sops.yaml
+  - pv-ceph.yaml
+configMapGenerator:
+  - name: frigate-config
+    files:
+      - ./config/config.yml
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

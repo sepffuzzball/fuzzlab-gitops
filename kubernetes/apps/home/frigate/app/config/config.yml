@@ -1,0 +1,54 @@
+mqtt:
+  enabled: true
+  host: ${MQTT_IP}
+  port: ${MQTT_PORT}
+  user: ${MQTT_USER}
+  password: ${MQTT_PASSWORD}
+
+ffmpeg:
+  hwaccel_args: preset-intel-qsv-h264
+
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+
+snapshots:
+  enabled: true
+  retain:
+    default: 30
+
+cameras:
+  doorbell:
+    detect:
+      width: 1920
+      height: 1080
+      fps: 5
+    ffmpeg:
+      inputs:
+        - path: rtsp://${DOORBELL_USER}:${DOORBELL_PASSWORD}@${DOORBELL_IP}:${DOORBELL_PORT}/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+    motion:
+      mask:
+        - 0,461,3,0,1919,0,1920,699,1571,668,671,699,323,699,386,1080,0,1080
+
+objects:
+  track:
+    - person
+  filters:
+    person:
+      min_area: 50000
+
+record:
+  enabled: true
+  retain:
+    days: 3
+    mode: motion
+  alerts:
+    retain:
+      days: 30
+  detections:
+    retain:
+      days: 30
+version: 0.15-1
