@@ -1,0 +1,61 @@
+---
+- name: Install ollama
+  hosts: all
+  tasks:
+    - name: Create ollama group
+      ansible.builtin.group:
+        name: ollama
+        state: present
+        gid: 3339
+
+    - name: Create ollama user
+      ansible.builtin.user:
+        name: ollama
+        state: present
+        password: "{{ adminpass | password_hash('sha512', upassword_salt) }}"
+        uid: 3339
+        groups:
+          - ollama
+
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name: 
+          - sudo
+          - curl
+          - wget
+          - gcc
+        state: present
+        update_cache: yes
+
+    - name: Enable contrib repository
+      ansible.builtin.shell:
+        cmd: sudo add-apt-repository contrib
+
+    - name: Download CUDA keyring
+      ansible.builtin.shell:
+        cmd: wget https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/cuda-keyring_1.1-1_all.deb
+
+    - name: Install CUDA keyring
+      ansible.builtin.shell:
+        cmd: sudo dpkg -i cuda-keyring_1.1-1_all.deb
+
+    - name: Install CUDA
+      ansible.builtin.apt:
+        name: 
+          - cuda-toolkit-12-8
+          #- cuda-drivers
+        state: present
+        update_cache: yes   
+
+    - name: Install ollama
+      ansible.builtin.shell:
+        cmd: curl -fsSL https://ollama.com/install.sh | sh
+
+    - name: ollama | Create environment file
+      template: src=ollama.env.j2 dest=/etc/sysconfig/ollama
+    - name: ollama | Create Unit file
+      template: src=ollama.service.j2 dest=/lib/systemd/system/ollama.service mode=644
+      notify:
+        - reload systemctl
+    - name: ollama | Start ollama
+      service: name=ollama.service state=started enabled=yes

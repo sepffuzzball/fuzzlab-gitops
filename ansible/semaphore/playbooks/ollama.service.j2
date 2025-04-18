@@ -1,0 +1,14 @@
+[Unit]
+Description=Ollama Service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/ollama serve
+User=ollama
+Group=ollama
+Restart=always
+RestartSec=3
+Environment="PATH=$PATH:OLLAMA_CONTEXT_LENGTH=32768"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+---
+- name: Install ollama
+  hosts: all
+  tasks:
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name: 
+          - sudo
+          - curl
+          - wget
+          - git
+          - python3
+          - python3-pip
+          - python3-venv
+        state: present
+        update_cache: yes
