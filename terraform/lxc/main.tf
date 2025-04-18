@@ -7,39 +7,45 @@ resource "proxmox_virtual_environment_download_file" "deb-pve00" {
   content_type = "vztmpl"
   datastore_id = "local"
   node_name    = "pve00"
-  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
 }
 
 resource "proxmox_virtual_environment_download_file" "deb-pve01" {
   content_type = "vztmpl"
   datastore_id = "local"
   node_name    = "pve01"
-  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
 }
 
 resource "proxmox_virtual_environment_download_file" "deb-pve02" {
   content_type = "vztmpl"
   datastore_id = "local"
   node_name    = "pve02"
-  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
 }
 resource "proxmox_virtual_environment_download_file" "deb-pve03" {
   content_type = "vztmpl"
   datastore_id = "local"
   node_name    = "pve03"
-  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
 }
 resource "proxmox_virtual_environment_download_file" "deb-pve04" {
   content_type = "vztmpl"
   datastore_id = "local"
   node_name    = "pve04"
-  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
 }
 resource "proxmox_virtual_environment_download_file" "deb-pve05" {
   content_type = "vztmpl"
   datastore_id = "local"
   node_name    = "pve05"
-  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
+}
+resource "proxmox_virtual_environment_download_file" "deb-pve64" {
+  content_type = "vztmpl"
+  datastore_id = "local"
+  node_name    = "pve64"
+  url          = "http://download.proxmox.com/images/system/debian-12-standard_12.7-1_amd64.tar.zst"
 }
 
 resource "proxmox_virtual_environment_container" "adguard02" {
@@ -891,6 +897,77 @@ resource "proxmox_virtual_environment_container" "rustdesk" {
   mount_point {
     path          = "/rustdesk"
     volume        = "/mnt/pve/cephfs/rustdesk/"
+    shared        = true
+  }
+
+  mount_point {
+    path          = var.stackspath
+    volume        = var.stacksvolume
+    shared        = true
+  }
+
+  network_interface {
+      bridge      = var.bridge
+      name        = var.ethernet
+  }
+
+  pool_id = proxmox_virtual_environment_pool.lxc.pool_id
+}
+
+
+resource "proxmox_virtual_environment_container" "hal" {
+  operating_system {
+    template_file_id = proxmox_virtual_environment_download_file.deb-pve64.id
+    type          = var.os
+  }
+
+  vm_id           = 2052
+  node_name       = "pve64"
+
+  description     = "halcyon"
+
+  cpu {
+    cores         = 32
+  }
+
+  disk {
+    datastore_id  = var.primary_datastore
+    size          = 64
+  }
+
+  memory {
+    dedicated     = 98304
+  }
+
+  features {
+    nesting       = true
+    mount         = []
+  }
+
+  initialization {
+    hostname = "hal"
+
+    dns {
+      domain      = var.domain
+      servers     = var.dns
+    }
+
+    ip_config {
+      ipv4 {
+        address   = "10.0.2.52/22"
+        gateway   = var.gateway
+      }
+    }
+
+    user_account {
+        keys = keys(local.ssh_keys)
+        password = data.sops_file.pm-password-secret.data["password"]
+    }
+  }
+
+  mount_point {
+    path          = "/ai"
+    volume        = "/mnt/pve/fast/ai/"
     shared        = true
   }
 

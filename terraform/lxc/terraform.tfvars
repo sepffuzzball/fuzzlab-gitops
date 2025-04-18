@@ -29,6 +29,11 @@ proxmox_nodes = {
         desc        = ""
         ip          = "10.0.1.35/22"
     },
+    pve64 = {
+        name        = "pve64"
+        desc        = ""
+        ip          = "10.0.1.64/22"
+    },
 }
 
 api_url             = "https://10.0.1.31:8006/"
