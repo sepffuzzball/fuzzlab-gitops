@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/berriai/litellm
-              tag: main-v1.61.3
+              tag: main-v1.66.0-stable
             envFrom:
               - secretRef:
                   name: *secret
