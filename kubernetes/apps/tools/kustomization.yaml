@@ -5,5 +5,6 @@ resources:
   - ./namespace.yaml
   - ./device-plugin-operator/ks.yaml
   - ./gpu-device-plugin/ks.yaml
+  - ./gpu-operator/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./nvidia-device-plugin/ks.yaml
