@@ -29,9 +29,20 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
-      enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nvidia.com/gpu.present
+                    operator: In
+                    values:
+                      - "true"
+      runtimeClassName: nvidia
+    pod:
       nodeSelector:
-        intel.feature.node.kubernetes.io/gpu: "true"
+        #intel.feature.node.kubernetes.io/gpu: "true"
+        nvidia.com/gpu.present: "true"
       securityContext:
         runAsUser: ${PUID}
         runAsGroup: ${PGID}
@@ -53,6 +64,8 @@ spec:
               JELLYFIN_FFmpeg__analyzeduration: 50000000
               JELLYFIN_PublishedServerUrl: &loadBalancerIP ${JELLYFIN_ADDR}
               TZ: ${TIMEZONE}
+              NVIDIA_DRIVER_CAPABILITIES: all
+              NVIDIA_VISIBLE_DEVICES: all
             probes:
               liveness: &probes
                 enabled: true
@@ -70,9 +83,15 @@ spec:
                 enabled: false
             resources:
               requests:
-                gpu.intel.com/i915: 1
+                cpu: 2000m
+                #gpu.intel.com/i915: 1
+                nvidia.com/gpu: 1
+                memory: 2Gi
               limits:
-                gpu.intel.com/i915: 1
+                cpu: 8000m
+                #gpu.intel.com/i915: 1
+                nvidia.com/gpu: 1
+                memory: 16Gi
 
         #statefulset:
         #  volumeClaimTemplates:
