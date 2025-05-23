@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: time-slicing-config-all
-  namespace: tools
+  namespace: gpu-operator
 data:
   any: |-
     version: v1
