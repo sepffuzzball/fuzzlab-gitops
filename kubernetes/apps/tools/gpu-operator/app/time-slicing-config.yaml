@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: time-slicing-config-all
-  namespace: gpu-operator
+  namespace: tools
 data:
   any: |-
     version: v1
@@ -10,6 +10,8 @@ data:
       migStrategy: none
     sharing:
       timeSlicing:
+        renameByDefault: false
+        failRequestsGreaterThanOne: false
         resources:
         - name: nvidia.com/gpu
           replicas: 4

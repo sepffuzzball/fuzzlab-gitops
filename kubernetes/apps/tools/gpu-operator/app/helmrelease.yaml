@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: gpu-operator
-      version: 25.3.0
+      version: v25.3.0
       sourceRef:
         kind: HelmRepository
         name: nvidiahelm
@@ -29,14 +29,17 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    nfd:
+      enabled: true
     toolkit:
+      enabled: true
       env:
         - name: CONTAINERD_CONFIG
-          value: "/etc/containerd/config.toml.tmpl"
+          value: /var/lib/rancher/k3s/agent/etc/containerd/config.toml
         - name: CONTAINERD_SOCKET
-          value: "/run/k3s/containerd/containerd.sock"
+          value: /run/k3s/containerd/containerd.sock
         - name: CONTAINERD_RUNTIME_CLASS
-          value: "nvidia"
+          value: nvidia
         - name: CONTAINERD_SET_AS_DEFAULT
           value: "true"
 
