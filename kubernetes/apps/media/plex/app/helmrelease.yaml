@@ -25,7 +25,8 @@ spec:
 
         pod:
           nodeSelector:
-            intel.feature.node.kubernetes.io/gpu: "true"
+            #intel.feature.node.kubernetes.io/gpu: "true"
+            feature.node.kubernetes.io/pci-0300_10de.present: "true"
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
