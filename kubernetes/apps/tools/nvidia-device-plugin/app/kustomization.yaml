@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: tools
 resources:
   - ./helmrelease.yaml
+  - ./runtimeclass.yaml
