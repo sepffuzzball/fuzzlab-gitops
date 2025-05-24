@@ -72,13 +72,13 @@ spec:
             resources:
               requests:
                 cpu: 2000m
-                #gpu.intel.com/i915: 1
-                nvidia.com/gpu: 1
+                gpu.intel.com/i915: 1
+                #nvidia.com/gpu: 1
                 memory: 2Gi
               limits:
                 cpu: 8000m
-                #gpu.intel.com/i915: 1
-                nvidia.com/gpu: 1
+                gpu.intel.com/i915: 1
+                #nvidia.com/gpu: 1
                 memory: 16Gi
 
     #defaultPodOptions:
