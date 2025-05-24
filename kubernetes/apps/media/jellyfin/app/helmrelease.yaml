@@ -41,6 +41,10 @@ spec:
             runAsGroup: ${PGID}
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 44
+              - 109
+              - 100
         containers:
           main:
             image:
@@ -83,15 +87,7 @@ spec:
 
     defaultPodOptions:
       runtimeClassName: nvidia
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1100
-        fsGroupChangePolicy: "OnRootMismatch"
-        supplementalGroups:
-          - 44
-          - 109
-          - 100
+
     service:
       main:
         controller: main
