@@ -34,8 +34,8 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           nodeSelector:
-            #intel.feature.node.kubernetes.io/gpu: "true"
-            nvidia.com/gpu.present: "true"
+            intel.feature.node.kubernetes.io/gpu: "true"
+            #nvidia.com/gpu.present: "true"
           securityContext:
             runAsUser: ${PUID}
             runAsGroup: ${PGID}
@@ -52,8 +52,8 @@ spec:
               JELLYFIN_FFmpeg__analyzeduration: 50000000
               JELLYFIN_PublishedServerUrl: &loadBalancerIP ${JELLYFIN_ADDR}
               TZ: ${TIMEZONE}
-              NVIDIA_DRIVER_CAPABILITIES: all
-              NVIDIA_VISIBLE_DEVICES: all
+              #NVIDIA_DRIVER_CAPABILITIES: all
+              #NVIDIA_VISIBLE_DEVICES: all
             probes:
               liveness: &probes
                 enabled: true
@@ -81,17 +81,17 @@ spec:
                 nvidia.com/gpu: 1
                 memory: 16Gi
 
-    defaultPodOptions:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: nvidia.com/gpu.present
-                    operator: In
-                    values:
-                      - "true"
-      runtimeClassName: nvidia
+    #defaultPodOptions:
+    #  affinity:
+    #    nodeAffinity:
+    #      requiredDuringSchedulingIgnoredDuringExecution:
+    #        nodeSelectorTerms:
+    #          - matchExpressions:
+    #              - key: nvidia.com/gpu.present
+    #                operator: In
+    #                values:
+    #                  - "true"
+    #  runtimeClassName: nvidia
 
     service:
       main:
