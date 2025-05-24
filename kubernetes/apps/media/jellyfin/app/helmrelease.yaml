@@ -28,36 +28,24 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: nvidia.com/gpu.present
-                    operator: In
-                    values:
-                      - "true"
-      runtimeClassName: nvidia
-    pod:
-      nodeSelector:
-        #intel.feature.node.kubernetes.io/gpu: "true"
-        nvidia.com/gpu.present: "true"
-      securityContext:
-        runAsUser: ${PUID}
-        runAsGroup: ${PGID}
-        fsGroup: ${PGID}
-        fsGroupChangePolicy: OnRootMismatch
     controllers:
       main:
-        #type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          nodeSelector:
+            #intel.feature.node.kubernetes.io/gpu: "true"
+            nvidia.com/gpu.present: "true"
+          securityContext:
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
               repository: ghcr.io/jellyfin/jellyfin
-              tag: 10.10.5
+              tag: 10.10.7
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 50000000
@@ -93,14 +81,18 @@ spec:
                 nvidia.com/gpu: 1
                 memory: 16Gi
 
-        #statefulset:
-        #  volumeClaimTemplates:
-        #    - name: jellyfin-config
-        #      accessMode: ReadWriteMany
-        #      size: 50Gi
-        #      storageClass: csi-cephfs-sc
-        #      globalMounts:
-        #        - path: /config
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nvidia.com/gpu.present
+                    operator: In
+                    values:
+                      - "true"
+      runtimeClassName: nvidia
+
     service:
       main:
         controller: main
