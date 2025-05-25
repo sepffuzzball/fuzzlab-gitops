@@ -37,8 +37,8 @@ spec:
             #intel.feature.node.kubernetes.io/gpu: "true"
             nvidia.com/gpu.present: "true"
           securityContext:
-            runAsUser: ${PUID}
-            runAsGroup: ${PGID}
+            #runAsUser: ${PUID}
+            #runAsGroup: ${PGID}
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
