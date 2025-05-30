@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: owncloud/ocis
-              tag: 7.1.2
+              tag: 7.1.3
               pullPolicy: IfNotPresent
 
             probes:
