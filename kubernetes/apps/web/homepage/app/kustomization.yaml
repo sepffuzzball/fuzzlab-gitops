@@ -7,7 +7,6 @@ resources:
   - ./helmrelease.yaml
   - ./rbac.yaml
   - ../../../media/secrets.sops.yaml
-  #- ../../../../components/gatus/internal
 configMapGenerator:
   - name: homepage-config
     files:
