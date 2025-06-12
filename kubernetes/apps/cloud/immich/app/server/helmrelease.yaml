@@ -84,6 +84,7 @@ spec:
           gethomepage.dev/name: Immich
           gethomepage.dev/widget.type: "immich"
           gethomepage.dev/widget.url: &host photos.${SECRET_DOMAIN}
+          gethomepage.dev/widget.key: "{{HOMEPAGE_API_KEY}}"
           gethomepage.dev/pod-selector: ""
         hosts:
           - host: *host
