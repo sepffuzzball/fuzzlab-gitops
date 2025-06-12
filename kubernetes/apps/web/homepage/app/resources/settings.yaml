@@ -20,6 +20,7 @@ layout:
       icon: mdi-desktop-classic
   - Web:
       style: row
+      columns: 3
       icon: mdi-web
   - Auto-Discovered1:
 quicklaunch:
@@ -30,4 +31,4 @@ quicklaunch:
   provider: custom
   url: https://search.fuzzball.enterprises/search?q=
   target: _blank
-  #suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q=
+  suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q=

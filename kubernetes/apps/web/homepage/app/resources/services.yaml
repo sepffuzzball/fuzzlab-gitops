@@ -76,6 +76,15 @@
           url: https://adguard03.${SECRET_DOMAIN_FBE}
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
+    - Authentik:
+        href: https://auth.${SECRET_DOMAIN}
+        icon: authentik.png
+        description: Authentik IDP
+        widget:
+          type: authentik
+          url: https://auth.${SECRET_DOMAIN}
+          key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
+    
     #- Sonarr:
     #    href: https://sonarr.${SECRET_DOMAIN_LOCAL}
     #    siteMonitor: https://sonarr.${SECRET_DOMAIN_LOCAL}
