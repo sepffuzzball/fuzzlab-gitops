@@ -22,16 +22,16 @@ spec:
     - name: csi-driver-cephfs
     - name: csi-driver-smb
   components:
-  - ../../../../components/gatus/internal
+  - ../../../../components/gatus/external
   postBuild:
     substitute:
       APP: *app
       NS: *ns
       DB_NAME: *app
       DB_USER: *app
-      GATUS_DOMAIN: ${SECRET_DOMAIN_LOCAL}
-      GATUS_SUBDOMAIN: sab
+      GATUS_DOMAIN: ${SECRET_DOMAIN}
+      GATUS_SUBDOMAIN: *app
       GATUS_PATH: /
       GATUS_STATUS: "200"
-      GATUS_GROUP: internal-media
-      GATUS_PROTOCOL: http
+      GATUS_GROUP: media
+      GATUS_PROTOCOL: https
