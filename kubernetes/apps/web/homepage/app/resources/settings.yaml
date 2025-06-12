@@ -18,9 +18,9 @@ layout:
   - Personal:
       style: column
       icon: mdi-desktop-classic
-  - Work:
+  - Web:
       style: column
-      icon: mdi-briefcase
+      icon: mdi-web
   - Auto-Discovered1:
 quicklaunch:
   searchDescriptions: true

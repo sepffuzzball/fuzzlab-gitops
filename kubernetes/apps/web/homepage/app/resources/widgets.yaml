@@ -11,7 +11,7 @@
       label: cluster
       memory: true
       show: true
-      showLabel: true
+      showLabel: false
     nodes:
       cpu: true
       memory: true

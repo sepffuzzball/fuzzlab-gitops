@@ -43,12 +43,39 @@
         description: Movies & TV
         widget:
           type: plex
-          url: "{{HOMEPAGE_PLEX_URL}}"
-          key: "{{HOMEPAGE_PLEX_TOKEN}}"
+          url: "{{HOMEPAGE_VAR_PLEX_URL}}"
+          key: "{{HOMEPAGE_VAR_PLEX_TOKEN}}"
           enableUser: true
           showEpisodeNumber: true
           expandOneStreamToTwoRows: true
-
+- Web:
+    - Adguard01:
+        href: https://adguard01.${SECRET_DOMAIN_FBE}
+        icon: adguard.png
+        description: Adguard 01
+        widget:
+          type: adguard
+          url: https://adguard01.${SECRET_DOMAIN_FBE}
+          username: admin
+          password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
+    - Adguard02:
+        href: https://adguard02.${SECRET_DOMAIN_FBE}
+        icon: adguard.png
+        description: Adguard 02
+        widget:
+          type: adguard
+          url: https://adguard02.${SECRET_DOMAIN_FBE}
+          username: admin
+          password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
+    - Adguard03:
+        href: https://adguard03.${SECRET_DOMAIN_FBE}
+        icon: adguard.png
+        description: Adguard 03
+        widget:
+          type: adguard
+          url: https://adguard03.${SECRET_DOMAIN_FBE}
+          username: admin
+          password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     #- Sonarr:
     #    href: https://sonarr.${SECRET_DOMAIN_LOCAL}
     #    siteMonitor: https://sonarr.${SECRET_DOMAIN_LOCAL}
