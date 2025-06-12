@@ -77,8 +77,16 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/proxy-body-size: "0"
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Image Server
+          gethomepage.dev/group: Cloud
+          gethomepage.dev/icon: immich.png
+          gethomepage.dev/name: Immich
+          gethomepage.dev/widget.type: "immich"
+          gethomepage.dev/widget.url: &host photos.${SECRET_DOMAIN}
+          gethomepage.dev/pod-selector: ""
         hosts:
-          - host: &host photos.${SECRET_DOMAIN}
+          - host: *host
             paths:
               - path: /
                 pathType: Prefix
