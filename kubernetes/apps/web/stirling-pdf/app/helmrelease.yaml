@@ -53,7 +53,7 @@ spec:
         controller: stirling-pdf
         ports:
           http:
-            port: *httpPort
+            port: 8080
 
     ingress:
       main:
