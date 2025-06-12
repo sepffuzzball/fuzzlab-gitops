@@ -6,3 +6,4 @@ resources:
 #  - ./pv-smb.yaml
   - ./shlink/ks.yaml
   - ./searxng/ks.yaml
+  - ./stirling-pdf/ks.yaml
