@@ -47,6 +47,16 @@
           url: https://home.${SECRET_DOMAIN_FBE}
           key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
 - Media: 
+    - Deluge:
+        href: https://deluge.${SECRET_DOMAIN}
+        siteMonitor: https://deluge.${SECRET_DOMAIN}
+        icon: deluge.png
+        description: Torrents
+        widget:
+          type: deluge
+          url: https://deluge.${SECRET_DOMAIN}
+          password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
+          enableLeechProgress: false
     - Plex:
         href: https://plex.${SECRET_DOMAIN}
         siteMonitor: http://plex.media.svc.cluster.local:32400
@@ -62,7 +72,7 @@
 - Web:
     - Adguard01:
         href: https://adguard01.${SECRET_DOMAIN_FBE}
-        icon: adguardhome.png
+        icon: adguard-home.png
         description: Adguard 01
         widget:
           type: adguard
@@ -80,7 +90,7 @@
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - Adguard03:
         href: https://adguard03.${SECRET_DOMAIN_FBE}
-        icon: adguard.png
+        icon: adguard-home.png
         description: Adguard 03
         widget:
           type: adguard
