@@ -19,7 +19,7 @@ layout:
       style: column
       icon: mdi-desktop-classic
   - Web:
-      style: column
+      style: row
       icon: mdi-web
   - Auto-Discovered1:
 quicklaunch:
