@@ -24,6 +24,6 @@ spec:
       APP: *app
       NS: *ns
       GATUS_DOMAIN: ${SECRET_DOMAIN}
-      GATUS_SUBDOMAIN: *app
+      GATUS_SUBDOMAIN: dashboard
       GATUS_PATH: /
       GATUS_STATUS: "200"
