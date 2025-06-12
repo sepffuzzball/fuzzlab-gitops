@@ -39,17 +39,12 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        className: internal
         hosts:
-          - host: &host "pdf.${SECRET_DOMAIN}"
+          - host: &host "pdf.${SECRET_DOMAIN_LOCAL}"
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
