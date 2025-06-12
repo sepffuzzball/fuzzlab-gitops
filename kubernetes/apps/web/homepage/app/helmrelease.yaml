@@ -1,50 +1,118 @@
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: stirling-pdf
+  name: &app homepage
 spec:
   interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 3.7.3
-      interval: 30m
+      version: 3.5.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
   values:
     controllers:
-      stirling-pdf:
+      homepage:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-
         containers:
-          main:
+          app:
             image:
-              repository: ghcr.io/frooodle/s-pdf
-              tag: 0.18.1@sha256:8967366617998d99ce8f71af9041302e5ee6bd007d8d603456716a54e928eaf7
-
+              repository: ghcr.io/gethomepage/homepage
+              tag: v0.9.11
+            env:
+              TZ: ${TIMEZONE}
+              HOMEPAGE_VAR_LIDARR_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: LIDARR_0_API_KEY
+              HOMEPAGE_VAR_RADARR_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: RADARR_0_API_KEY
+              HOMEPAGE_VAR_SONARR_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: SONARR_0_API_KEY
+              HOMEPAGE_VAR_SABNZBD_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: SECRET_SABNZBD_API_KEY
+            envFrom:
+              - secretRef:
+                  name: homepage-secret
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 15m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
     service:
-      main:
-        controller: stirling-pdf
+      app:
+        controller: *app
         ports:
           http:
-            port: 8080
-
+            port: 3000
     ingress:
-      main:
-        enabled: true
-        className: internal
+      app:
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
         hosts:
-          - host: &host "pdf.${SECRET_DOMAIN_LOCAL}"
+          - host: "dashboard.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
+    persistence:
+      config:
+        type: configMap
+        name: homepage-config
+        globalMounts:
+          - subPath: docker.yaml
+            path: /app/config/docker.yaml
+            readOnly: true
+          - subPath: kubernetes.yaml
+            path: /app/config/kubernetes.yaml
+            readOnly: true
+          - subPath: services.yaml
+            path: /app/config/services.yaml
+            readOnly: true
+          - subPath: settings.yaml
+            path: /app/config/settings.yaml
+            readOnly: true
+          - subPath: widgets.yaml
+            path: /app/config/widgets.yaml
+            readOnly: true
+      bookmarks:
+        type: secret
+        name: homepage-secret
+        globalMounts:
+          - subPath: bookmarks.yaml
+            path: /app/config/bookmarks.yaml
+            readOnly: true
+    serviceAccount:
+      create: true
+      name: homepage
