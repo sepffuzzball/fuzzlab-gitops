@@ -13,7 +13,7 @@ configMapGenerator:
       - bookmarks.yaml=./resources/bookmarks.yaml
       #- docker.yaml=./resources/docker.yaml
       #- kubernetes.yaml=./resources/kubernetes.yaml
-      #- services.yaml=./resources/services.yaml
+      - services.yaml=./resources/services.yaml
       - settings.yaml=./resources/settings.yaml
       #- widgets.yaml=./resources/widgets.yaml
 generatorOptions:
