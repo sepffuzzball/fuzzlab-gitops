@@ -29,6 +29,7 @@
 - Cloud:
     - Immich:
         href: https://photos.${SECRET_DOMAIN}
+        siteMonitor: http://immich-server.cloud.svc.cluster.local:2283
         icon: immich.png
         description: Photo Storage Server
         widget:
@@ -38,6 +39,7 @@
 - Home:
     - HomeAssistant:
         href: https://home.${SECRET_DOMAIN_FBE}
+        siteMonitor: http://10.0.2.10
         icon: home-assistant.png
         description: Home Assistant
         widget:
@@ -60,7 +62,7 @@
 - Web:
     - Adguard01:
         href: https://adguard01.${SECRET_DOMAIN_FBE}
-        icon: adguard.png
+        icon: adguardhome.png
         description: Adguard 01
         widget:
           type: adguard
@@ -69,7 +71,7 @@
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - Adguard02:
         href: https://adguard02.${SECRET_DOMAIN_FBE}
-        icon: adguard.png
+        icon: adguard-home.png
         description: Adguard 02
         widget:
           type: adguard
