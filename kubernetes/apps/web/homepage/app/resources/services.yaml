@@ -35,18 +35,20 @@
           type: homeassistant
           url: https://home.${SECRET_DOMAIN_FBE}
           key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
-    #- Plex:
-    #    href: https://plex.${SECRET_DOMAIN}
-    #    siteMonitor: https://plex.${SECRET_DOMAIN}
-    #    icon: plex.png
-    #    description: Movies & TV
-    #    widget:
-    #      type: tautulli
-    #      url: http://tautulli.media.svc.cluster.local
-    #      key: "{{HOMEPAGE_VAR_TAUTULLI_TOKEN}}"
-    #      enableUser: true
-    #      showEpisodeNumber: true
-    #      expandOneStreamToTwoRows: true
+- Media: 
+    - Plex:
+        href: https://plex.${SECRET_DOMAIN}
+        siteMonitor: https://plex.${SECRET_DOMAIN}
+        icon: plex.png
+        description: Movies & TV
+        widget:
+          type: plex
+          url: "{{HOMEPAGE_PLEX_URL}}"
+          key: "{{HOMEPAGE_PLEX_TOKEN}}"
+          enableUser: true
+          showEpisodeNumber: true
+          expandOneStreamToTwoRows: true
+
     #- Sonarr:
     #    href: https://sonarr.${SECRET_DOMAIN_LOCAL}
     #    siteMonitor: https://sonarr.${SECRET_DOMAIN_LOCAL}

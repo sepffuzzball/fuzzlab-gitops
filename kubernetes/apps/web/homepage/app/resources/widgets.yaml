@@ -1,6 +1,6 @@
 ---
 - search:
-    provider: [google, duckduckgo]
+    provider: [duckduckgo]
     focus: false
     target: _self
     suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q=
@@ -15,7 +15,7 @@
     nodes:
       cpu: true
       memory: true
-      show: false
+      show: true
       showLabel: true
 - openmeteo:
     label: Home
@@ -24,7 +24,3 @@
     timezone: "${TIMEZONE}"
     units: imperial
     cache: 5
-#- widget:
-#    type: plex
-#    url: "{{HOMEPAGE_PLEX_URL}}"
-#    key: "{{HOMEPAGE_PLEX_TOKEN}}" # see https://www.plexopedia.com/plex-media-server/general/plex-token/
