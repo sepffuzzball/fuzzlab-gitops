@@ -15,7 +15,7 @@
     nodes:
       cpu: true
       memory: true
-      show: true
+      show: false
       showLabel: true
 - openmeteo:
     label: Home
@@ -24,3 +24,15 @@
     timezone: "${TIMEZONE}"
     units: imperial
     cache: 5
+- kubernetes:
+    cluster:
+      cpu: true
+      label: cluster
+      memory: true
+      show: false
+      showLabel: true
+    nodes:
+      cpu: true
+      memory: true
+      show: true
+      showLabel: true
