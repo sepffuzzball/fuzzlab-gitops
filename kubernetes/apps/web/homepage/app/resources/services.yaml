@@ -26,6 +26,15 @@
     #      type: miniflux
     #      url: http://miniflux.default.svc.cluster.local
     #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
+- Cloud:
+    - Immich:
+        href: https://photos.${SECRET_DOMAIN}
+        icon: immich.png
+        description: Photo Storage Server
+        widget:
+          type: immich
+          url: https://photos.${SECRET_DOMAIN}
+          key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
 - Home:
     - HomeAssistant:
         href: https://home.${SECRET_DOMAIN_FBE}
