@@ -24,15 +24,9 @@
     timezone: "${TIMEZONE}"
     units: imperial
     cache: 5
-- kubernetes:
-    cluster:
-      cpu: true
-      label: cluster
-      memory: true
-      show: false
-      showLabel: true
-    nodes:
-      cpu: true
-      memory: true
-      show: true
-      showLabel: true
+- datetime:
+    text_size: xl
+    format:
+      dateStyle: short
+      timeStyle: short
+      hourCycle: h23
