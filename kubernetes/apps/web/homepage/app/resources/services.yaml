@@ -26,6 +26,17 @@
     #      type: miniflux
     #      url: http://miniflux.default.svc.cluster.local
     #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
+- Hardware:
+  - Proxmox:
+        href: https://pve.${SECRET_DOMAIN_FBE}
+        siteMonitor: https://10.0.1.64:8006/
+        icon: proxmox.png
+        description: Proxmox Datacenter
+        widget:
+          type: proxmox
+          url: https://10.0.1.64:8006/
+          username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
 - Cloud:
     - Immich:
         href: https://photos.${SECRET_DOMAIN}
