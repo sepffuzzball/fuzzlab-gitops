@@ -27,6 +27,17 @@
     #      url: http://miniflux.default.svc.cluster.local
     #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
 - Hardware:
+  - Dat:
+        href: http://dat/ui
+        siteMonitor: http://10.0.2.20/
+        icon: truenas.png
+        description: Truenas Storage Server
+        widget:
+          type: truenas
+          url: http://dat/ui
+          key: "{{HOMEPAGE_VAR_TRUENAS_KEY}}"
+          enablePools: true
+          nasType: scale
   - Proxmox:
         href: https://pve.${SECRET_DOMAIN_FBE}
         siteMonitor: https://10.0.1.64:8006/
