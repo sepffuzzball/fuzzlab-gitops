@@ -120,6 +120,15 @@
           enableUser: true
           showEpisodeNumber: true
           expandOneStreamToTwoRows: true
+    - Sab:
+        href: https://sab.${SECRET_DOMAIN}
+        siteMonitor: http://sabnzbd.media.svc.cluster.local
+        icon: sabnzbd.png
+        description: Newsgroups
+        widget:
+          type: sabnzbd
+          url: http://sabnzbd.media.svc.cluster.local
+          key: "{{HOMEPAGE_VAR_SAB_KEY}}"
 - Web:
     - Adguard01:
         href: https://adguard01.${SECRET_DOMAIN_FBE}
