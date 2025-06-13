@@ -48,6 +48,7 @@
           url: https://10.0.1.64:8006/
           username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
           password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
+          node: pve64
   - Unifi:
         href: https://unifi.ui.com
         siteMonitor: https://10.0.1.1/
