@@ -36,7 +36,7 @@
     #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
 - Hardware:
   - Dat:
-        href: https://dat.${SECRET_DOMAIN_FBE}/ui
+        href: http://10.0.2.20/
         siteMonitor: http://10.0.2.20/
         icon: truenas.png
         description: Truenas Storage Server

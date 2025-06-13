@@ -30,7 +30,7 @@ quicklaunch:
   hideInternetSearch: false
   showSearchSuggestions: true
   hideVisitURL: false
-  provider: custom
-  url: https://search.fuzzball.enterprises/search?q=
-  target: _blank
-  suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q=
+  #provider: custom
+  #url: https://search.fuzzball.enterprises/search?q=
+  #target: _blank
+  #suggestionUrl: https://ac.ecosia.org/autocomplete?type=list&q=
