@@ -51,11 +51,11 @@
   - Unifi:
         href: https://unifi.ui.com
         siteMonitor: https://10.0.1.1/
-        icon: proxmox.png
-        description: Proxmox Datacenter
+        icon: unifi.png
+        description: Unifi network
         widget:
           type: unifi
-          url: https://unifi.ui.com
+          url: https://10.0.1.1
           site: unifi.fuzzballenterprises.com
           key: "{{HOMEPAGE_VAR_UNIFI_KEY}}"
 - Cloud:
