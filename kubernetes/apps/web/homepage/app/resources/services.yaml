@@ -117,7 +117,7 @@
         description: TV Show PVR
         widget:
           type: sonarr
-          url: https://sonarr.${SECRET_DOMAIN}
+          url: http://sonarr.media.svc.cluster.local
           password: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
     - Deluge:
         href: https://deluge.${SECRET_DOMAIN}
