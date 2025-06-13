@@ -37,6 +37,16 @@
           url: https://10.0.1.64:8006/
           username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
           password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
+  - Unifi:
+        href: https://unifi.ui.com
+        siteMonitor: https://10.0.1.1/
+        icon: proxmox.png
+        description: Proxmox Datacenter
+        widget:
+          type: unifi
+          url: https://unifi.ui.com
+          site: unifi.fuzzballenterprises.com
+          key: "{{HOMEPAGE_VAR_UNIFI_KEY}}"
 - Cloud:
     - Immich:
         href: https://photos.${SECRET_DOMAIN}
