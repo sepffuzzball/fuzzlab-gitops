@@ -120,6 +120,33 @@
           enableUser: true
           showEpisodeNumber: true
           expandOneStreamToTwoRows: true
+    - Lidarr:
+        href: https://lidarr.${SECRET_DOMAIN}
+        siteMonitor: http://lidarr.media.svc.cluster.local
+        icon: lidarr.png
+        description: Music PVR
+        widget:
+          type: lidarr
+          url: http://lidarr.media.svc.cluster.local
+          key: "{{HOMEPAGE_VAR_LIDARR_TOKEN}}"
+    - Radarr:
+        href: https://radarr.${SECRET_DOMAIN}
+        siteMonitor: http://radarr.media.svc.cluster.local
+        icon: radarr.png
+        description: Movie PVR
+        widget:
+          type: radarr
+          url: http://radarr.media.svc.cluster.local
+          key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
+    - Readarr:
+        href: https://readarr.${SECRET_DOMAIN}
+        siteMonitor: http://readarr.media.svc.cluster.local
+        icon: readarr.png
+        description: Books PVR
+        widget:
+          type: readarr
+          url: http://readarr.media.svc.cluster.local
+          key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
     - Sonarr:
         href: https://sonarr.${SECRET_DOMAIN}
         siteMonitor: http://sonarr.media.svc.cluster.local
