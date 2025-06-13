@@ -88,7 +88,7 @@
         widget:
           type: frigate
           url: http://10.0.2.106:5000
-          enableRecentEvents: true
+          enableRecentEvents: false
     - HomeAssistant:
         href: https://home.${SECRET_DOMAIN_FBE}
         siteMonitor: http://10.0.2.10
