@@ -1,5 +1,13 @@
 ---
 - Services:
+    - Authentik:
+        href: https://auth.${SECRET_DOMAIN}
+        icon: authentik.png
+        description: Authentik IDP
+        widget:
+          type: authentik
+          url: https://auth.${SECRET_DOMAIN}
+          key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
     - Gatus:
         href: https://status.${SECRET_DOMAIN}
         siteMonitor: http://gatus.monitoring.svc.cluster.local
@@ -60,17 +68,17 @@
           username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
           password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
           #key: "{{HOMEPAGE_VAR_UNIFI_KEY}}"
-- Cloud:
-    - Immich:
-        href: https://photos.${SECRET_DOMAIN}
-        siteMonitor: http://immich-server.cloud.svc.cluster.local:2283
-        icon: immich.png
-        description: Photo Storage Server
-        widget:
-          type: immich
-          url: http://immich-server.cloud.svc.cluster.local:2283
-          key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
-          version: 2
+#- Cloud:
+#    - Immich:
+#        href: https://photos.${SECRET_DOMAIN}
+#        siteMonitor: http://immich-server.cloud.svc.cluster.local:2283
+#        icon: immich.png
+#        description: Photo Storage Server
+#        widget:
+#          type: immich
+#          url: http://immich-server.cloud.svc.cluster.local:2283
+#          key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
+#          version: 2
 - Home:
 
     - Frigate:
@@ -101,6 +109,26 @@
           url: http://mealie.home.svc.cluster.local:9000
           key: "{{HOMEPAGE_VAR_MEALIE_KEY}}"
           version: 2
+- Downloaders:
+    - Deluge:
+        href: https://deluge.${SECRET_DOMAIN}
+        siteMonitor: https://deluge.${SECRET_DOMAIN}
+        icon: deluge.png
+        description: Torrents
+        widget:
+          type: deluge
+          url: http://10.0.2.105:8112/
+          password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
+          enableLeechProgress: false
+    - Sab:
+        href: https://sab.${SECRET_DOMAIN}
+        siteMonitor: http://sabnzbd.media.svc.cluster.local
+        icon: sabnzbd.png
+        description: Newsgroups
+        widget:
+          type: sabnzbd
+          url: http://sabnzbd.media.svc.cluster.local
+          key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
 - Media: 
     - Plex:
         href: https://plex.${SECRET_DOMAIN}
@@ -141,6 +169,15 @@
           type: readarr
           url: http://readarr.media.svc.cluster.local
           key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
+    - Readarr-audio:
+        href: https://readarr-audio.${SECRET_DOMAIN}
+        siteMonitor: http://readarr-audio.media.svc.cluster.local
+        icon: readarr.png
+        description: Audiobooks PVR
+        widget:
+          type: readarr
+          url: http://readarr-audio.media.svc.cluster.local
+          key: "{{HOMEPAGE_VAR_READARR_AUDIO_TOKEN}}"
     - Sonarr:
         href: https://sonarr.${SECRET_DOMAIN}
         siteMonitor: http://sonarr.media.svc.cluster.local
@@ -150,25 +187,7 @@
           type: sonarr
           url: http://sonarr.media.svc.cluster.local
           key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
-    - Deluge:
-        href: https://deluge.${SECRET_DOMAIN}
-        siteMonitor: https://deluge.${SECRET_DOMAIN}
-        icon: deluge.png
-        description: Torrents
-        widget:
-          type: deluge
-          url: http://10.0.2.105:8112/
-          password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
-          enableLeechProgress: false
-    - Sab:
-        href: https://sab.${SECRET_DOMAIN}
-        siteMonitor: http://sabnzbd.media.svc.cluster.local
-        icon: sabnzbd.png
-        description: Newsgroups
-        widget:
-          type: sabnzbd
-          url: http://sabnzbd.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
+
 - Web:
     - Adguard01:
         href: https://adguard01.${SECRET_DOMAIN_FBE}
@@ -197,14 +216,7 @@
           url: https://adguard03.${SECRET_DOMAIN_FBE}
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
-    - Authentik:
-        href: https://auth.${SECRET_DOMAIN}
-        icon: authentik.png
-        description: Authentik IDP
-        widget:
-          type: authentik
-          url: https://auth.${SECRET_DOMAIN}
-          key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
+
     
     #- Sonarr:
     #    href: https://sonarr.${SECRET_DOMAIN_LOCAL}

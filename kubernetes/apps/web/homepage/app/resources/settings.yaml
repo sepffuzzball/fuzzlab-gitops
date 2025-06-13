@@ -4,25 +4,28 @@ theme: dark
 color: slate
 headerStyle: boxedWidgets
 layout:
-  - Services:
-      style: row
-      columns: 3
-      icon: mdi-kubernetes
   - Home:
       style: row
-      columns: 2
+      columns: 3
       icon: mdi-home
-  - Network:
-      style: column
-      icon: mdi-network
-  - Personal:
-      style: column
-      icon: mdi-desktop-classic
   - Web:
       style: row
       columns: 3
       icon: mdi-web
-  - Auto-Discovered1:
+  - Media:
+      style: row
+      columns: 3
+  - Hardware: 
+      style: column
+      icon: mdi-server-outline
+  - Services:
+      style: column
+      icon: mdi-kubernetes
+  - Downloaders:
+      style: column
+      icon: mdi-cloud-download
+  - 
+  #- Auto-Discovered1:
 quicklaunch:
   searchDescriptions: true
   hideInternetSearch: false

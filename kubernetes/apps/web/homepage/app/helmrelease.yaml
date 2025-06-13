@@ -49,6 +49,11 @@ spec:
                   secretKeyRef:
                     name: cluster-media-secrets
                     key: READARR_0_API_KEY
+              HOMEPAGE_VAR_READARR_AUDIO_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: READARR_AUDIO_0_API_KEY
               HOMEPAGE_VAR_SONARR_TOKEN:
                 valueFrom:
                   secretKeyRef:
