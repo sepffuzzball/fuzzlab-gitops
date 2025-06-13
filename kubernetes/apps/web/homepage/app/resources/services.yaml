@@ -106,6 +106,7 @@
           type: mealie
           url: http://mealie.home.svc.cluster.local:9000
           key: "{{HOMEPAGE_VAR_MEALIE_KEY}}"
+          version: 2
 - Media: 
     - Plex:
         href: https://plex.${SECRET_DOMAIN}
