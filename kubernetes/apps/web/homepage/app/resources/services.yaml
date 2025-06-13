@@ -98,16 +98,6 @@
           url: https://home.${SECRET_DOMAIN_FBE}
           key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
 - Media: 
-    - Deluge:
-        href: https://deluge.${SECRET_DOMAIN}
-        siteMonitor: https://deluge.${SECRET_DOMAIN}
-        icon: deluge.png
-        description: Torrents
-        widget:
-          type: deluge
-          url: http://10.0.2.105:8112/
-          password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
-          enableLeechProgress: false
     - Plex:
         href: https://plex.${SECRET_DOMAIN}
         siteMonitor: http://plex.media.svc.cluster.local:32400
@@ -120,6 +110,25 @@
           enableUser: true
           showEpisodeNumber: true
           expandOneStreamToTwoRows: true
+    - Sonarr:
+        href: https://sonarr.${SECRET_DOMAIN}
+        siteMonitor: http://sonarr.media.svc.cluster.local
+        icon: sonarr.png
+        description: TV Show PVR
+        widget:
+          type: sonarr
+          url: http://sonarr.media.svc.cluster.local
+          password: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
+    - Deluge:
+        href: https://deluge.${SECRET_DOMAIN}
+        siteMonitor: https://deluge.${SECRET_DOMAIN}
+        icon: deluge.png
+        description: Torrents
+        widget:
+          type: deluge
+          url: http://10.0.2.105:8112/
+          password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
+          enableLeechProgress: false
     - Sab:
         href: https://sab.${SECRET_DOMAIN}
         siteMonitor: http://sabnzbd.media.svc.cluster.local
@@ -128,7 +137,7 @@
         widget:
           type: sabnzbd
           url: http://sabnzbd.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_SAB_KEY}}"
+          key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
 - Web:
     - Adguard01:
         href: https://adguard01.${SECRET_DOMAIN_FBE}
