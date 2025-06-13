@@ -97,6 +97,15 @@
           type: homeassistant
           url: https://home.${SECRET_DOMAIN_FBE}
           key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
+    - Mealie:
+        href: https://mealie.${SECRET_DOMAIN_FBE}
+        siteMonitor: http://mealie.home.svc.cluster.local:9000
+        icon: mealie.png
+        description: Mealie
+        widget:
+          type: mealie
+          url: http://mealie.home.svc.cluster.local:9000
+          key: "{{HOMEPAGE_VAR_MEALIE_KEY}}"
 - Media: 
     - Plex:
         href: https://plex.${SECRET_DOMAIN}
@@ -118,7 +127,7 @@
         widget:
           type: sonarr
           url: http://sonarr.media.svc.cluster.local
-          password: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
+          key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
     - Deluge:
         href: https://deluge.${SECRET_DOMAIN}
         siteMonitor: https://deluge.${SECRET_DOMAIN}
