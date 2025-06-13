@@ -57,7 +57,9 @@
           type: unifi
           url: https://10.0.1.1
           site: unifi.fuzzballenterprises.com
-          key: "{{HOMEPAGE_VAR_UNIFI_KEY}}"
+          username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
+          #key: "{{HOMEPAGE_VAR_UNIFI_KEY}}"
 - Cloud:
     - Immich:
         href: https://photos.${SECRET_DOMAIN}
