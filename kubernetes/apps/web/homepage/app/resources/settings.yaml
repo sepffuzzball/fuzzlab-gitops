@@ -23,8 +23,7 @@ layout:
       icon: mdi-kubernetes
   - Downloaders:
       style: column
-      icon: mdi-cloud-download
-  - 
+      icon: mdi-cloud-download 
   #- Auto-Discovered1:
 quicklaunch:
   searchDescriptions: true
