@@ -28,13 +28,13 @@
     #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
 - Hardware:
   - Dat:
-        href: http://dat/ui
+        href: https://dat.${SECRET_DOMAIN_FBE}/ui
         siteMonitor: http://10.0.2.20/
         icon: truenas.png
         description: Truenas Storage Server
         widget:
           type: truenas
-          url: http://dat/ui
+          url: http://10.0.2.20/
           key: "{{HOMEPAGE_VAR_TRUENAS_KEY}}"
           enablePools: true
           nasType: scale
