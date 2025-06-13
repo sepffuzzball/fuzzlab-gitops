@@ -68,19 +68,11 @@
         description: Photo Storage Server
         widget:
           type: immich
-          url: https://photos.${SECRET_DOMAIN}
+          url: http://immich-server.cloud.svc.cluster.local:2283
           key: "{{HOMEPAGE_VAR_IMMICH_TOKEN}}"
           version: 2
 - Home:
-    - ESPHome:
-        href: https://home.${SECRET_DOMAIN_FBE}/5c53de3b_esphome/ingress
-        siteMonitor: http://10.0.2.10/5c53de3b_esphome/ingress
-        icon: esphome.png
-        description: ESP Device Builder
-        widget:
-          type: esphome
-          url: http://10.0.2.10/5c53de3b_esphome/ingress
-          key: "{{HOMEPAGE_VAR_HASS_TOKEN}}"
+
     - Frigate:
         href: https://frigate.${SECRET_DOMAIN}
         siteMonitor: http://10.0.2.106:5000
