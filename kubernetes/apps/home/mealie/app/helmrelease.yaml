@@ -46,7 +46,7 @@ spec:
           app:
             image:
               repository: ghcr.io/mealie-recipes/mealie
-              tag: sha256:bdf17cf5d70f4aef10d5344ec128e970a888aa8a14b6c86eed866773e0108c53
+              tag: nightly@sha256:bdf17cf5d70f4aef10d5344ec128e970a888aa8a14b6c86eed866773e0108c53
             env:
               TZ: ${TIMEZONE}
               PUID: ${PUID}
