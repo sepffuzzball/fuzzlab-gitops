@@ -2,10 +2,12 @@
 - Services:
     - Authentik:
         href: https://auth.${SECRET_DOMAIN}
+        siteMonitor: http://authentik-server.security.svc.cluster.local
         icon: authentik.png
         #description: Authentik IDP
         widget:
           type: authentik
+          fields: ["users", "loginsLast24H"]
           url: https://auth.${SECRET_DOMAIN}
           key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
     - Gatus:
@@ -194,6 +196,7 @@
     - Adguard03:
         href: https://adguard03.${SECRET_DOMAIN_FBE}
         icon: adguard-home.png
+        siteMonitor: http://10.0.2.10/a0d7b954_adguard/ingress
         #description: Adguard 03
         widget:
           type: adguard
