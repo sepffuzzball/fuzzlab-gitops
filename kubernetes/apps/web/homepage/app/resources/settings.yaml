@@ -4,12 +4,12 @@ theme: dark
 color: slate
 headerStyle: boxedWidgets
 hideErrors: true
-bookmarksStyle: icons
 layout:
   - BM:
       style: row
       header: false
       disableCollapse: true
+      iconsOnly: true
   - Home:
       style: row
       columns: 3
