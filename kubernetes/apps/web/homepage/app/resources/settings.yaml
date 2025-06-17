@@ -6,8 +6,9 @@ headerStyle: boxedWidgets
 hideErrors: true
 bookmarksStyle: icons
 layout:
-  - Bookmarks:
+  - Media:
       style: row
+      header: false
   - Home:
       style: row
       columns: 3
