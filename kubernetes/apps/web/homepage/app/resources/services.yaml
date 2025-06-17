@@ -209,6 +209,7 @@
     - NextDNS:
         href: https://my.nextdns.io/
         icon: nextdns.png
+        siteMonitor: "{{HOMEPAGE_VAR_NEXTDNS_URL}}"
         widget:
           type: nextdns
           profile: "{{HOMEPAGE_VAR_NEXTDNS_PROFILE}}"

@@ -5,28 +5,33 @@ color: slate
 headerStyle: boxedWidgets
 hideErrors: true
 layout:
-  - BM:
+  - BMTOP:
       style: row
       header: false
       disableCollapse: true
       iconsOnly: true
-  - Home:
-      style: row
-      columns: 3
-      header: false
   - Web:
       style: row
       columns: 4
       header: false
-
+  - Services:
+      style: row
+      columns: 2
+      header: false
+  - Home:
+      style: row
+      columns: 3
+      header: false
+  - BMMID:
+      style: row
+      header: false
+      disableCollapse: true
+      iconsOnly: true
   - Hardware: 
       style: row
       columns: 3
-      header: false
-  - Services:
-      style: row
-      columns: 3
-      header: false
+      header: true
+      initiallyCollapsed: true
   - Media:
       style: row
       columns: 4
@@ -37,6 +42,11 @@ layout:
       columns: 2
       header: true
       initiallyCollapsed: true
+  - BMBTM:
+      style: row
+      header: false
+      disableCollapse: true
+      iconsOnly: true
   #- Auto-Discovered1:
 quicklaunch:
   searchDescriptions: true
