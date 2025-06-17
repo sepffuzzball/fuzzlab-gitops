@@ -34,6 +34,8 @@ spec:
               tag: v1.3.2
             env:
               TZ: ${TIMEZONE}
+              LOG_LEVEL: debug
+              HOMEPAGE_PROXY_DISABLE_IPV6: true
               HOMEPAGE_VAR_LIDARR_TOKEN:
                 valueFrom:
                   secretKeyRef:
