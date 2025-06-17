@@ -3,7 +3,7 @@
     - Authentik:
         href: https://auth.${SECRET_DOMAIN}
         icon: authentik.png
-        description: Authentik IDP
+        #description: Authentik IDP
         widget:
           type: authentik
           url: https://auth.${SECRET_DOMAIN}
@@ -12,7 +12,7 @@
         href: https://status.${SECRET_DOMAIN}
         siteMonitor: http://gatus.monitoring.svc.cluster.local
         icon: gatus.png
-        description: Status page
+        #description: Status page
         widget:
           type: gatus
           url: http://gatus.monitoring.svc.cluster.local
@@ -67,7 +67,7 @@
         href: https://frigate.${SECRET_DOMAIN}
         siteMonitor: http://10.0.2.106:5000
         icon: frigate.png
-        description: Frigate Doorbell
+        #description: Frigate Doorbell
         widget:
           type: frigate
           url: http://10.0.2.106:5000
@@ -76,7 +76,7 @@
         href: https://home.${SECRET_DOMAIN_FBE}
         siteMonitor: http://10.0.2.10
         icon: home-assistant.png
-        description: Home Assistant
+        #description: Home Assistant
         widget:
           type: homeassistant
           url: https://home.${SECRET_DOMAIN_FBE}
@@ -85,7 +85,7 @@
         href: https://mealie.${SECRET_DOMAIN_FBE}
         siteMonitor: http://mealie.home.svc.cluster.local:9000
         icon: mealie.png
-        description: Mealie
+        #description: Mealie
         widget:
           type: mealie
           url: http://mealie.home.svc.cluster.local:9000
@@ -174,7 +174,7 @@
     - Adguard01:
         href: https://adguard01.${SECRET_DOMAIN_FBE}
         icon: adguard-home.png
-        description: Adguard 01
+        #description: Adguard 01
         widget:
           type: adguard
           url: https://adguard01.${SECRET_DOMAIN_FBE}
@@ -184,7 +184,7 @@
     - Adguard02:
         href: https://adguard02.${SECRET_DOMAIN_FBE}
         icon: adguard-home.png
-        description: Adguard 02
+        #description: Adguard 02
         widget:
           type: adguard
           url: https://adguard02.${SECRET_DOMAIN_FBE}
@@ -194,7 +194,7 @@
     - Adguard03:
         href: https://adguard03.${SECRET_DOMAIN_FBE}
         icon: adguard-home.png
-        description: Adguard 03
+        #description: Adguard 03
         widget:
           type: adguard
           url: https://adguard03.${SECRET_DOMAIN_FBE}
@@ -202,7 +202,7 @@
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - NextDNS:
-        href:
+        href: https://my.nextdns.io/
         icon: nextdns.png
         widget:
           type: nextdns
