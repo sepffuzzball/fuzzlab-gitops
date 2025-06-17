@@ -7,7 +7,7 @@
         #description: Authentik IDP
         widget:
           type: authentik
-          fields: ["users", "loginsLast24H"]
+          #fields: ["users", "loginsLast24H"]
           url: https://auth.${SECRET_DOMAIN}
           key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
     - Gatus:
