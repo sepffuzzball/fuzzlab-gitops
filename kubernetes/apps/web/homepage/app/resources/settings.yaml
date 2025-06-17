@@ -21,9 +21,11 @@ layout:
 
   - Hardware: 
       style: row
+      columns: 3
       header: false
   - Services:
-      style: column
+      style: row
+      columns: 3
       header: false
   - Media:
       style: row
@@ -32,6 +34,7 @@ layout:
       initiallyCollapsed: true
   - Downloaders:
       style: row
+      columns: 2
       header: true
       initiallyCollapsed: true
   #- Auto-Discovered1:
