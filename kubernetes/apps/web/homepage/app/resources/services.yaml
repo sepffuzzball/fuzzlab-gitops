@@ -16,25 +16,7 @@
         widget:
           type: gatus
           url: http://gatus.monitoring.svc.cluster.local
-    #- Healthchecks:
-    #    href: https://healthchecks.${SECRET_DOMAIN}
-    #    siteMonitor: http://healthchecks.monitoring.svc.cluster.local
-    #    icon: healthchecks.png
-    #    description: Job status
-    #    widget:
-    #      type: healthchecks
-    #      url: http://healthchecks.monitoring.svc.cluster.local
-    #      key: "{{HOMEPAGE_VAR_HEALTHCHECKS_TOKEN}}"
-    #- Miniflux:
-    #    href: https://rss.${SECRET_DOMAIN}
-    #    siteMonitor: http://miniflux.default.svc.cluster.local/healthcheck
-    #    icon: miniflux.png
-    #    description: RSS feed
-    #    widget:
-    #      type: miniflux
-    #      url: http://miniflux.default.svc.cluster.local
-    #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
-- Hardware:
+#- Hardware:
 #  - Dat:
 #        href: http://10.0.2.20/
 #        siteMonitor: http://10.0.2.20/
@@ -109,7 +91,7 @@
           url: http://mealie.home.svc.cluster.local:9000
           key: "{{HOMEPAGE_VAR_MEALIE_KEY}}"
           version: 2
-- Downloaders:
+#- Downloaders:
     #- Deluge:
     #    href: https://deluge.${SECRET_DOMAIN}
     #    siteMonitor: https://deluge.${SECRET_DOMAIN}
@@ -129,7 +111,7 @@
     #      type: sabnzbd
     #      url: http://sabnzbd.media.svc.cluster.local
     #      key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
-- Media: 
+#- Media: 
     #- Plex:
     #    href: https://plex.${SECRET_DOMAIN}
     #    siteMonitor: http://plex.media.svc.cluster.local:32400
