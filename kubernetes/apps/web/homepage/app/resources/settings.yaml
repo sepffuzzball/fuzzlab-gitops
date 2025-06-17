@@ -6,9 +6,10 @@ headerStyle: boxedWidgets
 hideErrors: true
 bookmarksStyle: icons
 layout:
-  - Media:
+  - BM:
       style: row
       header: false
+      disableCollapse: true
   - Home:
       style: row
       columns: 3
