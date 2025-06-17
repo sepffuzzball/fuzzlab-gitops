@@ -178,6 +178,7 @@
         widget:
           type: adguard
           url: https://adguard01.${SECRET_DOMAIN_FBE}
+          fields: ["queries", "blocked", "latency"]
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - Adguard02:
@@ -187,6 +188,7 @@
         widget:
           type: adguard
           url: https://adguard02.${SECRET_DOMAIN_FBE}
+          fields: ["queries", "blocked", "latency"]
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - Adguard03:
@@ -196,6 +198,7 @@
         widget:
           type: adguard
           url: https://adguard03.${SECRET_DOMAIN_FBE}
+          fields: ["queries", "blocked", "latency"]
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - NextDNS:
