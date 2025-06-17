@@ -198,3 +198,10 @@
           url: https://adguard03.${SECRET_DOMAIN_FBE}
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
+    - NextDNS:
+        href:
+        icon: nextdns.png
+        widget:
+          type: nextdns
+          profile: "{{HOMEPAGE_VAR_NEXTDNS_PROFILE}}"
+          key: "{{HOMEPAGE_VAR_NEXTDNS_KEY}}"

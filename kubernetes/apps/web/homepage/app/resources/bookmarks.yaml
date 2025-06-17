@@ -3,9 +3,6 @@
     - BlueSky: 
         - icon: bluesky.png
           href: https://bsky.app/
-    - NextDNS:
-        - icon: nextdns.png
-          href: https://my.nextdns.io/
     - OpenWebUI:
         - icon: open-webui.png
           href: https://ai.fzbl.xyz/

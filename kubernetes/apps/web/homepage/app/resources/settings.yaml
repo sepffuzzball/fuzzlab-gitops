@@ -16,7 +16,7 @@ layout:
       header: false
   - Web:
       style: row
-      columns: 3
+      columns: 4
       header: false
 
   - Hardware: 
