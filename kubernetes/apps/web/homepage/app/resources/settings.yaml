@@ -23,15 +23,15 @@ layout:
       header: false
       disableCollapse: true
       iconsOnly: true
+  - Services:
+      style: row
+      columns: 2
+      header: false
   - Hardware: 
       style: row
       columns: 2
       header: false
       initiallyCollapsed: false
-  - Services:
-      style: row
-      columns: 2
-      header: false
   - BMBTM:
       style: row
       header: false
