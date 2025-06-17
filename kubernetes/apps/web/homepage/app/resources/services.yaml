@@ -57,16 +57,16 @@
           username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
           password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
           node: pve64
-  - Unifi:
-        href: https://unifi.ui.com
-        siteMonitor: https://10.0.1.1/
-        icon: unifi.png
-        description: Unifi network
-        widget:
-          type: unifi
-          url: https://10.0.1.1
-          username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
-          password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
+  #- Unifi:
+  #      href: https://unifi.ui.com
+  #      siteMonitor: https://10.0.1.1/
+  #      icon: unifi.png
+  #      description: Unifi network
+  #      widget:
+  #        type: unifi
+  #        url: https://10.0.1.1
+  #        username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
+  #        password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
           #key: "{{HOMEPAGE_VAR_UNIFI_KEY}}"
 #- Cloud:
 #    - Immich:
@@ -110,16 +110,16 @@
           key: "{{HOMEPAGE_VAR_MEALIE_KEY}}"
           version: 2
 - Downloaders:
-    - Deluge:
-        href: https://deluge.${SECRET_DOMAIN}
-        siteMonitor: https://deluge.${SECRET_DOMAIN}
-        icon: deluge.png
-        description: Torrents
-        widget:
-          type: deluge
-          url: http://10.0.2.105:8112/
-          password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
-          enableLeechProgress: false
+    #- Deluge:
+    #    href: https://deluge.${SECRET_DOMAIN}
+    #    siteMonitor: https://deluge.${SECRET_DOMAIN}
+    #    icon: deluge.png
+    #    description: Torrents
+    #    widget:
+    #      type: deluge
+    #      url: http://10.0.2.105:8112/
+    #      password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
+    #      enableLeechProgress: false
     - Sab:
         href: https://sab.${SECRET_DOMAIN}
         siteMonitor: http://sabnzbd.media.svc.cluster.local
