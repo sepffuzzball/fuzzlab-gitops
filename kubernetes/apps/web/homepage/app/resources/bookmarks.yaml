@@ -1,5 +1,23 @@
 ---
 - BM:
+    - BlueSky: 
+        - icon: bluesky.png
+          href: https://bsky.app/
+    - NextDNS:
+        - icon: nextdns.png
+          href: https://my.nextdns.io/
+    - OpenWebUI:
+        - icon: open-webui.png
+          href: https://ai.fzbl.xyz/
+    - OwnCloud:
+        - icon: owncloud.png
+          href: https://cloud.fuzzball.enterprises/
+    - Proton:
+        - icon: proton-mail.png
+          href: https://mail.proton.me/
+    - Tidal:
+        - icon: tidal.png
+          href: https://tidal.com/
     - YouTube:
         - icon: youtube.png
           href: https://youtube.com/feed/subscriptions
