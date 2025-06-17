@@ -16,7 +16,7 @@
         - icon: proton-mail.png
           href: https://mail.proton.me/
     - Tidal:
-        - icon: tidal.png
+        - abbr: TD
           href: https://tidal.com/
     - YouTube:
         - icon: youtube.png
