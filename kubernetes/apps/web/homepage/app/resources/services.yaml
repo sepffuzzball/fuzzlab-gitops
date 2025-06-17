@@ -35,28 +35,28 @@
     #      url: http://miniflux.default.svc.cluster.local
     #      key: "{{HOMEPAGE_VAR_MINIFLUX_TOKEN}}"
 - Hardware:
-  - Dat:
-        href: http://10.0.2.20/
-        siteMonitor: http://10.0.2.20/
-        icon: truenas.png
-        description: Truenas Storage Server
-        widget:
-          type: truenas
-          url: http://10.0.2.20/
-          key: "{{HOMEPAGE_VAR_TRUENAS_KEY}}"
-          enablePools: true
-          nasType: scale
-  - Proxmox:
-        href: https://pve.${SECRET_DOMAIN_FBE}
-        siteMonitor: https://10.0.1.64:8006/
-        icon: proxmox.png
-        description: Proxmox Datacenter
-        widget:
-          type: proxmox
-          url: https://10.0.1.64:8006/
-          username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
-          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
-          node: pve64
+#  - Dat:
+#        href: http://10.0.2.20/
+#        siteMonitor: http://10.0.2.20/
+#        icon: truenas.png
+#        description: Truenas Storage Server
+#        widget:
+#          type: truenas
+#          url: http://10.0.2.20/
+#          key: "{{HOMEPAGE_VAR_TRUENAS_KEY}}"
+#          enablePools: true
+#          nasType: scale
+#  - Proxmox:
+#        href: https://pve.${SECRET_DOMAIN_FBE}
+#        siteMonitor: https://10.0.1.64:8006/
+#        icon: proxmox.png
+#        description: Proxmox Datacenter
+#        widget:
+#          type: proxmox
+#          url: https://10.0.1.64:8006/
+#          username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
+#          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
+#          node: pve64
   #- Unifi:
   #      href: https://unifi.ui.com
   #      siteMonitor: https://10.0.1.1/
@@ -120,73 +120,73 @@
     #      url: http://10.0.2.105:8112/
     #      password: "{{HOMEPAGE_VAR_DELUGE_PASSWORD}}"
     #      enableLeechProgress: false
-    - Sab:
-        href: https://sab.${SECRET_DOMAIN}
-        siteMonitor: http://sabnzbd.media.svc.cluster.local
-        icon: sabnzbd.png
-        description: Newsgroups
-        widget:
-          type: sabnzbd
-          url: http://sabnzbd.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
+    #- Sab:
+    #    href: https://sab.${SECRET_DOMAIN}
+    #    siteMonitor: http://sabnzbd.media.svc.cluster.local
+    #    icon: sabnzbd.png
+    #    description: Newsgroups
+    #    widget:
+    #      type: sabnzbd
+    #      url: http://sabnzbd.media.svc.cluster.local
+    #      key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
 - Media: 
-    - Plex:
-        href: https://plex.${SECRET_DOMAIN}
-        siteMonitor: http://plex.media.svc.cluster.local:32400
-        icon: plex.png
-        description: Movies & TV
-        widget:
-          type: plex
-          url: "{{HOMEPAGE_VAR_PLEX_URL}}"
-          key: "{{HOMEPAGE_VAR_PLEX_TOKEN}}"
-          enableUser: true
-          showEpisodeNumber: true
-          expandOneStreamToTwoRows: true
-    - Lidarr:
-        href: https://lidarr.${SECRET_DOMAIN}
-        siteMonitor: http://lidarr.media.svc.cluster.local
-        icon: lidarr.png
-        description: Music PVR
-        widget:
-          type: lidarr
-          url: http://lidarr.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_LIDARR_TOKEN}}"
-    - Radarr:
-        href: https://radarr.${SECRET_DOMAIN}
-        siteMonitor: http://radarr.media.svc.cluster.local
-        icon: radarr.png
-        description: Movie PVR
-        widget:
-          type: radarr
-          url: http://radarr.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
-    - Readarr:
-        href: https://readarr.${SECRET_DOMAIN}
-        siteMonitor: http://readarr.media.svc.cluster.local
-        icon: readarr.png
-        description: Books PVR
-        widget:
-          type: readarr
-          url: http://readarr.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
-    - Readarr-audio:
-        href: https://readarr-audio.${SECRET_DOMAIN}
-        siteMonitor: http://readarr-audio.media.svc.cluster.local
-        icon: readarr.png
-        description: Audiobooks PVR
-        widget:
-          type: readarr
-          url: http://readarr-audio.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_READARR_AUDIO_TOKEN}}"
-    - Sonarr:
-        href: https://sonarr.${SECRET_DOMAIN}
-        siteMonitor: http://sonarr.media.svc.cluster.local
-        icon: sonarr.png
-        description: TV Show PVR
-        widget:
-          type: sonarr
-          url: http://sonarr.media.svc.cluster.local
-          key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
+    #- Plex:
+    #    href: https://plex.${SECRET_DOMAIN}
+    #    siteMonitor: http://plex.media.svc.cluster.local:32400
+    #    icon: plex.png
+    #    description: Movies & TV
+    #    widget:
+    #      type: plex
+    #      url: "{{HOMEPAGE_VAR_PLEX_URL}}"
+    #      key: "{{HOMEPAGE_VAR_PLEX_TOKEN}}"
+    #      enableUser: true
+    #      showEpisodeNumber: true
+    #      expandOneStreamToTwoRows: true
+    #- Lidarr:
+    #    href: https://lidarr.${SECRET_DOMAIN}
+    #    siteMonitor: http://lidarr.media.svc.cluster.local
+    #    icon: lidarr.png
+    #    description: Music PVR
+    #    widget:
+    #      type: lidarr
+    #      url: http://lidarr.media.svc.cluster.local
+    #      key: "{{HOMEPAGE_VAR_LIDARR_TOKEN}}"
+    #- Radarr:
+    #    href: https://radarr.${SECRET_DOMAIN}
+    #    siteMonitor: http://radarr.media.svc.cluster.local
+    #    icon: radarr.png
+    #    description: Movie PVR
+    #    widget:
+    #      type: radarr
+    #      url: http://radarr.media.svc.cluster.local
+    #      key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
+    #- Readarr:
+    #    href: https://readarr.${SECRET_DOMAIN}
+    #    siteMonitor: http://readarr.media.svc.cluster.local
+    #    icon: readarr.png
+    #    description: Books PVR
+    #    widget:
+    #      type: readarr
+    #      url: http://readarr.media.svc.cluster.local
+    #      key: "{{HOMEPAGE_VAR_READARR_TOKEN}}"
+    #- Readarr-audio:
+    #    href: https://readarr-audio.${SECRET_DOMAIN}
+    #    siteMonitor: http://readarr-audio.media.svc.cluster.local
+    #    icon: readarr.png
+    #    description: Audiobooks PVR
+    #    widget:
+    #      type: readarr
+    #      url: http://readarr-audio.media.svc.cluster.local
+    #      key: "{{HOMEPAGE_VAR_READARR_AUDIO_TOKEN}}"
+    #- Sonarr:
+    #    href: https://sonarr.${SECRET_DOMAIN}
+    #    siteMonitor: http://sonarr.media.svc.cluster.local
+    #    icon: sonarr.png
+    #    description: TV Show PVR
+    #    widget:
+    #      type: sonarr
+    #      url: http://sonarr.media.svc.cluster.local
+    #      key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
 
 - Web:
     - Adguard01:
@@ -216,44 +216,3 @@
           url: https://adguard03.${SECRET_DOMAIN_FBE}
           username: admin
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
-
-    
-    #- Sonarr:
-    #    href: https://sonarr.${SECRET_DOMAIN_LOCAL}
-    #    siteMonitor: https://sonarr.${SECRET_DOMAIN_LOCAL}
-    #    icon: sonarr.png
-    #    description: TV
-    #    widget:
-    #      type: sonarr
-    #      url: http://sonarr.media.svc.cluster.local
-    #      key: "{{HOMEPAGE_VAR_SONARR_TOKEN}}"
-    #- Radarr:
-    #    href: https://radarr.${SECRET_DOMAIN_LOCAL}
-    #    siteMonitor: https://radarr.${SECRET_DOMAIN_LOCAL}
-    #    icon: radarr.png
-    #    description: Movies
-    #    widget:
-    #      type: radarr
-    #      url: http://radarr.media.svc.cluster.local
-    #      key: "{{HOMEPAGE_VAR_RADARR_TOKEN}}"
-    #- SABnzbd:
-    #    href: https://nzb.${SECRET_DOMAIN_LOCAL}
-    #    siteMonitor: https://nzb.${SECRET_DOMAIN_LOCAL}
-    #    icon: sabnzbd.png
-    #    description: Downloads
-    #    widget:
-    #      type: sabnzbd
-    #      url: http://sabnzbd.media.svc.cluster.local
-    #      key: "{{HOMEPAGE_VAR_SABNZBD_TOKEN}}"
-    #- Agenda:
-    #    widget:
-    #      type: calendar
-    #      view: agenda
-    #      maxEvents: 5
-    #      integrations:
-    #        - type: sonarr
-    #          service_group: External
-    #          service_name: Sonarr
-    #        - type: radarr
-    #          service_group: External
-    #          service_name: Radarr
