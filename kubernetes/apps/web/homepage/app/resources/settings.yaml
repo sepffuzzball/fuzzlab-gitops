@@ -3,27 +3,33 @@ title: Dashboard
 theme: dark
 color: slate
 headerStyle: boxedWidgets
+hideErrors: true
 layout:
   - Home:
       style: row
       columns: 3
       icon: mdi-home
+      header: false
   - Web:
       style: row
       columns: 3
-      icon: mdi-web
+      header: false
   - Media:
       style: row
       columns: 3
+      header: false
   - Hardware: 
       style: column
       icon: mdi-server-outline
+      header: false
   - Services:
       style: column
       icon: mdi-kubernetes
+      header: false
   - Downloaders:
       style: column
       icon: mdi-cloud-download 
+      header: false
   #- Auto-Discovered1:
 quicklaunch:
   searchDescriptions: true
