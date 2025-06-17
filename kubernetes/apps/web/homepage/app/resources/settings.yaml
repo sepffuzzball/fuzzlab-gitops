@@ -14,10 +14,6 @@ layout:
       style: row
       columns: 4
       header: false
-  - Services:
-      style: row
-      columns: 2
-      header: false
   - Home:
       style: row
       columns: 3
@@ -29,19 +25,13 @@ layout:
       iconsOnly: true
   - Hardware: 
       style: row
-      columns: 3
-      header: true
-      initiallyCollapsed: true
-  - Media:
-      style: row
-      columns: 4
-      header: true
-      initiallyCollapsed: true
-  - Downloaders:
+      columns: 2
+      header: false
+      initiallyCollapsed: false
+  - Services:
       style: row
       columns: 2
-      header: true
-      initiallyCollapsed: true
+      header: false
   - BMBTM:
       style: row
       header: false

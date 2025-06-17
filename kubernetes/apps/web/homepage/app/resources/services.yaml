@@ -18,29 +18,29 @@
         widget:
           type: gatus
           url: http://gatus.monitoring.svc.cluster.local
-#- Hardware:
-#  - Dat:
-#        href: http://10.0.2.20/
-#        siteMonitor: http://10.0.2.20/
-#        icon: truenas.png
-#        description: Truenas Storage Server
-#        widget:
-#          type: truenas
-#          url: http://10.0.2.20/
-#          key: "{{HOMEPAGE_VAR_TRUENAS_KEY}}"
-#          enablePools: true
-#          nasType: scale
-#  - Proxmox:
-#        href: https://pve.${SECRET_DOMAIN_FBE}
-#        siteMonitor: https://10.0.1.64:8006/
-#        icon: proxmox.png
-#        description: Proxmox Datacenter
-#        widget:
-#          type: proxmox
-#          url: https://10.0.1.64:8006/
-#          username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
-#          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
-#          node: pve64
+- Hardware:
+  - Dat:
+        href: http://10.0.2.20/
+        siteMonitor: http://10.0.2.20/
+        icon: truenas.png
+        description: Truenas Storage Server
+        widget:
+          type: truenas
+          url: http://10.0.2.20/
+          key: "{{HOMEPAGE_VAR_TRUENAS_KEY}}"
+          enablePools: true
+          nasType: scale
+  - Proxmox:
+        href: https://pve.${SECRET_DOMAIN_FBE}
+        siteMonitor: https://10.0.1.64:8006/
+        icon: proxmox.png
+        description: Proxmox Datacenter
+        widget:
+          type: proxmox
+          url: https://10.0.1.64:8006/
+          username: "{{HOMEPAGE_VAR_PROXMOX_USER}}" 
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}" 
+          node: pve64
   #- Unifi:
   #      href: https://unifi.ui.com
   #      siteMonitor: https://10.0.1.1/
