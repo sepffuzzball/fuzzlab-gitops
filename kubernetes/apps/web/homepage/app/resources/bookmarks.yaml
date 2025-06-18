@@ -21,74 +21,74 @@
 - BMMID:
     - Jellyfin:
         - icon: jellyfin.png
-          href: https://jellyfin.{SECRET_DOMAIN_FBE}/
+          href: https://jellyfin.${SECRET_DOMAIN_FBE}/
     - Plex:
         - icon: plex.png
-          href: https://plex.{SECRET_DOMAIN_FBE}
+          href: https://plex.${SECRET_DOMAIN_FBE}
     - Deluge:
         - icon: deluge.png
-          href: https://deluge.{SECRET_DOMAIN}/
+          href: https://deluge.${SECRET_DOMAIN}/
     - Sab:
         - icon: sabnzbd.png
-          href: https://sab.{SECRET_DOMAIN}
+          href: https://sab.${SECRET_DOMAIN}
     - Mylar:
         - icon: mylar.png
-          href: https://mylar.{SECRET_DOMAIN}
+          href: https://mylar.${SECRET_DOMAIN}
     - Lidarr: 
         - icon: lidarr.png
-          href: https://lidarr.{SECRET_DOMAIN}/
+          href: https://lidarr.${SECRET_DOMAIN}/
     - Prowlarr: 
         - icon: prowlarr.png
-          href: https://prowlarr.{SECRET_DOMAIN}/
+          href: https://prowlarr.${SECRET_DOMAIN}/
     - Radarr: 
         - icon: radarr.png
-          href: https://radarr.{SECRET_DOMAIN}/
+          href: https://radarr.${SECRET_DOMAIN}/
     - Readarr: 
         - icon: readarr.png
-          href: https://readarr.{SECRET_DOMAIN}/
+          href: https://readarr.${SECRET_DOMAIN}/
     - Sonarr: 
         - icon: sonarr.png
-          href: https://sonarr.{SECRET_DOMAIN}/
+          href: https://sonarr.${SECRET_DOMAIN}/
     - Shlink: 
         - icon: shlink.png
-          href: https://shlink.{SECRET_DOMAIN}/
+          href: https://shlink.${SECRET_DOMAIN}/
     - Slskd: 
         - icon: slskd.png
-          href: https://slskd.{SECRET_DOMAIN}/
+          href: https://slskd.${SECRET_DOMAIN}/
 - BMBTM:
     - Coder:
         - icon: coder.png
-          href: https://coder.{SECRET_DOMAIN}/
+          href: https://coder.${SECRET_DOMAIN}/
     - ITTools:
         - icon: it-tools.png
-          href: https://it-tools.{SECRET_DOMAIN}/
+          href: https://it-tools.${SECRET_DOMAIN}/
     - FoundryDC20:
         - icon: foundry-vtt.png
-          href: https://dc20.{SECRET_DOMAIN}/
+          href: https://dc20.${SECRET_DOMAIN}/
     - FoundryVTT:
         - icon: foundry-vtt.png
-          href: https://foundry.{SECRET_DOMAIN}/
+          href: https://foundry.${SECRET_DOMAIN}/
     - LiteLLM:
         - abbr: LM
-          href: https://litellm.{SECRET_DOMAIN}/ui
+          href: https://litellm.${SECRET_DOMAIN}/ui
     - N8N:
         - icon: n8n.png
-          href: https://n8n.{SECRET_DOMAIN}/
+          href: https://n8n.${SECRET_DOMAIN}/
     - OpenWebUI:
         - icon: open-webui.png
-          href: https://ai.{SECRET_DOMAIN}/
+          href: https://ai.${SECRET_DOMAIN}/
     - SillyTavern:
         - abbr: ST
-          href: https://sillytavern.{SECRET_DOMAIN}/
+          href: https://sillytavern.${SECRET_DOMAIN}/
     - Immich:
         - icon: immich.png
-          href: https://photos.{SECRET_DOMAIN}/
+          href: https://photos.${SECRET_DOMAIN}/
     - OwnCloud:
         - icon: owncloud.png
-          href: https://cloud.{SECRET_DOMAIN_FBE}/
+          href: https://cloud.${SECRET_DOMAIN_FBE}/
     - PGAdmin:
         - icon: pgadmin.png
-          href: https://pga.{SECRET_DOMAIN}/
+          href: https://pga.${SECRET_DOMAIN}/
     - Semaphore:
         - icon: semaphore-dark.png
-          href: https://ansible.{SECRET_DOMAIN}/
+          href: https://ansible.${SECRET_DOMAIN}/
