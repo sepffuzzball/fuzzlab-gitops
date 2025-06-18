@@ -89,6 +89,10 @@ spec:
       databases:
         - n8n
       password: *password
+    - name: netbox
+      databases:
+        - netbox
+      password: *password
     - name: nextcloud
       databases:
         - nextcloud

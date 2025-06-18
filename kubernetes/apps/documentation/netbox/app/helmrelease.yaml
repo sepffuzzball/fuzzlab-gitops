@@ -1,0 +1,97 @@
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app netbox
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: netbox
+  values:
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+    superuser:
+      existingSecret: netbox-secret
+      name: admin
+      email: netbox@mail.${SECRET_DOMAIN_FBE}
+    admins:
+      - ["admin", "netbox@mail.${SECRET_DOMAIN_FBE}"]
+    loginRequired: true
+    timeZone: ${TIMEZONE}
+    dateFormat: "j. F, Y"
+    shortDateFormat: "j.m.Y"
+    timeFormat: "G:i"
+    shortTimeFormat: "H:i:s"
+    dateTimeFormat: "j. F, Y g:i a"
+    shortDateTimeFormat: "j.m.Y H:i"
+    storages:
+    existingSecret: netbox-secret
+    metricsEnabled: true
+    postgresql:
+      enabled: false
+    valkey:
+      enabled: false
+    tasksDatabase:
+      host: redis.database.svc.cluster.local
+      database: 3
+      existingSecretName: "netbox-secret"
+      existingSecretKey: "REDIS_PASSWORD"
+    cachingDatabase:
+      host: redis.database.svc.cluster.local
+      database: 4
+      existingSecretName: "netbox-secret"
+      existingSecretKey: "REDIS_PASSWORD"
+    externalDatabase:
+      host: postgres-pgbouncer.database.svc.cluster.local
+      port: 5432
+      database: netbox
+      username: netbox
+      existingSecretName: ${DB_USER}-db-secret
+      existingSecretKey: "POSTGRES_PASS"
+    email:
+      existingSecretName: netbox-secret
+      server: smtp.protonmail.ch
+      port: 587
+      from: netbox@${SECRET_DOMAIN_FBE}
+    persistence:
+      enabled: true
+      existingClaim: netbox-config-pv
+      persistence.accessMode: ReadWriteMany
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 60
+      timeoutSeconds: 1
+      periodSeconds: 10
+      successThreshold: 1
+    commonLabels:
+      teleport: enabled
+    service:
+      annotations:
+        teleport.dev/name: *app
+    ingress:
+      enabled: true
+      className: external
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+      hosts:
+        - host: &host "netbox.${SECRET_DOMAIN_LOCAL}"
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: netbox
+                  port:
+                    number: 80
+      tls:
+        - hosts:
+            - *host
+          #secretName: "${SECRET_DOMAIN/./-}-production-tls"
+    extraConfig:
+      - secret:
+          secretName: netbox-secret
+    housekeeping:
+      enabled: false
+    worker:
+      enabled: false
