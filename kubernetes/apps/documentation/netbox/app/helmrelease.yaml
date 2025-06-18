@@ -6,10 +6,10 @@ metadata:
   name: &app netbox
 spec:
   interval: 1h
-  sourceRef:
-    kind: HelmRepository
-    name: *app
-    namespace: flux-system
+#  sourceRef:
+#    kind: HelmRepository
+#    name: *app
+#    namespace: flux-system
   values:
     podAnnotations:
       reloader.stakater.com/auto: "true"
