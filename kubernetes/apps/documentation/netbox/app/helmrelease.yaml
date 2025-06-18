@@ -1,13 +1,15 @@
-
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/netbox-community/netbox-chart/refs/heads/main/charts/netbox/values.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app netbox
 spec:
   interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: netbox
+  sourceRef:
+    kind: HelmRepository
+    name: *app
+    namespace: flux-system
   values:
     podAnnotations:
       reloader.stakater.com/auto: "true"
